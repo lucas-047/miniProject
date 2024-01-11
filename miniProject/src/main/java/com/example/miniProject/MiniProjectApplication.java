@@ -9,7 +9,7 @@ public class MiniProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MiniProjectApplication.class, args);
-		System.out.println("vasu lodo");
+		System.out.println("Project Running...");
 	}
 
 }
