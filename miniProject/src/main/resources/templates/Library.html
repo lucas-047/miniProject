@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::body})">
 <head>
     <meta charset="UTF-8">
-    <title>Login and Registration</title>
-    <link rel="stylesheet" th:href="@{/homePage.css}">
+    <title>Library Management System</title>
+<!--    <link rel="stylesheet" th:href="@{/css/homePage.css}">-->
 </head>
 <body>
-<header>
-    <h2 class="logo">Logo</h2>
-    <nav class="navigation">
-        <a href="http://localhost:8080/library">Home</a>
-        <a href="#">About</a>
-        <button class="bthLogin-popup">Login</button>
-    </nav>
-</header>
 <div class="wrapper">
     <div class="form-box login">
         <h2>Login</h2>
