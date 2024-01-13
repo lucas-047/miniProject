@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::body})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Library Management System</title>
-<!--    <link rel="stylesheet" th:href="@{/css/homePage.css}">-->
+    <link rel="stylesheet" th:href="@{/css/homePage.css}">
 </head>
 <body>
+<header>
+    <h2 class="logo">Logo</h2>
+    <nav class="navigation">
+        <a href="http://localhost:8080/library">Home</a>
+        <button class="bthAbout-popup">About</button>
+        <button class="bthLogin-popup">Login</button>
+    </nav>
+</header>
+
 <div class="wrapper">
     <div class="form-box login">
         <h2>Login</h2>
@@ -53,18 +62,45 @@
             </div>
         </form>
     </div>
+
+    <div class="about-box">
+        <h1>This is About box</h1>
+    </div>
+
+    <div class="home">
+        <h1>This is Home Box</h1>
+    </div>
 </div>
 <script>
     const wrapper = document.querySelector('.wrapper');
     const loginLink = document.querySelector('.login-link');
     const registerLink = document.querySelector('.register-link');
     const bthPopup = document.querySelector('.bthLogin-popup');
-    const iconClose = document.querySelector('.icon-close');
+    const aboutPopup = document.querySelector('.bthAbout-popup');
 
-    registerLink.addEventListener('click', () => wrapper.classList.add('active'));
-    loginLink.addEventListener('click', () => wrapper.classList.remove('active'));
-    bthPopup.addEventListener('click', () => wrapper.classList.add('active-popup'));
-    iconClose.addEventListener('click', () => wrapper.classList.remove('active-popup'));
+    registerLink.addEventListener('click', () => {
+        wrapper.classList.add('active');
+    });
+
+    loginLink.addEventListener('click', () => {
+        wrapper.classList.remove('active')
+    });
+
+    bthPopup.addEventListener('click', () => {
+        wrapper.classList.add('active-popup');
+        wrapper.classList.remove('about');
+        wrapper.classList.remove('home');
+    });
+
+    aboutPopup.addEventListener('click',()=> {
+        wrapper.classList.add('about');
+        wrapper.classList.remove('active');
+        wrapper.classList.remove('active-popup');
+    });
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        wrapper.classList.add('home');
+    });
 </script>
 </body>
 </html>

@@ -14,6 +14,7 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 99;
+    background: blueviolet;
 }
 
 .logo {
@@ -37,22 +38,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background: steelblue;
-    /*background: url("background.jpg") no-repeat center;*/
     background-size: cover;
-}
-
-.navigation a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 3px;
-    background: #ffffff;
-    border-radius: 5px;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s;
 }
 
 .navigation a:hover::after {
@@ -78,6 +64,41 @@ body {
 .navigation .bthLogin-popup:hover {
     background: transparent;
     color: white;
+    border: 2px solid white;
+    border-radius: 30px;
+}
+
+.navigation .bthAbout-popup{
+    position: relative;
+    font-size: 1.1em;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: "sans-serif";
+}
+
+.bthAbout-popup::after, .navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+
+}
+.bthAbout-popup:hover::after{
+    transform-origin: left;
+    transform: scaleX(1);
 }
 
 .wrapper {
@@ -97,12 +118,15 @@ body {
     transition: transform .5s ease, height .2s ease;
 }
 
-.wrapper.active-popup {
-    transform: scale(1);
-}
-
-.wrapper.active {
-    height: 520px;
+.wrapper .about-box {
+    width: 100%;
+    padding: 40px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transform: translateX(-400px);
 }
 
 .wrapper .form-box {
@@ -110,9 +134,12 @@ body {
     padding: 40px;
 }
 
-.wrapper .form-box.login {
-    transition: transfrom .18s ease;
-    transform: translateX(0);
+.wrapper.active-popup{
+    transform: scale(1);
+}
+
+.wrapper.active {
+    height: 520px;
 }
 
 .wrapper.active .form-box.login {
@@ -129,6 +156,49 @@ body {
 .wrapper.active .form-box.register {
     transition: transfrom .18s ease;
     transform: translateX(0);
+}
+
+.wrapper.about{
+    transform: scale(1);
+}
+
+.wrapper.about .about-box{
+    position: absolute;
+    transform: translateX(0);
+}
+
+.wrapper.about .form-box.login{
+    display: none;
+}
+
+.wrapper.about .form-box.register{
+    display: none;
+}
+
+.wrapper.active-popup .home{
+    display: none;
+}
+
+.wrapper.active-popup{
+    transform: scale(1);
+}
+
+.wrapper.home{
+    transform: scale(1);
+}
+
+.wrapper.home .form-box.login{
+    display: none;
+}
+
+.wrapper.about .home{
+    display: none;
+}
+
+.wrapper .home{
+    width: 100%;
+    padding: 40px;
+    height: 100%;
 }
 
 .form-box h2 {

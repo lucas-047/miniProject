@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::body})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>About</title>
+    <title>About Us</title>
+    <link th:href="@{/css/homePage.css}" rel="stylesheet">
 </head>
 <body>
+<header>
+    <h2 class="logo">Logo</h2>
+    <nav class="navigation">
+        <a href="http://localhost:8080/library">Home</a>
+        <a href="http://localhost:8080/about">About</a>
+        <button class="bthLogin-popup">Login</button>
+    </nav>
+</header>
     <h1>
         This is About page
     </h1>
