@@ -1,12 +1,10 @@
 package com.example.miniProject;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class controller {
-    @RequestMapping("/login")
-    public String loginController() {
-        return "login.html";
-    }
+    @GetMapping("/library")
+    public  String libraryController(){return "Library";}
 }

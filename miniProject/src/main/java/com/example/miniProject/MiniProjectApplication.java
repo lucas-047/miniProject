@@ -10,5 +10,4 @@ public class MiniProjectApplication {
 		SpringApplication.run(MiniProjectApplication.class, args);
 		System.out.println("Project Running...");
 	}
-
 }
