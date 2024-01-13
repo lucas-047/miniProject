@@ -36,7 +36,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url("background.jpg") no-repeat center;
+    background: steelblue;
+    /*background: url("background.jpg") no-repeat center;*/
     background-size: cover;
 }
 
@@ -63,7 +64,6 @@ body {
     width: 130px;
     height: 50px;
     background: white;
-    /*border: 2px solid #ffffff;*/
     outline: none;
     border: none;
     border-radius: 6px;
