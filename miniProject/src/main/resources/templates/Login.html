@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::body})">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div class="wrapper">
+
+<div class="form-box login">
+    <h2>Login</h2>
+    <form action="#">
+        <div class="input-box">
+            <input type="text" name="email" required>
+            <label>Email</label>
+        </div>
+        <div class="input-box">
+            <input type="password" name="password" required>
+            <label>Password</label>
+        </div>
+        <div class="remember-forgot">
+            <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="bth">Login</button>
+        <div class="login-register">
+            <p>Don't have an account? <a href="/SignUp" class="register-link">Register</a></p>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+</html>

@@ -5,16 +5,11 @@
 }
 
 header {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 99;
-    background: blueviolet;
+    backdrop-filter: blur(80px);
 }
 
 .logo {
@@ -32,57 +27,7 @@ header {
     margin-left: 40px;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: steelblue;
-    background-size: cover;
-}
-
-.navigation a:hover::after {
-    transform-origin: left;
-    transform: scaleX(1);
-}
-
-.navigation .bthLogin-popup {
-    width: 130px;
-    height: 50px;
-    background: white;
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1em;
-    color: #162938;
-    font-weight: 500;
-    margin-left: 40px;
-    transition: .5s;
-}
-
-.navigation .bthLogin-popup:hover {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-    border-radius: 30px;
-}
-
-.navigation .bthAbout-popup{
-    position: relative;
-    font-size: 1.1em;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    margin-left: 40px;
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-family: "sans-serif";
-}
-
-.bthAbout-popup::after, .navigation a::after {
+.navigation a::after {
     content: '';
     position: absolute;
     left: 0;
@@ -94,14 +39,20 @@ body {
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s;
-
 }
-.bthAbout-popup:hover::after{
+
+.navigation a:hover::after {
     transform-origin: left;
     transform: scaleX(1);
 }
 
-.wrapper {
+body {
+    min-height: 100vh;
+    background: url("../img/background.jpg") no-repeat;
+    background-size: cover;
+}
+
+.wrapper, .wrapper-signup {
     position: relative;
     width: 400px;
     height: 440px;
@@ -113,88 +64,30 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    transform: scale(0);
-    transition: transform .5s ease, height .2s ease;
+}
+
+.wrapper-signup{
+    height: 520px;
+    width: 480px;
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+    height: 100%;
+}
+
+.wrapper-signup .form-box {
+    width: 100%;
+    padding: 40px;
+    height: 100%;
 }
 
 .wrapper .about-box {
     width: 100%;
     padding: 40px;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    transform: translateX(-400px);
 }
-
-.wrapper .form-box {
-    width: 100%;
-    padding: 40px;
-}
-
-.wrapper.active-popup{
-    transform: scale(1);
-}
-
-.wrapper.active {
-    height: 520px;
-}
-
-.wrapper.active .form-box.login {
-    transition: none;
-    transform: translateX(-400px);
-}
-
-.wrapper .form-box.register {
-    position: absolute;
-    transition: none;
-    transform: translateX(400px);
-}
-
-.wrapper.active .form-box.register {
-    transition: transfrom .18s ease;
-    transform: translateX(0);
-}
-
-.wrapper.about{
-    transform: scale(1);
-}
-
-.wrapper.about .about-box{
-    position: absolute;
-    transform: translateX(0);
-}
-
-.wrapper.about .form-box.login{
-    display: none;
-}
-
-.wrapper.about .form-box.register{
-    display: none;
-}
-
-.wrapper.active-popup .home{
-    display: none;
-}
-
-.wrapper.active-popup{
-    transform: scale(1);
-}
-
-.wrapper.home{
-    transform: scale(1);
-}
-
-.wrapper.home .form-box.login{
-    display: none;
-}
-
-.wrapper.about .home{
-    display: none;
-}
-
 .wrapper .home{
     width: 100%;
     padding: 40px;
@@ -227,12 +120,19 @@ body {
     transition: .5s;
 }
 
-.input-box input:focus ~ label,
-.input-box input:valid ~ label {
+ input:focus ~ label , input:valid ~ label{
     top: -5px;
 }
 
-.input-box input {
+.input-box input, .input-box input:-webkit-autofill,
+.input-box input:-webkit-autofill:hover,
+.input-box input:-webkit-autofill:focus,
+.input-box textarea:-webkit-autofill,
+.input-box textarea:-webkit-autofill:hover,
+.input-box textarea:-webkit-autofill:focus,
+.input-box select:-webkit-autofill,
+.input-box select:-webkit-autofill:hover,
+.input-box select:-webkit-autofill:focus  {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -296,4 +196,8 @@ body {
 
 .login-register p a:hover {
     text-decoration: underline;
+}
+
+.wrapper-signup.Invalid-Input{
+    height: fit-content;
 }
