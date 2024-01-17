@@ -1,17 +1,22 @@
 package com.library.controller;
 
+import com.library.dao.RegRepository;
 import com.library.entities.RegData;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 public class controller {
+    @Autowired
+    private RegRepository regRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     @GetMapping("/library")
     public  String libraryController(Model model) {
         model.addAttribute("title","Library Management System");
@@ -27,22 +32,30 @@ public class controller {
         model.addAttribute("title","Login");
         return "Login";
     }
-    @GetMapping("/SignUp")
+    @GetMapping("/Registration")
     public  String RegController(Model model) {
         model.addAttribute("title","Registration");
         model.addAttribute("regData",new RegData());
         return "SignUp";
     }
-@PostMapping("/process")
-
+    @PostMapping("/process")
     public String processLogin(@Valid @ModelAttribute("regData") RegData regData, BindingResult result) {
-    if (result.hasErrors()) {
-        System.out.println(result);
-        System.out.println(regData);
-        return "SignUp";
-    } else {
-        System.out.println(regData);
-        return "Success";
+
+        if (result.hasErrors()) {
+            System.out.println(result);
+            System.out.println(regData);
+            return "SignUp";
+        } else {
+            regData.setPassword(passwordEncoder.encode(regData.getPassword()));
+            regData.setRole("ROLE_" + regData.getRole());
+            regRepository.save(regData);
+            return "Success";
+        }
     }
-}
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test(){
+
+        return "working";
+    }
 }

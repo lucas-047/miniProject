@@ -1,33 +1,44 @@
 package com.library.entities;
 
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
+@Entity
+@Table(name = "Registration")
 public class RegData {
-    @Pattern(regexp = "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$", message = "Invalid Email !!")
-    @NotBlank(message = "this is blank field")
+
+    @Pattern(regexp = "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$", message = "*Invalid Email !!")
+    @NotBlank(message = "*This is blank field")
+    @Column(unique = true)
     private String email;
-    @NotBlank(message ="This field cannot be blank")
+    @NotBlank(message ="*This field cannot be blank")
     private String password;
-    @Size(min=5,max=12, message = "Username should be 5 to 12 letter only..")
-    @NotBlank(message ="This field cannot be blank")
-    private String user;
-    @AssertTrue(message = "Must agree with term and condition")
-    private boolean agreed;
+    @Id
+    @Pattern(regexp = "^[0-9]{14}$", message = "*Username should be 14 letter only..")
+    @NotBlank(message ="*This field cannot be blank")
+    private String userName;
+    @NotBlank(message ="*This field cannot be blank")
+    private String role;
 
-    public boolean isAgreed() {
-        return agreed;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setAgreed(boolean agreed) {
-        this.agreed = agreed;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser() {
-        return user;
+    public String getRole() {
+        return role;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getEmail() {
@@ -45,14 +56,13 @@ public class RegData {
     public void setPassword(String password) {
         this.password = password;
     }
-
     @Override
     public String toString() {
         return "RegData{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", user='" + user + '\'' +
-                ", agreed=" + agreed +
+                ", userName='" + userName + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

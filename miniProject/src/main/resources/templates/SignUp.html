@@ -9,34 +9,39 @@
 <div class="form-box register">
     <h2>Registration</h2>
     <form th:action="@{/process}" method="post">
-
         <div class="input-box">
-            <input type="text" name="user" th:value="${regData.user}" required>
+            <input type="text" name="userName" th:value="${regData.userName}" required>
             <label>Username</label>
+            <p th:each="e : ${#fields.errors('userName')}" th:text="${e}" class="bg-transparent text-danger"></p>
         </div>
-        <p th:each="e : ${#fields.errors('user')}" th:text="${e}" class="bg-transparent text-danger"></p>
 
         <div class="input-box">
             <input type="text" name="email" th:value="${regData.email}" required>
             <label>Email</label>
-        </div>
         <p th:each="e : ${#fields.errors('email')}" th:text="${e}" class="bg-transparent text-danger"></p>
+        </div>
 
         <div class="input-box">
             <input type="password" name="password" th:value="${regData.password}" required>
             <label>Password</label>
-        </div>
         <p th:each="e : ${#fields.errors('password')}" th:text="${e}" class="bg-transparent text-danger"></p>
-
-        <div class="remember-forgot">
-            <label><input type="checkbox" name="agreed">
-                I agree to the terms & conditions</label>
         </div>
-        <p th:each="e : ${#fields.errors('agreed')}" th:text="${e}" class="bg-transparent text-danger"></p>
 
+        <div class="input-box-select">
+            <label for="role">Role</label>
+            <select name="role" id="role" class="bg-transparent" th:value="${regData.role}">
+                <option selected disabled> Role </option>
+                <option> Admin </option>
+                <option> User </option>
+            </select>
+        </div>
+        <p th:each="e : ${#fields.errors('role')}" th:text="${e}" class="bg-transparent text-danger"></p>
+        <br>
         <button type="submit" class="bth">Register</button>
+
         <div class="login-register">
             <p>Already have an account? <a href="/Login" class="login-link">Login</a></p>
+
         </div>
     </form>
 </div>
