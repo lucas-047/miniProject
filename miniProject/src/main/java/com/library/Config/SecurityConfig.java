@@ -55,7 +55,9 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("Admin")
                         .anyRequest().authenticated()
                 )
-                .formLogin().loginPage("/Login");
+                .formLogin(form -> form
+                        .loginPage("/Login")
+                        .permitAll());
 
         return http.build();
     }
