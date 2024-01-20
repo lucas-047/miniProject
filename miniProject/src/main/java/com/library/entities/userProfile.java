@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name = "userProfile")
 public class userProfile {
     @Id
-    private int username;
+    private String username;
    private String firstName;
    private String lastName;
    private String branch;
@@ -20,11 +20,11 @@ public class userProfile {
    private String totalIssuedBook;
    private String penaltyID;
 
-    public int getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(int username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

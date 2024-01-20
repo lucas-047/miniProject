@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::body})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Public/base'::Layout(~{::body})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 <div class="wrapper-signup" th:object="${regData}" th:classappend="${#fields.hasErrors()} ? 'Invalid-Input' : ''">
 <div class="form-box register">
     <h2>Registration</h2>
-    <form th:action="@{/process}" method="post">
+    <form th:action="@{/processRegistration}" method="post">
         <div class="input-box">
             <input type="text" name="userName" th:value="${regData.userName}" required>
             <label>Username</label>
@@ -40,7 +40,7 @@
         <button type="submit" class="bth">Register</button>
 
         <div class="login-register">
-            <p>Already have an account? <a href="/Login" class="login-link">Login</a></p>
+            <p>Already have an account? <a href="#" th:href="@{/signIn}" class="login-link">Login</a></p>
 
         </div>
     </form>

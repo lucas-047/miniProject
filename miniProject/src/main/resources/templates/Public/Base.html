@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/homePage.css}">
+</head>
+<body class="d-flex justify-content-center align-items-center">
+
+    <!--Navbar-->
+    <header class="position-fixed justify-content-between bg-transparent z-99 align-items-center d-flex">
+        <h2 class="logo">Logo</h2>
+        <nav class="navigation">
+            <a href="#" th:href="@{/library}">Home</a>
+            <a href="#" th:href="@{/About}">About</a>
+            <a href="#" th:href="@{/signIn}">Login</a>
+            <a href="#" th:href="@{/Registration}">Registration</a>
+        </nav>
+    </header>
+    <!--END Navbar-->
+
+    <div th:replace="${content}"> <--   Content will be shown here -->   </div>
+
+    <script type="text/javascript" th:src="@{/JS/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>
