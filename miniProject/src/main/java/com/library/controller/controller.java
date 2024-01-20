@@ -1,7 +1,8 @@
 package com.library.controller;
-
+import com.library.dao.userProfileRepo;
 import com.library.dao.RegRepository;
 import com.library.entities.RegData;
+import com.library.entities.userProfile;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class controller {
     @Autowired
     private RegRepository regRepository;
+    private userProfileRepo userProfileRepoOb;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @GetMapping("/library")
@@ -22,7 +24,7 @@ public class controller {
         model.addAttribute("title","Library Management System");
         return "Home";
     }
-    @GetMapping("/About")
+    @PostMapping("/Aboutpage")
     public  String AboutController(Model model) {
         model.addAttribute("title","About");
         return "About";
@@ -52,6 +54,20 @@ public class controller {
             return "Success";
         }
     }
+    @RequestMapping("/profile")
+    public String userprofile()
+    {   System.out.println("hrhrh");
+        return "profile.html";
+    }
+    @RequestMapping(path="/param",method= RequestMethod.POST)
+    public String proccessProfile(@ModelAttribute userProfile user,Model model)
+    {           System.out.println(user);
+
+
+
+        return "success";
+    }
+
     @RequestMapping("/test")
     @ResponseBody
     public String test(){
