@@ -45,6 +45,7 @@ public class SecurityConfig {
             "/library",
             "/About",
             "/signIn",
+            "password_reset",
             "/Registration",
             "/processRegistration"
     };

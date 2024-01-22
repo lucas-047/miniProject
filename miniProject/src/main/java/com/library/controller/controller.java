@@ -41,6 +41,11 @@ public class controller {
         return "Public/Login";
     }
 
+    @GetMapping("/password_reset")
+    public String forgotPassword(){
+        return "Public/forgotPassword";
+    }
+
 
     @GetMapping("/Registration")
     public  String RegController(Model model) {
