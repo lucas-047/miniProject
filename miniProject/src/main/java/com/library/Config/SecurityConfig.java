@@ -45,7 +45,11 @@ public class SecurityConfig {
             "/library",
             "/About",
             "/signIn",
-            "password_reset",
+            "/password_reset",
+            "/sendResetPasswordMail",
+            "/ResetPassSuccess",
+            "/resetPassword",
+            "/processResetPassword",
             "/Registration",
             "/processRegistration"
     };

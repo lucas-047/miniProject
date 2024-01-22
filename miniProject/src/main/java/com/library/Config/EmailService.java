@@ -10,7 +10,7 @@ import java.util.Properties;
 public class EmailService {
     public boolean sendemail(String subject,String message,String to) {
         boolean f=false;
-        String from="bronylast46@gmail.com";
+        String from="librarymanagement220124@gmail.com";
         String host = "smtp.gmail.com";
         Properties properties = System.getProperties();
         System.out.println("properties" + properties);
@@ -33,7 +33,7 @@ public class EmailService {
             m.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             m.setSubject(subject);
             // m.setText(message);
-            m.setContent(message,"text/html");
+            m.setContent(message,"text/html; charset=utf-8");
             Transport.send(m);
             System.out.println("sent successfully............");
             f=true;

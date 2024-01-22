@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface RegRepository extends JpaRepository<RegData,Integer> {
     @Query("select u from RegData u where u.userName = :userName")
     public RegData getRegDataByusername(@Param("userName") String userName);
+
+    @Query("select u from RegData u where u.email =:email")
+    public RegData findByEmail(@Param("email") String email);
 }
