@@ -51,7 +51,9 @@ public class SecurityConfig {
             "/resetPassword",
             "/processResetPassword",
             "/Registration",
-            "/processRegistration"
+            "/processRegistration",
+            "expiry",
+            "/validateOtp"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
