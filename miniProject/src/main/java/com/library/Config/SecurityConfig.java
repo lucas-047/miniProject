@@ -53,7 +53,10 @@ public class SecurityConfig {
             "/Registration",
             "/processRegistration",
             "expiry",
-            "/validateOtp"
+            "/validateOtp",
+            "/upload",
+            "book",
+            "htmlfile"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{

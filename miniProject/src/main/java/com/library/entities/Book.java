@@ -1,11 +1,29 @@
 package com.library.entities;
 
+import jakarta.persistence.*;
+import org.assertj.core.internal.BinaryDiff;
+
+import java.util.Date;
+
+
+@Entity
+@Table(name = "book")
 public class Book {
+
     private String bookName;
-    private String bookId;
-    private String authorName;
-    private String publisher;
-    private String branch;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int bookId;
+    private int CopyId;
+
+
+    private String AuthorName;
+    private String Publisher;
+    private String Branch;
+    private Date PublishDate;
+    private byte BookStatus;
+
+    private String Version;
 
     public String getBookName() {
         return bookName;
@@ -15,46 +33,81 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public String getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(String bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
+    public int getCopyId() {
+        return CopyId;
+    }
+
+    public void setCopyId(int copyId) {
+        CopyId = copyId;
+    }
+
     public String getAuthorName() {
-        return authorName;
+        return AuthorName;
     }
 
     public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+        AuthorName = authorName;
     }
 
     public String getPublisher() {
-        return publisher;
+        return Publisher;
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        Publisher = publisher;
     }
 
     public String getBranch() {
-        return branch;
+        return Branch;
     }
 
     public void setBranch(String branch) {
-        this.branch = branch;
+        Branch = branch;
     }
 
+    public Date getPublishDate() {
+        return PublishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        PublishDate = publishDate;
+    }
+
+    public byte getBookStatus() {
+        return BookStatus;
+    }
+
+    public void setBookStatus(byte bookStatus) {
+        BookStatus = bookStatus;
+    }
+
+    public String getVersion() {
+        return Version;
+    }
+
+    public void setVersion(String version) {
+        Version = version;
+    }
     @Override
     public String toString() {
         return "Book{" +
                 "bookName='" + bookName + '\'' +
                 ", bookId='" + bookId + '\'' +
-                ", authorName='" + authorName + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", branch='" + branch + '\'' +
+                ", CopyId='" + CopyId + '\'' +
+                ", AuthorName='" + AuthorName + '\'' +
+                ", Publisher='" + Publisher + '\'' +
+                ", Branch='" + Branch + '\'' +
+                ", PublishDate=" + PublishDate +
+                ", BookStatus=" + BookStatus +
+                ", Version='" + Version + '\'' +
                 '}';
     }
 }
