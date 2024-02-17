@@ -6,15 +6,31 @@
 
 </head>
 <body>
-<table border="1">
+<tabe border="1">
     <tr>
-        <th>name</th>
-        <th>age</th>
+        <th>Book Id</th>
+        <th>Copy Id</th>
+        <th>Book Name</th>
+        <th>Author name</th>
+        <th>Publisher</th>
+        <th>Publish Date</th>
+        <th>Branch</th>
+        <th>Book version</th>
+        <th>Book Status</th>
     </tr>
-    <tr th:each = "user: ${users}">
-        <td th:text="${user.name}">vasile</td>
-        <td th:text="${user.age}">45</td>
+
+    <tr th:each="Book :${data}">
+        <td th:text="${data.bookId}"></td>
+        <td th:text="${data.CopyId}"></td>
+        <td th:text="${data.BookName}"></td>
+        <td th:text="${data.AuthorName}"></td>
+        <td th:text="${data.Publisher}"></td>
+        <td th:text="${data.Branch}"></td>
+        <td th:text="${data.PublishDate}"></td>
+        <td th:text="${data.Branch}"></td>
+        <td th:text="${data.Version}"></td>
+        <td th:text="${data.BookStatus}"></td>
     </tr>
-</table>
+</tabe>
 </body>
 </html>

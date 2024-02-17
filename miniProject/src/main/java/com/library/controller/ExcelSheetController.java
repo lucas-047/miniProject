@@ -2,6 +2,7 @@ package com.library.controller;
 
 import com.library.Config.ExcelSheetConfig;
 import com.library.Config.ExcelSheetService;
+import com.library.dao.BookRepository;
 import com.library.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ import java.util.Map;
 public class ExcelSheetController {
     @Autowired
 private ExcelSheetService excelSheetService;
+    @Autowired
+    private BookRepository bookRepository;
 
     @RequestMapping("/htmlfile")
     public String uploadhtml()
@@ -44,7 +47,10 @@ public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file)
 @RequestMapping("/book")
 public String getAllBooks(Model model)
 
-{       model.addAttribute("data",excelSheetService.getALLBook());
+{   List<Book> book=excelSheetService.getALLBook();
+    //Book book1= (Book) bookRepository.findAll();
+    System.out.println(book);
+    model.addAttribute("data",book);
 //    return this.excelSheetService.getALLBook();
     return "Public/ExcelsheetDisplay";
 }

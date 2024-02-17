@@ -56,7 +56,9 @@ public class SecurityConfig {
             "/validateOtp",
             "/upload",
             "book",
-            "htmlfile"
+            "htmlfile",
+            "verify",
+            "issue"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{

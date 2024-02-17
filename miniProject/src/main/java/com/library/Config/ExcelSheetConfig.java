@@ -77,7 +77,7 @@ public class ExcelSheetConfig {
                             book.setVersion(cell.getStringCellValue());
                             break;
                         case 8:
-                            book.setBookStatus((byte) cell.getNumericCellValue());
+                            book.setBookStatus((int)cell.getNumericCellValue());
                             break;
                         default:
                             break;

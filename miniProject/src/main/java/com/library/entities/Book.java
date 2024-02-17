@@ -12,7 +12,6 @@ public class Book {
 
     private String bookName;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
     private int CopyId;
 
@@ -21,7 +20,7 @@ public class Book {
     private String Publisher;
     private String Branch;
     private Date PublishDate;
-    private byte BookStatus;
+    private int BookStatus;
 
     private String Version;
 
@@ -81,11 +80,11 @@ public class Book {
         PublishDate = publishDate;
     }
 
-    public byte getBookStatus() {
+    public int getBookStatus() {
         return BookStatus;
     }
 
-    public void setBookStatus(byte bookStatus) {
+    public void setBookStatus(int bookStatus) {
         BookStatus = bookStatus;
     }
 
