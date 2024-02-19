@@ -1,27 +1,39 @@
 package com.library.entities;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "Transaction")
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String transactionId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @Column(name="transactionId")
+    private Double transactionId;
+    @Column(name="userId")
     private String userId;
-    private String bookId;
-    private Date issueDate;
-    private Date dueDate;
-    private Date returnDate;
-    private String penaltyStatus;
+    @Column(name="bookId")
+    private int bookId;
+    @Column( columnDefinition = "DATE",name="issueDate")
+    @Temporal(TemporalType.DATE)
+    private LocalDate issueDate;
+    @Column( columnDefinition = "DATE",name="dueDate")
+    @Temporal(TemporalType.DATE)
+    private LocalDate dueDate;
+    @Column( columnDefinition = "DATE",name="returnDate")
+    @Temporal(TemporalType.DATE)
+    private LocalDate returnDate;
+    @Column(name="penaltyStatus")
+    private int penaltyStatus;
 
-    public String getTransactionId() {
+    public Double getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(String transactionId) {
+    public void setTransactionId(Double transactionId) {
         this.transactionId = transactionId;
     }
 
@@ -33,43 +45,43 @@ public class Transaction {
         this.userId = userId;
     }
 
-    public String getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(String bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
-    public Date getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 
-    public String getPenaltyStatus() {
+    public int getPenaltyStatus() {
         return penaltyStatus;
     }
 
-    public void setPenaltyStatus(String penaltyStatus) {
+    public void setPenaltyStatus(int penaltyStatus) {
         this.penaltyStatus = penaltyStatus;
     }
 

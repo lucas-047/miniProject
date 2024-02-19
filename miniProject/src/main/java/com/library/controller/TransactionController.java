@@ -1,19 +1,29 @@
 package com.library.controller;
 
 import com.library.dao.BookRepository;
+import com.library.dao.TransactionRepository;
 import com.library.entities.Book;
+import com.library.entities.Transaction;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Controller
 public class TransactionController {
     @Autowired
     private BookRepository bookRepository;
- 
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
 @RequestMapping("/issue")
     public String getissuepage()
     {
@@ -22,7 +32,7 @@ public class TransactionController {
     @PostMapping("/verify")
     public String validation(@RequestParam("user") String userid,@RequestParam("bookId") int bookId, Model model)
     {
-       // int tempid=Integer.parseInt("bookid");
+
             Boolean checkbook= bookRepository.existsById(bookId);
 
             if(checkbook)
@@ -40,6 +50,19 @@ public class TransactionController {
                else {
                    book.setBookStatus( 0);
                    bookRepository.save(book);
+                   Transaction transaction=new Transaction();
+                   transaction.setBookId(bookId);
+                   transaction.setUserId(userid);
+                   LocalDate currentDate = LocalDate.now();
+                   LocalDate duedate=currentDate.plusDays(5);
+
+
+
+                   Date currentDate1 = new Date();
+                   transaction.setIssueDate(currentDate);
+                   transaction.setDueDate(duedate);
+                   transaction.setPenaltyStatus(-1);
+                   transactionRepository.save(transaction);
             System.out.println("status changed");
 
 
