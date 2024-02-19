@@ -3,20 +3,17 @@ package com.library.controller;
 import com.library.dao.BookRepository;
 import com.library.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.net.SocketOption;
-
 @Controller
 public class TransactionController {
     @Autowired
     private BookRepository bookRepository;
+ 
 @RequestMapping("/issue")
     public String getissuepage()
     {
@@ -44,6 +41,8 @@ public class TransactionController {
                    book.setBookStatus( 0);
                    bookRepository.save(book);
             System.out.println("status changed");
+
+
                }
 
             }
