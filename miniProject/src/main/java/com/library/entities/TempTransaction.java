@@ -2,87 +2,96 @@ package com.library.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name="TempTransaction")
 public class TempTransaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String transactionId;
-    private String userId;
-    private String bookId;
-    private Date issueDate;
-    private Date dueDate;
-    private Date returnDate;
-    private String penaltyStatus;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Double tempTransactionId;
 
-    public String getTransactionId() {
-        return transactionId;
+    private String tempUserId;
+
+    private int tempBookId;
+    @Column( columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
+    private LocalDate tempIssueDate;
+    @Column( columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
+    private LocalDate tempDueDate;
+    @Column( columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
+    private LocalDate tempReturnDate;
+    private int tempPenaltyStatus;
+
+    public Double getTempTransactionId() {
+        return tempTransactionId;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setTempTransactionId(Double tempTransactionId) {
+        this.tempTransactionId = tempTransactionId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getTempUserId() {
+        return tempUserId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setTempUserId(String tempUserId) {
+        this.tempUserId = tempUserId;
     }
 
-    public String getBookId() {
-        return bookId;
+    public int getTempBookId() {
+        return tempBookId;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void setTempBookId(int tempBookId) {
+        this.tempBookId = tempBookId;
     }
 
-    public Date getIssueDate() {
-        return issueDate;
+    public LocalDate getTempIssueDate() {
+        return tempIssueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
-        this.issueDate = issueDate;
+    public void setTempIssueDate(LocalDate tempIssueDate) {
+        this.tempIssueDate = tempIssueDate;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public LocalDate getTempDueDate() {
+        return tempDueDate;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void setTempDueDate(LocalDate tempDueDate) {
+        this.tempDueDate = tempDueDate;
     }
 
-    public Date getReturnDate() {
-        return returnDate;
+    public LocalDate getTempReturnDate() {
+        return tempReturnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
+    public void setTempReturnDate(LocalDate tempReturnDate) {
+        this.tempReturnDate = tempReturnDate;
     }
 
-    public String getPenaltyStatus() {
-        return penaltyStatus;
+    public int getTempPenaltyStatus() {
+        return tempPenaltyStatus;
     }
 
-    public void setPenaltyStatus(String penaltyStatus) {
-        this.penaltyStatus = penaltyStatus;
+    public void setTempPenaltyStatus(int tempPenaltyStatus) {
+        this.tempPenaltyStatus = tempPenaltyStatus;
     }
 
     @Override
     public String toString() {
         return "TempTransaction{" +
-                "transactionId='" + transactionId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", bookId='" + bookId + '\'' +
-                ", issueDate=" + issueDate +
-                ", dueDate=" + dueDate +
-                ", returnDate=" + returnDate +
-                ", penaltyStatus='" + penaltyStatus + '\'' +
+                "tempTransactionId=" + tempTransactionId +
+                ", tempUserId='" + tempUserId + '\'' +
+                ", tempBookId=" + tempBookId +
+                ", tempIssueDate=" + tempIssueDate +
+                ", tempDueDate=" + tempDueDate +
+                ", tempReturnDate=" + tempReturnDate +
+                ", tempPenaltyStatus=" + tempPenaltyStatus +
                 '}';
     }
 }

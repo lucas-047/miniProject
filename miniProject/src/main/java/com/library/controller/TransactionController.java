@@ -1,6 +1,9 @@
 package com.library.controller;
 
+import com.library.Config.TempTransactionService;
+import com.library.Config.TransactionService;
 import com.library.dao.BookRepository;
+import com.library.dao.TempTransactionRepository;
 import com.library.dao.TransactionRepository;
 import com.library.entities.Book;
 import com.library.entities.Transaction;
@@ -20,9 +23,10 @@ import java.util.Date;
 public class TransactionController {
     @Autowired
     private BookRepository bookRepository;
-
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
+    @Autowired
+    private TempTransactionService tempTransactionService;
 
 @RequestMapping("/issue")
     public String getissuepage()
@@ -30,18 +34,13 @@ public class TransactionController {
         return "Public/issuepage";
     }
     @PostMapping("/verify")
-    public String validation(@RequestParam("user") String userid,@RequestParam("bookId") int bookId, Model model)
+    public String validation(@RequestParam("user") String userId,@RequestParam("bookId") int bookId, Model model)
     {
-
             Boolean checkbook= bookRepository.existsById(bookId);
-
             if(checkbook)
             {
                 System.out.println("book exist");
-
-                int bookstatus;
                 Book book=bookRepository.getStatus(bookId);
-//                int status=bookRepository.getStatus(bookId) ;
                int status=book.getBookStatus();
                if(status==0)
                {
@@ -50,24 +49,20 @@ public class TransactionController {
                else {
                    book.setBookStatus( 0);
                    bookRepository.save(book);
-                   Transaction transaction=new Transaction();
-                   transaction.setBookId(bookId);
-                   transaction.setUserId(userid);
                    LocalDate currentDate = LocalDate.now();
                    LocalDate duedate=currentDate.plusDays(5);
-
-
-
-                   Date currentDate1 = new Date();
-                   transaction.setIssueDate(currentDate);
-                   transaction.setDueDate(duedate);
-                   transaction.setPenaltyStatus(-1);
-                   transactionRepository.save(transaction);
-            System.out.println("status changed");
-
+                   System.out.println("status changed");
+                 int transactionStatus= transactionService.saveIssueTransaction(userId,bookId,currentDate,duedate);
+                 int tempTransactionStatus=tempTransactionService.saveTempIssueTransaction(userId,bookId,currentDate,duedate);
+            if(transactionStatus==0 && tempTransactionStatus==0)
+            {
+                System.out.println("Transaction record saved");
+            }
+            else {
+                System.out.println("Transaction record not saved");
+            }
 
                }
-
             }
             else {
                 System.out.println("book not found");
