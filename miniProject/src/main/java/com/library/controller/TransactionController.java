@@ -51,6 +51,7 @@ public class TransactionController {
                {
                    System.out.println("book not available");
                }
+
                else {
                    book.setBookStatus( 0);
                    bookRepository.save(book);
