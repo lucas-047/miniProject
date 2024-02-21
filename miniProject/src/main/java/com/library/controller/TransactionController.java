@@ -1,25 +1,20 @@
 package com.library.controller;
-
-import com.library.Config.TempTransactionService;
+import com.library.Config.PenaltyService;
 import com.library.Config.TransactionService;
 import com.library.dao.BookRepository;
-import com.library.dao.TempTransactionRepository;
-import com.library.dao.TransactionRepository;
+import com.library.dao.PenaltyRepository;
 import com.library.entities.Book;
-import com.library.entities.TempTransaction;
+import com.library.entities.Penalty;
 import com.library.entities.Transaction;
-import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TransactionController {
@@ -28,9 +23,9 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
     @Autowired
-    private TempTransactionService tempTransactionService;
+    private PenaltyService penaltyService;
     @Autowired
-    private TempTransactionRepository tempTransactionRepository;
+    private PenaltyRepository penaltyRepository;
 
 
 @RequestMapping("/issue")
@@ -58,9 +53,9 @@ public class TransactionController {
                    LocalDate currentDate = LocalDate.now();
                    LocalDate duedate=currentDate.plusDays(1);
                    System.out.println("status changed");
-                 int transactionStatus= transactionService.saveIssueTransaction(userId,bookId,currentDate,duedate);
-                 int tempTransactionStatus=tempTransactionService.saveTempIssueTransaction(userId,bookId,currentDate,duedate);
-            if(transactionStatus==0 && tempTransactionStatus==0)
+               //  int transactionStatus= transactionService.saveIssueTransaction(userId,bookId,currentDate,duedate);
+                 int transactionStatus= penaltyService.saveTempIssueTransaction(userId,bookId,currentDate,duedate);
+            if(transactionStatus==0)
             {
                 System.out.println("Transaction record saved");
             }
@@ -97,20 +92,30 @@ public class TransactionController {
             bookRepository.save(book);
             System.out.println("status change now book is available");
             LocalDate returnDate=LocalDate.now();
-            TempTransaction tempTransaction=tempTransactionRepository.getDuedate(bookId);
-            LocalDate checkDuedate=tempTransaction.getTempDueDate();
+            Penalty penalty = penaltyRepository.getDuedate(bookId);
+            LocalDate checkDuedate= penalty.getTempDueDate();
             int day= (int) ChronoUnit.DAYS.between(returnDate,checkDuedate);
+            Optional<Penalty> penalty1=penaltyRepository.findById(bookId);
+            Penalty Exportdata=penalty1.get();
             if(day==0)
             {
                 System.out.println("on time");
+                transactionService.transferPenaltytoTransactionWithoutPenalty(Exportdata);
+
             }
             else if(day>0)
             {
                 System.out.println("you are early bird");
+                transactionService.transferPenaltytoTransactionWithoutPenalty(Exportdata);
             }
             else {
+               // transactionService.savePentaltyStatus(bookId,day);
                 System.out.println("ops you got penalty");
             }
+
+        transactionService.transferPenaltytoTransactionWithPenalty(Exportdata,returnDate);
+
+
         }
         else {
             System.out.println("book id is wrong");

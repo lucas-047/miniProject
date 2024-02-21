@@ -3,11 +3,10 @@ package com.library.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
-@Table(name="TempTransaction")
-public class TempTransaction {
+@Table(name="PenaltyTransaction")
+public class Penalty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Double tempTransactionId;
@@ -25,6 +24,7 @@ public class TempTransaction {
     @Temporal(TemporalType.DATE)
     private LocalDate tempReturnDate;
     private int tempPenaltyStatus;
+
 
     public Double getTempTransactionId() {
         return tempTransactionId;
