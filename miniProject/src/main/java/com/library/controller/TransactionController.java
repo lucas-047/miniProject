@@ -45,7 +45,7 @@ public class TransactionController {
             if(checkbook)
             {
                 System.out.println("book exist");
-                Book book=bookRepository.getStatus(bookId);
+                Book book=bookRepository.getBookByBookId(bookId);
                int status=book.getBookStatus();
                if(status==0)
                {
@@ -88,7 +88,7 @@ public class TransactionController {
     {
         Boolean checkbook= bookRepository.existsById(bookId);
         if(checkbook)
-        {   Book book=bookRepository.getStatus(bookId);
+        {   Book book=bookRepository.getBookByBookId(bookId);
 
             System.out.println("return book found in database");
             book.setBookStatus(1);

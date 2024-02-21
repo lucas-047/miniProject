@@ -13,7 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
 
     @Query("select book from Book book where book.bookId =:bookId ")
-    public Book getStatus(@Param("bookId") int bookId);
+    public Book getBookByBookId(@Param("bookId") int bookId);
 
 
 }
