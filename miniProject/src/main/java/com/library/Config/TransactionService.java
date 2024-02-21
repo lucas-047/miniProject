@@ -18,6 +18,7 @@ public class TransactionService {
         transaction.setBookId(bookid);
         transaction.setIssueDate(issuedate);
         transaction.setDueDate(duedate);
+        transaction.setPenaltyStatus(-1);
         transactionRepository.save(transaction);
 
         return 0;

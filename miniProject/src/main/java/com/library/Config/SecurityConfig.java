@@ -58,7 +58,9 @@ public class SecurityConfig {
             "book",
             "htmlfile",
             "verify",
-            "issue"
+            "issue",
+            "return",
+            "returning"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{

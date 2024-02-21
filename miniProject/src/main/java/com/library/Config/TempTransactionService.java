@@ -19,6 +19,7 @@ public class TempTransactionService {
         tempTransaction.setTempBookId(bookid);
         tempTransaction.setTempIssueDate(issuedate);
         tempTransaction.setTempDueDate(duedate);
+        tempTransaction.setTempPenaltyStatus(-1);
         tempTransactionRepository.save(tempTransaction);
 
         return 0;
