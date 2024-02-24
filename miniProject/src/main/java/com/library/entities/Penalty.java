@@ -7,12 +7,11 @@ import java.time.LocalDate;
 @Entity
 @Table(name="PenaltyTransaction")
 public class Penalty {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Double tempTransactionId;
+
+
 
     private String tempUserId;
-
+    @Id
     private int tempBookId;
     @Column( columnDefinition = "DATE")
     @Temporal(TemporalType.DATE)
@@ -26,13 +25,6 @@ public class Penalty {
     private int tempPenaltyStatus;
 
 
-    public Double getTempTransactionId() {
-        return tempTransactionId;
-    }
-
-    public void setTempTransactionId(Double tempTransactionId) {
-        this.tempTransactionId = tempTransactionId;
-    }
 
     public String getTempUserId() {
         return tempUserId;
@@ -85,7 +77,6 @@ public class Penalty {
     @Override
     public String toString() {
         return "TempTransaction{" +
-                "tempTransactionId=" + tempTransactionId +
                 ", tempUserId='" + tempUserId + '\'' +
                 ", tempBookId=" + tempBookId +
                 ", tempIssueDate=" + tempIssueDate +

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+
 @Component
 
 public class ScheduleComponent {
@@ -30,20 +31,24 @@ public class ScheduleComponent {
         for ( Penalty forcheck:penaltyList)
         {
                 LocalDate checkdue= forcheck.getTempDueDate();
-                LocalDate checkreturn=forcheck.getTempReturnDate();
+                LocalDate checkreturn=LocalDate.now();
             int day= (int) ChronoUnit.DAYS.between(checkreturn,checkdue);
+
+
             if(day==0)
             {
-                System.out.println("on time");
+                System.out.println("bookid= "+forcheck.getTempBookId()+" today is duedate");
 
             }
-            else if(day>0)
+            else if(day==1)
             {
-                System.out.println("you are early bird");
+                System.out.println("bookid= "+forcheck.getTempBookId()+" 1 day remaining");
             }
             else {
-               penaltyService.savePentaltyStatus(forcheck.getTempBookId(),forcheck.getTempPenaltyStatus());
-                System.out.println("ops you got penalty");
+                day= Math.abs(day);
+                int PenaltyDue=10*day;
+               penaltyService.savePentaltyStatus(forcheck.getTempBookId(),PenaltyDue);
+                System.out.println("bookid= "+forcheck.getTempBookId()+"  ops you got penalty "+forcheck.getTempPenaltyStatus());
             }
         }
 

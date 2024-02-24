@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,10 +29,20 @@ public class PenaltyService {
     }
     public int savePentaltyStatus(int bookid,int penalty)
     {
-        Optional<Penalty> changeStatus=penaltyRepository.findById(bookid);
-        Penalty changingStatus=changeStatus.get();
-        changingStatus.setTempPenaltyStatus(penalty);
-        penaltyRepository.saveAndFlush(changingStatus);
+       // System.out.println("data is "+s);
+                    Optional<Penalty> changeStatus=penaltyRepository.findById(bookid);
+
+
+        //int i=p.getTempBookId();
+      //  System.out.println("getbyid is  "+i);
+        if (changeStatus.isPresent()) {
+            Penalty changingStatus=changeStatus.get();
+            changingStatus.setTempPenaltyStatus(penalty);
+            penaltyRepository.saveAndFlush(changingStatus);
+        } else {
+            System.out.println("Entity with ID   not found.");
+        }
+
 
       //  Penalty penalty1= penaltyRepository.getdatabyid(bookid);
 
