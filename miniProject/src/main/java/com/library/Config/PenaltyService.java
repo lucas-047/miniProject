@@ -21,7 +21,7 @@ public class PenaltyService {
         penalty.setTempBookId(bookid);
         penalty.setTempIssueDate(issuedate);
         penalty.setTempDueDate(duedate);
-        penalty.setTempPenaltyStatus(-1);
+        penalty.setTempPenaltyStatus(0);
         penaltyRepository.saveAndFlush(penalty);
 
         return 0;

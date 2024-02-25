@@ -86,7 +86,6 @@ public class TransactionController {
         {   Book book=bookRepository.getBookByBookId(bookId);
 
             System.out.println("return book found in database");
-            book.setBookStatus(1);
             String string = book.toString();
             System.out.println(string);
             bookRepository.save(book);
@@ -100,20 +99,24 @@ public class TransactionController {
             if(day==0)
             {
                 System.out.println("on time");
-                transactionService.transferPenaltytoTransactionWithoutPenalty(Exportdata);
+                transactionService.transferPenaltyToTransaction(Exportdata);
 
             }
             else if(day>0)
             {
                 System.out.println("you are early bird");
-                transactionService.transferPenaltytoTransactionWithoutPenalty(Exportdata);
+                transactionService.transferPenaltyToTransaction(Exportdata);
             }
             else {
                // transactionService.savePentaltyStatus(bookId,day);
-                System.out.println("ops you got penalty");
+                day= Math.abs(day);
+                int PenaltyDue=10*day;
+                System.out.println("ops you got penalty of "+PenaltyDue+"Rs");
+                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);//returnDate=paymentdate
             }
+            penaltyRepository.deleteById(bookId);
+            book.setBookStatus(1);
 
-        transactionService.transferPenaltytoTransactionWithPenalty(Exportdata,returnDate);
 
 
         }

@@ -28,19 +28,19 @@ public class TransactionService {
         return 0;
 
     }
-    public void transferPenaltytoTransactionWithPenalty(Penalty Exportdata,LocalDate paymentDate)
+    public void transferPenaltyToTransaction(Penalty Exportdata,LocalDate paymentDate)
     {
         Transaction Importdata=new Transaction();
         Importdata.setBookId(Exportdata.getTempBookId());
         Importdata.setPenaltyStatus(Exportdata.getTempPenaltyStatus());
         Importdata.setUserId(Exportdata.getTempUserId());
-        Importdata.setReturnDate(Exportdata.getTempReturnDate());
+        Importdata.setIssueDate(Exportdata.getTempReturnDate());
         Importdata.setReturnDate(Exportdata.getTempReturnDate());
         Importdata.setDueDate(Exportdata.getTempDueDate());
         Importdata.setPaymentDate(paymentDate);
         transactionRepository.saveAndFlush(Importdata);
     }
-    public void transferPenaltytoTransactionWithoutPenalty(Penalty Exportdata)
+    public void transferPenaltyToTransaction(Penalty Exportdata)
     {
         Transaction Importdata=new Transaction();
         Importdata.setBookId(Exportdata.getTempBookId());

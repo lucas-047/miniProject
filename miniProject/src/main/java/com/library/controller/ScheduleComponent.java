@@ -25,14 +25,14 @@ public class ScheduleComponent {
     private PenaltyService penaltyService;
 
 
-    @Scheduled(cron =" 0 */1 * * * *")
+   @Scheduled(cron =" 0 */1 * * * *")
     public void notification()
     {      List<Penalty> penaltyList= penaltyRepository.findAll();
         for ( Penalty forcheck:penaltyList)
         {
                 LocalDate checkdue= forcheck.getTempDueDate();
                 LocalDate checkreturn=LocalDate.now();
-            int day= (int) ChronoUnit.DAYS.between(checkreturn,checkdue);
+            int day= (int) ChronoUnit.DAYS.between(checkdue,checkreturn);
 
 
             if(day==0)
@@ -44,7 +44,8 @@ public class ScheduleComponent {
             {
                 System.out.println("bookid= "+forcheck.getTempBookId()+" 1 day remaining");
             }
-            else {
+            else if(day>0) {
+                System.out.println("day is "+day);
                 day= Math.abs(day);
                 int PenaltyDue=10*day;
                penaltyService.savePentaltyStatus(forcheck.getTempBookId(),PenaltyDue);
