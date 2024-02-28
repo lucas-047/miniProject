@@ -25,7 +25,7 @@ public class ScheduleComponent {
     private PenaltyService penaltyService;
 
 
-   @Scheduled(cron =" 0 */1 * * * *")
+//   @Scheduled(cron =" 0 */1 * * * *")
     public void notification()
     {      List<Penalty> penaltyList= penaltyRepository.findAll();
         for ( Penalty forcheck:penaltyList)

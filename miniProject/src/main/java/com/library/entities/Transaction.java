@@ -28,7 +28,7 @@ public class Transaction {
     private LocalDate returnDate;
     @Column(name="penaltyStatus")
     private int penaltyStatus;
-    private LocalDate paymentDate;
+
 
     public Double getTransactionId() {
         return transactionId;
@@ -86,13 +86,6 @@ public class Transaction {
         this.penaltyStatus = penaltyStatus;
     }
 
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
 
     @Override
     public String toString() {

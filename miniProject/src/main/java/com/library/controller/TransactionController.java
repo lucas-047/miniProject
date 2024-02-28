@@ -49,7 +49,7 @@ public class TransactionController {
 
                else {
                    book.setBookStatus( 0);
-                   bookRepository.save(book);
+                   bookRepository.saveAndFlush(book);
                    LocalDate currentDate = LocalDate.now();
                    LocalDate duedate=currentDate.plusDays(1);
                    System.out.println("status changed");
@@ -88,7 +88,8 @@ public class TransactionController {
             System.out.println("return book found in database");
             String string = book.toString();
             System.out.println(string);
-            bookRepository.save(book);
+            book.setBookStatus(1);
+            bookRepository.saveAndFlush(book);
             System.out.println("status change now book is available");
             LocalDate returnDate=LocalDate.now();
             Penalty penalty = penaltyRepository.getDuedate(bookId);
@@ -112,10 +113,10 @@ public class TransactionController {
                 day= Math.abs(day);
                 int PenaltyDue=10*day;
                 System.out.println("ops you got penalty of "+PenaltyDue+"Rs");
-                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);//returnDate=paymentdate
+                transactionService.transferPenaltyToTransaction(Exportdata);
             }
             penaltyRepository.deleteById(bookId);
-            book.setBookStatus(1);
+
 
 
 

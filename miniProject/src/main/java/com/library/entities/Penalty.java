@@ -58,13 +58,6 @@ public class Penalty {
         this.tempDueDate = tempDueDate;
     }
 
-    public LocalDate getTempReturnDate() {
-        return tempReturnDate;
-    }
-
-    public void setTempReturnDate(LocalDate tempReturnDate) {
-        this.tempReturnDate = tempReturnDate;
-    }
 
     public int getTempPenaltyStatus() {
         return tempPenaltyStatus;
