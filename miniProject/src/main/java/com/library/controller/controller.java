@@ -63,12 +63,7 @@ public class controller {
         System.out.println("Generated numbers are within "+min+" to "+max);
         int otp=rand.nextInt(max - min + 1) + min;
         System.out.println(otp);
-//        String numbers = "0123456789";
-//        Random rndm_method = new Random();
-//        char[] otp1 = new char[5];
-//        for (int i = 0; i < 5; i++) {
-//            otp1[i] = numbers.charAt(rndm_method.nextInt(numbers.length()));
-//        }
+//
         if(result.hasErrors())
         {
             return "Public/SignUp";
@@ -86,10 +81,10 @@ public class controller {
             {   session.setAttribute("regData",regData);
                 model.addAttribute("data",regData);
                 session.setAttribute("myotp",otp);
+
                 RegData reg=(RegData) model.getAttribute("data");
                 System.out.println(reg);
                 System.out.println(model.getAttribute("data"));
-                //session.setAttribute("myemail",email);
                 return "public/otp";
 
             }

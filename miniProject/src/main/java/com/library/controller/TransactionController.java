@@ -31,7 +31,7 @@ public class TransactionController {
 @RequestMapping("/issue")
     public String getissuepage()
     {
-        return "Public/issuepage";
+        return "Admin/IssueReturn";
     }
     @PostMapping("/verify")
     public String validation(@RequestParam("user") String userId,@RequestParam("bookId") int bookId)
@@ -76,7 +76,7 @@ public class TransactionController {
     @RequestMapping("return")
     public String returnPage()
     {
-        return "Public/return";
+        return "Admin/IssueReturn";
     }
     @PostMapping("/returning")
     public String returnProcess(@RequestParam("bookId") int bookId)

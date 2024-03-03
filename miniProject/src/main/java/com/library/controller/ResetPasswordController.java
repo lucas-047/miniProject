@@ -115,7 +115,8 @@ public class ResetPasswordController {
     @PostMapping("/validateOtp")
     public String validateOtp(@RequestParam("otp") Integer userOtp,Model model,HttpSession session)
 
-    {
+    {   session.setMaxInactiveInterval(5000);
+
         int otp=(Integer) session.getAttribute("myotp");
         RegData regData= null;
         regData=(RegData)session.getAttribute("regData") ;

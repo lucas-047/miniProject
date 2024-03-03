@@ -60,16 +60,19 @@ public class SecurityConfig {
             "verify",
             "issue",
             "return",
-            "returning"
+            "returning",
+            "/user/**",
+            "/admin/**"
+
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-                        .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+//                        .requestMatchers("/user/**").hasRole("USER")
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/signIn")
