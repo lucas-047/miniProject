@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/IssueReturn.css}"/>
+</head>
+<body>
+    <div class="container">
+        <div class="issue-div">
+            <div class="form-box">
+                <form th:action="@{/verify}" action="#" method="post" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <input type="text" name="user" id="userID" required/>
+                        <label for="userID">User ID</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" name="bookId" id="bookID-issue" required/>
+                        <label for="bookID-issue">Book ID</label>
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="bth">Issue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="return-div">
+            <div class="form-box">
+                <form th:action="@{/returning}" action="#" method="post" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <input type="text" name="userId" id="bookID-return" required/>
+                        <label for="bookID-return">User ID</label>
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="bth">Return</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="order">
+                <div class="head">
+                    <h3>Recent Issue</h3>
+                    <i class='bx bx-search' ></i>
+                    <i class='bx bx-filter' ></i>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Issue Date</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status completed">Completed</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status pending">Over Due</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status process">Return Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status pending">Over Due</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status completed">Completed</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</body>
+</html>

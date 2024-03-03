@@ -62,7 +62,8 @@ public class SecurityConfig {
             "return",
             "returning",
             "/user/**",
-            "/admin/**"
+            "/admin/**",
+            "/**"
 
     };
     @Bean
