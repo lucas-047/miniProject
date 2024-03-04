@@ -42,6 +42,29 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.4.4</version> <!-- Or the latest version -->
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-plugin-pigpio -->
+<!--		<dependency>-->
+<!--			<groupId>com.pi4j</groupId>-->
+<!--			<artifactId>pi4j-plugin-pigpio</artifactId>-->
+<!--			<version>2.4.0</version>-->
+<!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-core -->
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-core</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fazecast/jSerialComm -->
+		<dependency>
+			<groupId>com.fazecast</groupId>
+			<artifactId>jSerialComm</artifactId>
+			<version>2.10.4</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>

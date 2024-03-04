@@ -25,6 +25,7 @@ public class PenaltyService extends StandardContext {
         penalty.setTempDueDate(duedate);
         penalty.setTempPenaltyStatus(0);
         penaltyRepository.saveAndFlush(penalty);
+        System.out.println(penalty);
         //applicationEventPublisher.publishEvent(new DatabaseRefresh(this));
         return 0;
 

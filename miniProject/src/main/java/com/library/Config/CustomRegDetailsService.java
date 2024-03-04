@@ -4,6 +4,7 @@ import com.library.dao.RegRepository;
 import com.library.entities.RegData;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class CustomRegDetailsService implements UserDetailsService {
     @Autowired
     private RegRepository regRepository;

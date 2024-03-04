@@ -55,4 +55,16 @@ public String getAllBooks(Model model)
 //    return this.excelSheetService.getALLBook();
     return "Public/ExcelsheetDisplay";
 }
+    @PostMapping(path="/uploadUser" ,consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<?> uploadUser(@RequestParam("file") MultipartFile file)
+    {
+
+        if(ExcelSheetConfig.CheckFormat(file))
+        {
+            this.excelSheetService.saveUser(file);
+            return ResponseEntity.ok(Map.of("message","file is uploaded and data is saved"));
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please upload excel file only");
+    }
 }

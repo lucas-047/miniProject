@@ -27,8 +27,15 @@
 <label for="mobileNo">Mobile No.:</label>
 <input type="tel" id="mobileNo" name="mobileNo" th:value="${user.mobileNo}" required><br><br>
 
-<label for="address">Address:</label>
-<textarea id="address" name="address" th:value="${user.address}" required></textarea><br><br>
+<label>Address:</label>
+<textarea  name="address" th:value="${user.address}" required></textarea><br><br>
+    <label>Address:</label>
+    <textarea  name="issuedBook" th:value="${user.totalIssuedBook}" required></textarea><br><br><label>issuedbook:</label>
+    <textarea  name="penaltyid" th:value="${user.penaltyID}" required></textarea><br><br><label>pid:</label>
+    <textarea  name="role" th:value="${user.role}" required></textarea><br><br><label>role:</label>
+
+
+
 
 <input type="submit" value="Submit">
 </form>

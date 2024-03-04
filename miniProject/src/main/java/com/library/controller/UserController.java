@@ -1,6 +1,6 @@
 package com.library.controller;
 
-import com.library.entities.userProfile;
+import com.library.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private com.library.dao.userProfileRepository userProfileRepository;
+    private com.library.dao.UserRepository userRepository;
 
 
     @RequestMapping("/index")
@@ -22,14 +22,16 @@ public class UserController {
 
     @RequestMapping("/profileUpdate")
     public String userprofile(Model model) {
-        model.addAttribute("user",new userProfile());
+        model.addAttribute("user",new User());
         return "User/profileForm";
     }
 
 
-    @RequestMapping("/processProfileReg")
-    public String processProfile(@ModelAttribute("user") userProfile user, Model model) {
-        userProfileRepository.save(user);
+    @RequestMapping("/param")
+    public String processProfile(@ModelAttribute("user") User user, Model model) {
+        System.out.println(user);
+        userRepository.save(user);
+
         return "Public/Success";
     }
 }

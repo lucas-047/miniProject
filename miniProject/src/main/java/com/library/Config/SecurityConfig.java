@@ -61,10 +61,9 @@ public class SecurityConfig {
             "issue",
             "return",
             "returning",
-            "/user/**",
             "/admin/**",
+            "/user/**",
             "/**"
-
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
