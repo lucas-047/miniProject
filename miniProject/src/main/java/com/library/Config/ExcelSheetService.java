@@ -3,6 +3,7 @@ package com.library.Config;
 
 import com.library.dao.BookRepository;
 import com.library.entities.Book;
+import com.library.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,5 +31,12 @@ public class ExcelSheetService {
 
     }
 
+    public void saveUser(MultipartFile file){
+        try{
+            List<User> user = ExcelSheetConfig.ConvertExceltoListofUser(file.getInputStream());
+        }catch (IOException error){
+            System.out.println(error);
+        }
+    }
 
 }

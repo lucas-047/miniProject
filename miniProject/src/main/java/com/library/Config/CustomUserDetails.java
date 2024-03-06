@@ -1,6 +1,6 @@
 package com.library.Config;
 
-import com.library.entities.RegData;
+import com.library.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,26 +8,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomRegDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
     @Autowired
-    private RegData regData;
-    public CustomRegDetails(RegData regData) {
+    private User user;
+    public CustomUserDetails(User user) {
         super();
-        this.regData = regData;
+        this.user = user;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(regData.getRole());
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
         return List.of(simpleGrantedAuthority);
     }
     @Override
     public String getPassword() {
-        return regData.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return regData.getUserName();
+        return user.getUserName();
     }
 
     @Override

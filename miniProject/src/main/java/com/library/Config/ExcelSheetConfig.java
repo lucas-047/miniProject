@@ -1,6 +1,7 @@
 package com.library.Config;
 
 import com.library.entities.Book;
+import com.library.entities.User;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -86,6 +87,72 @@ public class ExcelSheetConfig {
 
                 }
                 list.add(book);
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static List<User> ConvertExceltoListofUser(InputStream is)
+    {
+        List<User> list=new ArrayList<>();
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(is);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+//            XSSFSheet sheet = workbook.getSheet("BookDataset");
+            int rowNumber=0;
+            Iterator<Row> iterator=sheet.iterator();
+            while(iterator.hasNext())
+            {
+                Row row=iterator.next();
+                if(rowNumber==0)
+                {
+                    rowNumber++;
+                    continue;
+                }
+                Iterator<Cell> cells=row.iterator();
+                int cid=0;
+                User user=new User();
+                while(cells.hasNext())
+                {
+                    Cell cell=cells.next();
+                    switch (cid)
+                    {
+                        case 0:
+                            user.setUserName(cell.getStringCellValue());
+
+                            break;
+                        case 1:
+                            user.setFirstName(cell.getStringCellValue());
+                            break;
+                        case 2:
+                            user.setLastName(cell.getStringCellValue());
+                            break;
+                        case 3:
+                            user.setBranch(cell.getStringCellValue());
+
+                            break;
+                        case 4:
+                            user.setAddress(cell.getStringCellValue());
+
+                            break;
+                        case 5:
+                            user.setMobileNumber(cell.getStringCellValue());
+
+                            break;
+                        case 6:
+                            user.setEmail(cell.getStringCellValue());
+
+                            break;
+                        default:
+                            break;
+                    }
+                    cid++;
+
+                }
+                list.add(user);
             }
         }catch (Exception e)
         {

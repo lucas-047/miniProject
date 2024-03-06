@@ -1,8 +1,8 @@
 package com.library.controller;
 
 import com.library.Config.EmailService;
-import com.library.dao.RegRepository;
-import com.library.entities.RegData;
+import com.library.dao.UserRepository;
+import com.library.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public class controller {
     @Autowired
     private EmailService emailService;
     @Autowired
-    private RegRepository regRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -51,13 +51,13 @@ public class controller {
     @GetMapping("/Registration")
     public  String RegController(Model model) {
         model.addAttribute("title","Registration");
-        model.addAttribute("regData",new RegData());
+        model.addAttribute("regData",new User());
         return "Public/SignUp";
     }
 
 
     @PostMapping("/processRegistration")
-    public String processRegistration(@RequestParam("email") String email,@Valid @ModelAttribute("regData") RegData regData, BindingResult result, HttpSession session,Model model) {
+    public String processRegistration(@RequestParam("email") String email, @Valid @ModelAttribute("regData") User user, BindingResult result, HttpSession session, Model model) {
         Random rand = new Random();
         int max=99999,min=10000;
         System.out.println("Generated numbers are within "+min+" to "+max);
@@ -78,11 +78,11 @@ public class controller {
             String to=email;
             boolean flag= this.emailService.sendemail(subject,message,to);
             if(flag)
-            {   session.setAttribute("regData",regData);
-                model.addAttribute("data",regData);
+            {   session.setAttribute("regData", user);
+                model.addAttribute("data", user);
                 session.setAttribute("myotp",otp);
 
-                RegData reg=(RegData) model.getAttribute("data");
+                User reg=(User) model.getAttribute("data");
                 System.out.println(reg);
                 System.out.println(model.getAttribute("data"));
                 return "public/otp";
