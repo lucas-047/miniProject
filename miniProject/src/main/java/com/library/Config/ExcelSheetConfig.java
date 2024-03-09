@@ -172,9 +172,9 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
             int column5Index = -1;
             int column6Index = -1;
             int column7Index = -1;
-            int column8Index = -1;
-            int column9Index = -1;
-            int column10Index=-1;
+//            int column8Index = -1;
+//            int column9Index = -1;
+//            int column10Index=-1;
             // Add more if needed
 
             while (headerCellIterator.hasNext()) {
@@ -182,7 +182,7 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
                 String headerValue = headerCell.getStringCellValue();
 
                 // Map column indexes based on column headers
-                if ("username".equalsIgnoreCase(headerValue)) {
+                if ("userid".equalsIgnoreCase(headerValue)) {
                     column1Index = headerCell.getColumnIndex();
                 } else if ("firstname".equalsIgnoreCase(headerValue)) {
                     column2Index = headerCell.getColumnIndex();
@@ -197,13 +197,13 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
                 } else if ("email".equalsIgnoreCase(headerValue)) {
                     column7Index = headerCell.getColumnIndex();
                 }
-                else if ("role".equalsIgnoreCase(headerValue)) {
-                    column8Index = headerCell.getColumnIndex();
-                } else if ("password".equalsIgnoreCase(headerValue)) {
-                    column9Index = headerCell.getColumnIndex();
-                } else if ("issuedBook".equalsIgnoreCase(headerValue)) {
-                    column10Index=headerCell.getColumnIndex();
-                }
+//                else if ("role".equalsIgnoreCase(headerValue)) {
+//                    column8Index = headerCell.getColumnIndex();
+//                } else if ("password".equalsIgnoreCase(headerValue)) {
+//                    column9Index = headerCell.getColumnIndex();
+//                } else if ("issuedBook".equalsIgnoreCase(headerValue)) {
+//                    column10Index=headerCell.getColumnIndex();
+//                }
                 // Add more if needed
             }
 
@@ -213,8 +213,8 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
              User user=new User();
                 if (column1Index != -1) {
                     Cell cell = row.getCell(column1Index);
-                    user.setUserName(cell.getStringCellValue());
-
+                    String username= String.valueOf(cell.getNumericCellValue());
+                    user.setMobileNumber(username);
                 }
                 if (column2Index != -1) {
                     Cell cell = row.getCell(column2Index);
@@ -235,25 +235,25 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
                 if (column6Index != -1) {
                     Cell cell = row.getCell(column6Index);
                     String mobileno= String.valueOf(cell.getNumericCellValue());
-                    user.setMobileNumber(mobileno );
+                    user.setMobileNumber(mobileno);
                 }
                 if (column7Index != -1) {
                     Cell cell = row.getCell(column7Index);
                     user.setEmail(cell.getStringCellValue());
                 }
-                if (column8Index != -1) {
-                    Cell cell = row.getCell(column8Index);
-                    user.setRole(cell.getStringCellValue());
-                }
-                if (column9Index != -1) {
-                    Cell cell = row.getCell(column9Index);
-                        user.setPassword(cell.getStringCellValue());
-                }
-                if(column10Index!=-1)
-                {
-                    Cell cell=row.getCell(column10Index);
-                    user.setIssuedBook((int)cell.getNumericCellValue());
-                }
+//                if (column8Index != -1) {
+//                    Cell cell = row.getCell(column8Index);
+//                    user.setRole(cell.getStringCellValue());
+//                }
+//                if (column9Index != -1) {
+//                    Cell cell = row.getCell(column9Index);
+//                        user.setPassword(cell.getStringCellValue());
+//                }
+//                if(column10Index!=-1)
+//                {
+//                    Cell cell=row.getCell(column10Index);
+//                    user.setIssuedBook((int)cell.getNumericCellValue());
+//                }
                 // Add more if needed
                 System.out.println(user);
                 listUser.add(user);

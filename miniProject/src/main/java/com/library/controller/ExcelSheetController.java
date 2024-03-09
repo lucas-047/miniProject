@@ -34,12 +34,12 @@ ExcelSheetController {
     }
     @RequestMapping("/userfile")
     public String uploadUser() {
-        return "Public/UserDataUpload";
+        return "Public/upload";
     }
 
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-        System.out.println("vraj bhosdsino");
+
 
         if(ExcelSheetConfig.CheckFormat(file))
         {

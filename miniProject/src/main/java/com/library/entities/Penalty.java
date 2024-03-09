@@ -69,8 +69,8 @@ public class Penalty {
 
     @Override
     public String toString() {
-        return "TempTransaction{" +
-                ", tempUserId='" + tempUserId + '\'' +
+        return "Penalty{" +
+                "tempUserId='" + tempUserId + '\'' +
                 ", tempBookId=" + tempBookId +
                 ", tempIssueDate=" + tempIssueDate +
                 ", tempDueDate=" + tempDueDate +

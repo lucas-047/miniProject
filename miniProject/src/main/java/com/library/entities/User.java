@@ -13,9 +13,7 @@ import org.hibernate.Length;
 public class User {
 
     @Id
-    @Size(min = 14, max = 14, message = "Id should be 14 letter only..")
     @NotBlank(message = "This field cannot be blank")
-    @Column(length = 14)
     private String userName;
     @Size(min = 5, max = 12, message = "First Name should be 5 to 12 letter only..")
     @NotBlank(message = "This field cannot be blank")
