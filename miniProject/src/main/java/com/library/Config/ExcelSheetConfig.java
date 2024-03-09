@@ -26,6 +26,7 @@ import java.util.List;
 public class ExcelSheetConfig {
     public static boolean CheckFormat(MultipartFile file)
     {
+        System.out.println("hello moto");
         String contentType = file.getContentType();
         if(contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
         {
