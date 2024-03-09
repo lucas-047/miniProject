@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,String> {
+public interface UserRepository extends JpaRepository<User,Double> {
     @Query("select u from User u where u.userName = :userName")
     public User getRegDataByusername(@Param("userName") String userName);
 

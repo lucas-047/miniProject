@@ -213,8 +213,7 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
              User user=new User();
                 if (column1Index != -1) {
                     Cell cell = row.getCell(column1Index);
-                    String username= String.valueOf(cell.getNumericCellValue());
-                    user.setMobileNumber(username);
+                    user.setUserName(cell.getNumericCellValue());
                 }
                 if (column2Index != -1) {
                     Cell cell = row.getCell(column2Index);
@@ -234,7 +233,7 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
                 }
                 if (column6Index != -1) {
                     Cell cell = row.getCell(column6Index);
-                    String mobileno= String.valueOf(cell.getNumericCellValue());
+                    String mobileno= Long.toString((long) cell.getNumericCellValue());
                     user.setMobileNumber(mobileno);
                 }
                 if (column7Index != -1) {

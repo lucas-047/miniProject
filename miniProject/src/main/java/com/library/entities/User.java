@@ -13,25 +13,23 @@ import org.hibernate.Length;
 public class User {
 
     @Id
-    @NotBlank(message = "This field cannot be blank")
-    private String userName;
-    @Size(min = 5, max = 12, message = "First Name should be 5 to 12 letter only..")
+    private double userName;
+    @Size(max = 12, message = "First Name should be 5 to 12 letter only..")
     @NotBlank(message = "This field cannot be blank")
     @Column(length = 20)
     private String firstName;
-    @Size(min = 5, max = 12, message = "Last Name should be 5 to 12 letter only..")
+    @Size(max = 12, message = "Last Name should be 5 to 12 letter only..")
     @NotBlank(message = "This field cannot be blank")
     @Column(length = 35)
     private String lastName;
     @NotBlank(message = "This field cannot be blank")
-    @Column(length = 5)
+    @Column(length = 20)
     private String branch;
-    @Size(min = 10, max = 70, message = "Address should be 10 to 30 letter only..")
+
     @NotBlank(message = "This field cannot be blank")
     @Column(length = 60)
     private String address;
     @Pattern(regexp = "^[0-9]{10}$", message = "Invalid Mobile")
-    @Size(min = 10, max = 10, message = "Mobile should be 10 letter only..")
     @NotBlank(message = "This field cannot be blank")
     @Column(length = 10)
     private String mobileNumber;
@@ -45,11 +43,11 @@ public class User {
     private String Password;
     private int IssuedBook;
 
-    public String getUserName() {
+    public double getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(double userName) {
         this.userName = userName;
     }
 
