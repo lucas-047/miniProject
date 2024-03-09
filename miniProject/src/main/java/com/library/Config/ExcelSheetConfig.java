@@ -3,6 +3,7 @@ package com.library.Config;
 import com.library.dao.BookRepository;
 import com.library.entities.Book;
 import com.library.entities.User;
+import jakarta.persistence.EntityManager;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -13,6 +14,9 @@ import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,9 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 @Service
 public class ExcelSheetConfig {
- @Autowired
- private static BookRepository bookRepository;
-
     public static boolean CheckFormat(MultipartFile file)
     {
         String contentType = file.getContentType();
@@ -36,219 +37,246 @@ public class ExcelSheetConfig {
             return false;
         }
     }
-    public static List<Book> convertExceltoList(InputStream is)
+
+
+public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) throws IOException {
+    List<Book> list=new ArrayList<>();
+    XSSFWorkbook workbook = null;
+    try {
+        File tempFile = File.createTempFile("temp", null);
+        multipartFile.transferTo(tempFile);
+        FileInputStream inputStream = new FileInputStream(tempFile);
+        workbook = new XSSFWorkbook(inputStream);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        Row headerRow = sheet.getRow(0);
+        Iterator<Cell> headerCellIterator = headerRow.cellIterator();
+        int column1Index = -1;
+        int column2Index = -1;
+        int column3Index = -1;
+        int column4Index = -1;
+        int column5Index = -1;
+        int column6Index = -1;
+        int column7Index = -1;
+        int column8Index = -1;
+        int column9Index = -1;
+        // Add more if needed
+
+        while (headerCellIterator.hasNext()) {
+            Cell headerCell = headerCellIterator.next();
+            String headerValue = headerCell.getStringCellValue();
+
+            // Map column indexes based on column headers
+            if ("BookId".equalsIgnoreCase(headerValue)) {
+                column1Index = headerCell.getColumnIndex();
+            } else if ("CopyNo".equalsIgnoreCase(headerValue)) {
+                column2Index = headerCell.getColumnIndex();
+            } else if ("BookName".equalsIgnoreCase(headerValue)) {
+                column3Index = headerCell.getColumnIndex();
+            } else if ("AuthorName".equalsIgnoreCase(headerValue)) {
+                column4Index = headerCell.getColumnIndex();
+            } else if ("Publisher".equalsIgnoreCase(headerValue)) {
+                column5Index = headerCell.getColumnIndex();
+            } else if ("Branch".equalsIgnoreCase(headerValue)) {
+                column6Index = headerCell.getColumnIndex();
+            } else if ("PublishDate".equalsIgnoreCase(headerValue)) {
+                column7Index = headerCell.getColumnIndex();
+            } else if ("Version".equalsIgnoreCase(headerValue)) {
+                column8Index = headerCell.getColumnIndex();
+            } else if ("BookStatus".equalsIgnoreCase(headerValue)) {
+                column9Index = headerCell.getColumnIndex();
+            }
+            // Add more if needed
+        }
+
+        // Iterate over rows skipping the header row
+        for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+            Row row = sheet.getRow(rowIndex);
+            Book book1 = new Book();
+
+            if (column1Index != -1) {
+                Cell cell = row.getCell(column1Index);
+                book1.setBookId((int) cell.getNumericCellValue());
+            }
+            if (column2Index != -1) {
+                Cell cell = row.getCell(column2Index);
+                book1.setCopyId((int) cell.getNumericCellValue());
+            }
+            if (column3Index != -1) {
+                Cell cell = row.getCell(column3Index);
+                book1.setBookName((cell.getStringCellValue()));
+            }
+            if (column4Index != -1) {
+                Cell cell = row.getCell(column4Index);
+                book1.setAuthorName(cell.getStringCellValue());
+            }
+            if (column5Index != -1) {
+                Cell cell = row.getCell(column5Index);
+                book1.setPublisher(cell.getStringCellValue());
+            }
+            if (column6Index != -1) {
+                Cell cell = row.getCell(column6Index);
+                book1.setBranch(cell.getStringCellValue());
+            }
+            if (column7Index != -1) {
+                Cell cell = row.getCell(column7Index);
+                book1.setPublishDate(cell.getDateCellValue());
+            }
+            if (column8Index != -1) {
+                Cell cell = row.getCell(column8Index);
+                book1.setVersion(cell.getStringCellValue());
+            }
+            if (column9Index != -1) {
+                Cell cell = row.getCell(column9Index);
+                book1.setBookStatus((int) cell.getNumericCellValue());
+            }
+            // Add more if needed
+            System.out.println(book1);
+            list.add(book1);
+
+        }
+        if (tempFile.exists()) {
+            //Files.delete(tempFile.toPath());
+            tempFile.delete();
+        }
+        inputStream.close();
+    }
+    catch (Exception e)
     {
-        List<Book> list=new ArrayList<>();
+        e.printStackTrace();
+    }finally {
+
+        workbook.close();
+        //workbook=null;
+        System.out.println("workbook closed");
+    }
+    return list;
+}
+
+
+    public static List<User> importDataOfUserFromExcel(MultipartFile multipartFile) throws IOException {
+        List<User> listUser=new ArrayList<>();
+        XSSFWorkbook workbookUser = null;
         try {
-            XSSFWorkbook workbook = new XSSFWorkbook(is);
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            Row headerRow=sheet.getRow(0);
-//            XSSFSheet sheet = workbook.getSheet("BookDataset");
-            int rowNumber=0;
-            Iterator<Row> iterator=sheet.iterator();
+            File tempFile = File.createTempFile("temp", null);
+            multipartFile.transferTo(tempFile);
+            FileInputStream inputStream = new FileInputStream(tempFile);
+            workbookUser = new XSSFWorkbook(inputStream);
+            XSSFSheet sheet = workbookUser.getSheetAt(0);
+            Row headerRow = sheet.getRow(0);
             Iterator<Cell> headerCellIterator = headerRow.cellIterator();
-            int column1Index=-1;
-            int column2Index=-1;
-            int column3Index=-1;
-            int column4Index=-1;
-            int column5Index=-1;
-            int column6Index=-1;
-            int column7Index=-1;
-            int column8Index=-1;
-            int column9Index=-1;
+            int column1Index = -1;
+            int column2Index = -1;
+            int column3Index = -1;
+            int column4Index = -1;
+            int column5Index = -1;
+            int column6Index = -1;
+            int column7Index = -1;
+            int column8Index = -1;
+            int column9Index = -1;
+            int column10Index=-1;
+            // Add more if needed
 
-
-            while(iterator.hasNext()) {
+            while (headerCellIterator.hasNext()) {
                 Cell headerCell = headerCellIterator.next();
                 String headerValue = headerCell.getStringCellValue();
-              //  Row row = iterator.next();
-                if ("BookId".equalsIgnoreCase(headerValue)) {
+
+                // Map column indexes based on column headers
+                if ("username".equalsIgnoreCase(headerValue)) {
                     column1Index = headerCell.getColumnIndex();
-                } else if ("CopyNo".equalsIgnoreCase(headerValue)) {
+                } else if ("firstname".equalsIgnoreCase(headerValue)) {
                     column2Index = headerCell.getColumnIndex();
-                } else if ("BookName".equalsIgnoreCase(headerValue)) {
+                } else if ("lastname".equalsIgnoreCase(headerValue)) {
                     column3Index = headerCell.getColumnIndex();
-                } else if ("AuthorName".equalsIgnoreCase(headerValue)) {
+                } else if ("branch".equalsIgnoreCase(headerValue)) {
                     column4Index = headerCell.getColumnIndex();
-                } else if ("Publisher".equalsIgnoreCase(headerValue)) {
+                } else if ("address".equalsIgnoreCase(headerValue)) {
                     column5Index = headerCell.getColumnIndex();
-                } else if ("Branch".equalsIgnoreCase(headerValue)) {
+                } else if ("mobilenumber".equalsIgnoreCase(headerValue)) {
                     column6Index = headerCell.getColumnIndex();
-                } else if ("PublishDate".equalsIgnoreCase(headerValue)) {
+                } else if ("email".equalsIgnoreCase(headerValue)) {
                     column7Index = headerCell.getColumnIndex();
                 }
-                else if ("Version".equalsIgnoreCase(headerValue)) {
+                else if ("role".equalsIgnoreCase(headerValue)) {
                     column8Index = headerCell.getColumnIndex();
-                }
-                else if ("BookStatus".equalsIgnoreCase(headerValue)) {
+                } else if ("password".equalsIgnoreCase(headerValue)) {
                     column9Index = headerCell.getColumnIndex();
+                } else if ("issuedBook".equalsIgnoreCase(headerValue)) {
+                    column10Index=headerCell.getColumnIndex();
                 }
-                for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-                    Row row = sheet.getRow(rowIndex);
-                Book book1=new Book();
-
-                    if (column1Index != -1) {
-                        Cell cell = row.getCell(column1Index);
-                       book1.setBookId((int)cell.getNumericCellValue());
-                    }
-                    if (column2Index != -1) {
-                        Cell cell = row.getCell(column2Index);
-                       book1.setCopyId((int)cell.getNumericCellValue());
-                    }
-                    if (column3Index != -1) {
-                        Cell cell = row.getCell(column3Index);
-                        book1.setBookName((cell.getStringCellValue()));
-                    }
-                    if (column4Index != -1) {
-                        Cell cell = row.getCell(column4Index);
-                        book1.setAuthorName(cell.getStringCellValue());
-                    }
-                    if (column5Index != -1) {
-                        Cell cell = row.getCell(column5Index);
-                        book1.setPublisher(cell.getStringCellValue());
-                    }
-                    if (column6Index != -1) {
-                        Cell cell = row.getCell(column6Index);
-                        book1.setBranch(cell.getStringCellValue());
-                    }
-                    if (column7Index != -1) {
-                        Cell cell = row.getCell(column7Index);
-                        book1.setPublishDate(cell.getDateCellValue());
-                    }
-                    if (column8Index != -1) {
-                        Cell cell = row.getCell(column8Index);
-                        book1.setVersion(cell.getStringCellValue());
-                    }
-                    if (column9Index != -1) {
-                        Cell cell = row.getCell(column9Index);
-                        book1.setBookStatus((int)cell.getNumericCellValue());
-                    }
-                    System.out.println(book1);
-                //   bookRepository.save(book1);
-                    list.add(book1);
-
-
-//                    if (rowNumber == 0) {
-//                        rowNumber++;
-//                        continue;
-//                    }
-//                Iterator<Cell> cells=row.iterator();
-//                int cid=0;
-//                Book book=new Book();
-//                while(cells.hasNext())
-//                {
-//                    Cell cell=cells.next();
-//                    switch (cid)
-//                    {
-//                        case 1:
-//                            book.setCopyId((int)cell.getNumericCellValue());
-//                            break;
-//                        case 0:
-//                            book.setBookId((int)cell.getNumericCellValue());
-//                            break;
-//                        case 2:
-//                            book.setBookName(cell.getStringCellValue());
-//                            break;
-//                        case 3:
-//                            book.setAuthorName(cell.getStringCellValue());
-//                            break;
-//                        case 4:
-//                            book.setPublisher(cell.getStringCellValue());
-//                            break;
-//                        case 5:
-//                            book.setBranch(cell.getStringCellValue());
-//                            break;
-//                        case 6:
-//                            book.setPublishDate((Date)cell.getDateCellValue() );
-//                            break;
-//                        case 7:
-//                            book.setVersion(cell.getStringCellValue());
-//                            break;
-//                        case 8:
-//                            book.setBookStatus((int)cell.getNumericCellValue());
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                    cid++;
-//
-//                }
-//                list.add(book);
-                }
+                // Add more if needed
             }
 
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        bookRepository.saveAll(list);
-        return list;
-    }
-
-    public static List<User> ConvertExceltoListofUser(InputStream is)
-    {
-        List<User> list=new ArrayList<>();
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook(is);
-            XSSFSheet sheet = workbook.getSheetAt(0);
-//            XSSFSheet sheet = workbook.getSheet("BookDataset");
-            int rowNumber=0;
-            Iterator<Row> iterator=sheet.iterator();
-            while(iterator.hasNext())
-            {
-                Row row=iterator.next();
-                if(rowNumber==0)
-                {
-                    rowNumber++;
-                    continue;
-                }
-                Iterator<Cell> cells=row.iterator();
-                int cid=0;
-                User user=new User();
-                while(cells.hasNext())
-                {
-                    Cell cell=cells.next();
-                    switch (cid)
-                    {
-                        case 0:
-                            user.setUserName(cell.getStringCellValue());
-
-                            break;
-                        case 1:
-                            user.setFirstName(cell.getStringCellValue());
-                            break;
-                        case 2:
-                            user.setLastName(cell.getStringCellValue());
-                            break;
-                        case 3:
-                            user.setBranch(cell.getStringCellValue());
-
-                            break;
-                        case 4:
-                            user.setAddress(cell.getStringCellValue());
-
-                            break;
-                        case 5:
-                            user.setMobileNumber(cell.getStringCellValue());
-
-                            break;
-                        case 6:
-                            user.setEmail(cell.getStringCellValue());
-
-                            break;
-                        default:
-                            break;
-                    }
-                    cid++;
+            // Iterate over rows skipping the header row
+            for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+                Row row = sheet.getRow(rowIndex);
+             User user=new User();
+                if (column1Index != -1) {
+                    Cell cell = row.getCell(column1Index);
+                    user.setUserName(cell.getStringCellValue());
 
                 }
-                list.add(user);
+                if (column2Index != -1) {
+                    Cell cell = row.getCell(column2Index);
+                   user.setFirstName(cell.getStringCellValue());
+                }
+                if (column3Index != -1) {
+                    Cell cell = row.getCell(column3Index);
+                   user.setLastName(cell.getStringCellValue());
+                }
+                if (column4Index != -1) {
+                    Cell cell = row.getCell(column4Index);
+                   user.setBranch(cell.getStringCellValue());
+                }
+                if (column5Index != -1) {
+                    Cell cell = row.getCell(column5Index);
+                   user.setAddress(cell.getStringCellValue());
+                }
+                if (column6Index != -1) {
+                    Cell cell = row.getCell(column6Index);
+                    String mobileno= String.valueOf(cell.getNumericCellValue());
+                    user.setMobileNumber(mobileno );
+                }
+                if (column7Index != -1) {
+                    Cell cell = row.getCell(column7Index);
+                    user.setEmail(cell.getStringCellValue());
+                }
+                if (column8Index != -1) {
+                    Cell cell = row.getCell(column8Index);
+                    user.setRole(cell.getStringCellValue());
+                }
+                if (column9Index != -1) {
+                    Cell cell = row.getCell(column9Index);
+                        user.setPassword(cell.getStringCellValue());
+                }
+                if(column10Index!=-1)
+                {
+                    Cell cell=row.getCell(column10Index);
+                    user.setIssuedBook((int)cell.getNumericCellValue());
+                }
+                // Add more if needed
+                System.out.println(user);
+                listUser.add(user);
+
             }
-        }catch (Exception e)
+            if (tempFile.exists()) {
+                //Files.delete(tempFile.toPath());
+                tempFile.delete();
+            }
+            inputStream.close();
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
+        }finally {
+
+            workbookUser.close();
+            //workbook=null;
+            System.out.println("workbook closed");
         }
-        return list;
+
+
+
+        return listUser;
     }
 
 }

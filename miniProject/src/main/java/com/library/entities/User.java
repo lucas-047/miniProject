@@ -1,10 +1,12 @@
 package com.library.entities;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
+import org.hibernate.Length;
 
 @Entity
 @Table(name = "User")
@@ -13,27 +15,37 @@ public class User {
     @Id
     @Size(min = 14, max = 14, message = "Id should be 14 letter only..")
     @NotBlank(message = "This field cannot be blank")
+    @Column(length = 14)
     private String userName;
     @Size(min = 5, max = 12, message = "First Name should be 5 to 12 letter only..")
     @NotBlank(message = "This field cannot be blank")
+    @Column(length = 20)
     private String firstName;
     @Size(min = 5, max = 12, message = "Last Name should be 5 to 12 letter only..")
     @NotBlank(message = "This field cannot be blank")
+    @Column(length = 35)
     private String lastName;
     @NotBlank(message = "This field cannot be blank")
+    @Column(length = 5)
     private String branch;
     @Size(min = 10, max = 70, message = "Address should be 10 to 30 letter only..")
     @NotBlank(message = "This field cannot be blank")
+    @Column(length = 60)
     private String address;
     @Pattern(regexp = "^[0-9]{10}$", message = "Invalid Mobile")
     @Size(min = 10, max = 10, message = "Mobile should be 10 letter only..")
     @NotBlank(message = "This field cannot be blank")
+    @Column(length = 10)
     private String mobileNumber;
     @NotBlank(message = "This field cannot be blank")
     @Pattern(regexp = "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$", message = "Invalid Email !!")
+    @Column(length = 40)
     private String email;
+    @Column(length = 2)
     private String Role;
+    @Column(length = 8)
     private String Password;
+    private int IssuedBook;
 
     public String getUserName() {
         return userName;
@@ -107,6 +119,14 @@ public class User {
         this.email = email;
     }
 
+    public int getIssuedBook() {
+        return IssuedBook;
+    }
+
+    public void setIssuedBook(int issuedBook) {
+        IssuedBook = issuedBook;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -119,6 +139,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", Role='" + Role + '\'' +
                 ", Password='" + Password + '\'' +
+                ", IssuedBook=" + IssuedBook +
                 '}';
     }
 }

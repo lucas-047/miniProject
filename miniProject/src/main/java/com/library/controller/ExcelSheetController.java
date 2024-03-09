@@ -29,40 +29,37 @@ ExcelSheetController {
     private BookRepository bookRepository;
 
     @RequestMapping("/htmlfile")
-    public String uploadhtml() {
+    public String uploadBook() {
         return "Public/upload";
+    }
+    @RequestMapping("/userfile")
+    public String uploadUser() {
+        return "Public/UserDataUpload";
     }
 
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
 
-
-        try {
-            //File f = (File) file;
-            // this.excelSheetConfig.ConvertExceltoListofUser(file1.getInputStream());
-            excelSheetService.importDataFromExcel(file);
-            // this.excelSheetService.save(file);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(ExcelSheetConfig.CheckFormat(file))
+        {
+            excelSheetService.bookDataSave(file);
+            return ResponseEntity.ok(Map.of("message", "file is uploaded and data is saved"));
         }
+        else{
+            return ResponseEntity.ok(Map.of("message", "incorrect format"));
+        }
+    }
+    @PostMapping(path = "/uploadUser", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> uploadUser(@RequestParam("file") MultipartFile file) {
 
-        return ResponseEntity.ok(Map.of("message", "file is uploaded and data is saved"));
+        if(ExcelSheetConfig.CheckFormat(file))
+        {
+            excelSheetService.UserDataSave(file);
+            return ResponseEntity.ok(Map.of("message", "file is uploaded and data is saved"));
+        }
+        else{
+            return ResponseEntity.ok(Map.of("message", "incorrect format"));
+        }
     }
 }
-
-
-
-
-
-//@RequestMapping("/book")
-//public String getAllBooks(Model model)
-//
-//{   List<Book> book=excelSheetService.getALLBook();
-//    //Book book1= (Book) bookRepository.findAll();
-//    System.out.println(book);
-//    model.addAttribute("data",book);
-////    return this.excelSheetService.getALLBook();
-//    return "Public/ExcelsheetDisplay";
-//}
 
