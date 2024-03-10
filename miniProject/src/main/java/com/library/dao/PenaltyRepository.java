@@ -5,8 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface PenaltyRepository extends JpaRepository<Penalty,Integer> {
     @Query("select tempTransaction from Penalty tempTransaction where tempTransaction.tempBookId =:bookId ")
     public Penalty getDuedate(@Param("bookId") int bookId);
    // public Penalty getdatabyid(int bookid);
+//   @Query("select tempUserData from Penalty tempUserData where tempUserData.tempUserId =: tempUserId ")
+//   public List<Penalty> getTransactionByUserId(@Param("userName") String tempUserId);
+
+   public List<Penalty> findByTempUserId(String tempUserId);
 }

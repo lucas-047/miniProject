@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +51,11 @@ public class PenaltyService extends StandardContext {
 
 
         return 0;
+    }
+    public List<Penalty> getUserData(String tempUserId)
+    {     // // return penaltyRepository.findAll();
+            //return penaltyRepository.getTransactionByUserId(tempUserId);
+           return penaltyRepository.findByTempUserId(tempUserId);
+        //return userRepository.findAll();
     }
 }

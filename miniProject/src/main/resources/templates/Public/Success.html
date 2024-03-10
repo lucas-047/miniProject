@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
-    This is Success Page
+    <table border="2" >
+        <tr >
+           USER ID:  <th th:text= User" ${user.tempUserId}" "colspan="3"></th>
+        </tr>
+<tr>
+
+
+            <th>issuedate</th>
+            <th>due date</th>
+            <th>book id</th>
+</tr>
+
+
+        <tr th:each="penalty:${userdetail}">
+            <td th:text="${penalty.tempIssueDate}"></td>
+            <td th:text="${penalty.tempDueDate}"></td>
+            <td th:text="${penalty.tempBookId}"></td>
+        </tr>
+    </table>
 </body>
 </html>

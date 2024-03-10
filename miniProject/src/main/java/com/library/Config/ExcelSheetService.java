@@ -27,15 +27,16 @@ public class ExcelSheetService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("vraj");
+
     }
 public void UserDataSave(MultipartFile file)
 {
     try{
         List<User> user=ExcelSheetConfig.importDataOfUserFromExcel(file);
         this.userRepository.saveAll(user);
+        System.out.println("vraj");
     } catch (IOException e) {
-        throw new RuntimeException(e);
+        System.out.println(e);
     }
 }
 }

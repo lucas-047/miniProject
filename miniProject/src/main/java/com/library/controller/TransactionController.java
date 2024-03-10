@@ -3,11 +3,13 @@ import com.library.Config.PenaltyService;
 import com.library.Config.TransactionService;
 import com.library.dao.BookRepository;
 import com.library.dao.PenaltyRepository;
+import com.library.dao.UserRepository;
 import com.library.entities.Book;
 import com.library.entities.Penalty;
 import com.library.entities.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,8 @@ public class TransactionController {
     private PenaltyService penaltyService;
     @Autowired
     private PenaltyRepository penaltyRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
 @RequestMapping("/issue")
@@ -34,43 +38,46 @@ public class TransactionController {
         return "Admin/IssueReturn";
     }
     @PostMapping("/verify")
-    public String validation(@RequestParam("user") String userId,@RequestParam("bookId") int bookId)
-    {
-            Boolean checkbook= bookRepository.existsById(bookId);
-            if(checkbook)
-            {
-                System.out.println("book exist");
-                Book book=bookRepository.getBookByBookId(bookId);
-               int status=book.getBookStatus();
-               if(status==0)
-               {
-                   System.out.println("book not available");
-               }
+    public String validation(@RequestParam("user") String userId, @RequestParam("bookId") int bookId, Model model) {
 
-               else {
-                   book.setBookStatus( 0);
-                   bookRepository.saveAndFlush(book);
-                   LocalDate currentDate = LocalDate.now();
-                   LocalDate duedate=currentDate.plusDays(1);
-                   System.out.println("status changed");
-               //  int transactionStatus= transactionService.saveIssueTransaction(userId,bookId,currentDate,duedate);
-                 int transactionStatus= penaltyService.saveTempIssueTransaction(userId,bookId,currentDate,duedate);
-            if(transactionStatus==0)
-            {
-                System.out.println("Transaction record saved");
+        boolean checkuser = userRepository.existsById(Double.valueOf(userId));
+        boolean checkbook = bookRepository.existsById(bookId);
+        if (checkuser) {
+
+        if (checkbook) {
+            System.out.println("book exist");
+            Book book = bookRepository.getBookByBookId(bookId);
+            int status = book.getBookStatus();
+            if (status == 0) {
+                System.out.println("book not available");
+            } else {
+                book.setBookStatus(0);
+                bookRepository.saveAndFlush(book);
+                LocalDate currentDate = LocalDate.now();
+                LocalDate duedate = currentDate.plusDays(1);
+                System.out.println("status changed");
+                //  int transactionStatus= transactionService.saveIssueTransaction(userId,bookId,currentDate,duedate);
+                int transactionStatus = penaltyService.saveTempIssueTransaction(userId, bookId, currentDate, duedate);
+                if (transactionStatus == 0) {
+                    System.out.println("Transaction record saved");
+                } else {
+                    System.out.println("Transaction record not saved");
+                }
+
             }
-            else {
-                System.out.println("Transaction record not saved");
-            }
+        } else {
+            System.out.println("book not found");
+        }
 
-               }
-            }
-            else {
-                System.out.println("book not found");
-            }
-
-
-
+    }else {
+            System.out.println("User not found");
+        }
+        List<Penalty> p=penaltyService.getUserData(userId);
+        Penalty user=p.getFirst();
+        model.addAttribute("user",user);
+            model.addAttribute("userdetail",p);
+       // List<Penalty> p=penaltyService.getUserData("userId");
+        //System.out.println(p);
         return "Public/Success";
     }
     @RequestMapping("return")

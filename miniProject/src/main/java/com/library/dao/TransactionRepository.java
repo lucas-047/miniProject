@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction,Integer> {
 
+    @Query("select book from Book book where book.bookId =:bookId ")
+    public Book getBookByBookId(@Param("bookId") int bookId);
 
 }
