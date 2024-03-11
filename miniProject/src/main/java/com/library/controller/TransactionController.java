@@ -8,6 +8,7 @@ import com.library.entities.Book;
 import com.library.entities.Penalty;
 import com.library.entities.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,7 +87,7 @@ public class TransactionController {
         return "Admin/IssueReturn";
     }
     @PostMapping("/returning")
-    public String returnProcess(@RequestParam("bookId") int bookId)
+    public String returnProcess(@RequestParam("bookId") int bookId,Model model)
     {
         Boolean checkbook= bookRepository.existsById(bookId);
         if(checkbook)
@@ -100,6 +101,7 @@ public class TransactionController {
             System.out.println("status change now book is available");
             LocalDate returnDate=LocalDate.now();
             Penalty penalty = penaltyRepository.getDuedate(bookId);
+
             LocalDate checkDuedate= penalty.getTempDueDate();
             int day= (int) ChronoUnit.DAYS.between(returnDate,checkDuedate);
             Optional<Penalty> penalty1=penaltyRepository.findById(bookId);
@@ -107,23 +109,22 @@ public class TransactionController {
             if(day==0)
             {
                 System.out.println("on time");
-                transactionService.transferPenaltyToTransaction(Exportdata);
+                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
 
             }
             else if(day>0)
             {
                 System.out.println("you are early bird");
-                transactionService.transferPenaltyToTransaction(Exportdata);
+                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
             }
             else {
                // transactionService.savePentaltyStatus(bookId,day);
                 day= Math.abs(day);
                 int PenaltyDue=10*day;
                 System.out.println("ops you got penalty of "+PenaltyDue+"Rs");
-                transactionService.transferPenaltyToTransaction(Exportdata);
+                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
             }
             penaltyRepository.deleteById(bookId);
-
 
 
 
@@ -131,8 +132,9 @@ public class TransactionController {
         else {
             System.out.println("book id is wrong");
         }
-
-
+       List<Transaction>  t=transactionService.getBookRecord(bookId);
+        System.out.println(t);
+       model.addAttribute("bookdata",t);
         return "Public/Success";
     }
 }

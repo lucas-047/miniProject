@@ -1,27 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <table border="2" >
-        <tr >
-           USER ID:  <th th:text= User" ${user.tempUserId}" "colspan="3"></th>
-        </tr>
-<tr>
+    <table border="2" th:if="${userdetail}">
 
-
-            <th>issuedate</th>
-            <th>due date</th>
-            <th>book id</th>
-</tr>
-
+            <tr >
+                <th> USER ID:</th>  <th th:text=" ${user.tempUserId}"   colspan="3"></th>
+            </tr>
+            <tr>
+                <th>issuedate</th>
+                <th>due date</th>
+                <th>book id</th>
+            </tr>
 
         <tr th:each="penalty:${userdetail}">
             <td th:text="${penalty.tempIssueDate}"></td>
             <td th:text="${penalty.tempDueDate}"></td>
             <td th:text="${penalty.tempBookId}"></td>
+        </tr>
+
+
+    </table>
+    <table border="2" th:if="${bookdata}" >
+        <tr>
+        <th>issuedate</th>
+        <th>return date</th>
+        </tr>
+        <tr th:each="book:${bookdata}">
+            <td th:text="${book.issueDate}"></td>
+            <td th:text="${book.returnDate}"></td>
         </tr>
     </table>
 </body>

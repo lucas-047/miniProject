@@ -28,8 +28,8 @@
             <div class="form-box">
                 <form th:action="@{/returning}" action="#" method="post" enctype="multipart/form-data">
                     <div class="input-box">
-                        <input type="text" name="userId" id="bookID-return" required/>
-                        <label for="bookID-return">User ID</label>
+                        <input type="number" name="bookId" id="bookID-return" required/>
+                        <label for="bookID-return">Book ID</label>
                     </div>
                     <div class="button">
                         <button type="submit" class="bth">Return</button>
