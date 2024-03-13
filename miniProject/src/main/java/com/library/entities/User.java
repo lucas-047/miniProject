@@ -1,10 +1,7 @@
 package com.library.entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.Length;
 
@@ -43,7 +40,7 @@ public class User {
     private String Password;
     private int IssuedBook;
 
-    public double getUserName() {
+  public double getUserName() {
         return userName;
     }
 

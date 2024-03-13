@@ -1,6 +1,7 @@
 package com.library.entities;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
@@ -9,10 +10,12 @@ import java.util.Date;
 @Entity
 @Table(name = "Transaction")
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name="transactionId")
     private Double transactionId;
+
     @Column(name="userId")
     private String userId;
     @Column(name="bookId")
@@ -85,7 +88,6 @@ public class Transaction {
     public void setPenaltyStatus(int penaltyStatus) {
         this.penaltyStatus = penaltyStatus;
     }
-
 
     @Override
     public String toString() {

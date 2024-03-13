@@ -5,8 +5,10 @@ import com.library.dao.BookRepository;
 import com.library.dao.PenaltyRepository;
 import com.library.dao.UserRepository;
 import com.library.entities.Book;
+import com.library.entities.User;
 import com.library.entities.Penalty;
 import com.library.entities.Transaction;
+import com.library.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +44,7 @@ public class TransactionController {
     @PostMapping("/verify")
     public String validation(@RequestParam("user") String userId, @RequestParam("bookId") int bookId, Model model) {
 
-        boolean checkuser = userRepository.existsById(Double.valueOf(userId));
+        boolean checkuser = userRepository.existsById(userId);
         boolean checkbook = bookRepository.existsById(bookId);
         if (checkuser) {
 
@@ -133,7 +136,19 @@ public class TransactionController {
             System.out.println("book id is wrong");
         }
        List<Transaction>  t=transactionService.getBookRecord(bookId);
-        System.out.println(t);
+                List<String> id=new ArrayList<>();
+                for(Transaction transaction:t)
+                {
+                   String i= transaction.getUserId();
+                   id.add(i);
+                }
+                List<User> u=userRepository.findAllById( id);
+             //List<User> u=   userRepository.findAllById(id);
+        System.out.println(u);
+                model.addAttribute("username",u);
+//                User user1=t.getUser
+//                System.out.println(user);
+            System.out.println(t);
        model.addAttribute("bookdata",t);
         return "Public/Success";
     }

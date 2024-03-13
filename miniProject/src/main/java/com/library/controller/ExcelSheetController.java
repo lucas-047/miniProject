@@ -34,7 +34,7 @@ ExcelSheetController {
     }
     @RequestMapping("/userfile")
     public String uploadUser() {
-        return "Public/upload";
+        return "Public/UserDataUpload";
     }
 
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

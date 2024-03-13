@@ -29,11 +29,20 @@
         <tr>
         <th>issuedate</th>
         <th>return date</th>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
         </tr>
-        <tr th:each="book:${bookdata}">
-            <td th:text="${book.issueDate}"></td>
-            <td th:text="${book.returnDate}"></td>
-        </tr>
+        <tr th:each="book:${bookdata} " >
+        <div th:each="name:${username} ">
+                            <td th:text="${book.issueDate}"></td>
+                            <td th:text="${book.returnDate}"></td>
+                            <td th:text="${book.getUserId()}"></td>
+                <td th:text="${name.firstName}"></td>
+                <td th:text="${name.lastName}"></td>
+        </div>
+            </tr>
+
     </table>
 </body>
 </html>
