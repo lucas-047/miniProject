@@ -93,63 +93,68 @@ public class TransactionController {
     public String returnProcess(@RequestParam("bookId") int bookId,Model model)
     {
         Boolean checkbook= bookRepository.existsById(bookId);
-        if(checkbook)
-        {   Book book=bookRepository.getBookByBookId(bookId);
-
-            System.out.println("return book found in database");
-            String string = book.toString();
-            System.out.println(string);
-            book.setBookStatus(1);
-            bookRepository.saveAndFlush(book);
-            System.out.println("status change now book is available");
-            LocalDate returnDate=LocalDate.now();
-            Penalty penalty = penaltyRepository.getDuedate(bookId);
-
-            LocalDate checkDuedate= penalty.getTempDueDate();
-            int day= (int) ChronoUnit.DAYS.between(returnDate,checkDuedate);
-            Optional<Penalty> penalty1=penaltyRepository.findById(bookId);
-            Penalty Exportdata=penalty1.get();
-            if(day==0)
-            {
-                System.out.println("on time");
-                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
-
-            }
-            else if(day>0)
-            {
-                System.out.println("you are early bird");
-                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
-            }
-            else {
-               // transactionService.savePentaltyStatus(bookId,day);
-                day= Math.abs(day);
-                int PenaltyDue=10*day;
-                System.out.println("ops you got penalty of "+PenaltyDue+"Rs");
-                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
-            }
-            penaltyRepository.deleteById(bookId);
-
-
-
+        int status=bookRepository.getBookstatus(bookId);
+        if(status==1)
+        {
+            System.out.println("book is already return");
         }
-        else {
-            System.out.println("book id is wrong");
-        }
-       List<Transaction>  t=transactionService.getBookRecord(bookId);
-                List<String> id=new ArrayList<>();
-                for(Transaction transaction:t)
-                {
-                   String i= transaction.getUserId();
-                   id.add(i);
+        else
+        {
+
+
+            if (checkbook) {
+                Book book = bookRepository.getBookByBookId(bookId);
+
+                System.out.println("return book found in database");
+                String string = book.toString();
+                System.out.println(string);
+                book.setBookStatus(1);
+                bookRepository.saveAndFlush(book);
+                System.out.println("status change now book is available");
+                LocalDate returnDate = LocalDate.now();
+                Penalty penalty = penaltyRepository.getDuedate(bookId);
+
+                LocalDate checkDuedate = penalty.getTempDueDate();
+                int day = (int) ChronoUnit.DAYS.between(returnDate, checkDuedate);
+                Optional<Penalty> penalty1 = penaltyRepository.findById(bookId);
+                Penalty Exportdata = penalty1.get();
+//            if(day==0)
+//            {
+//                System.out.println("on time");
+//                transactionService.transferPenaltyToTransaction(Exportdata,returnDate);
+//
+//            }
+                if (day >= 0) {
+                    System.out.println("you are early bird");
+                    transactionService.transferPenaltyToTransaction(Exportdata, returnDate);
+                } else {
+                    // transactionService.savePentaltyStatus(bookId,day);
+                    day = Math.abs(day);
+                    int PenaltyDue = 10 * day;
+                    System.out.println("ops you got penalty of " + PenaltyDue + "Rs");
+                    transactionService.transferPenaltyToTransaction(Exportdata, returnDate);
                 }
-                List<User> u=userRepository.findAllById( id);
-             //List<User> u=   userRepository.findAllById(id);
-        System.out.println(u);
-                model.addAttribute("username",u);
+                penaltyRepository.deleteById(bookId);
+                List<Transaction> t = transactionService.getBookRecord(bookId);
+                List<String> id = new ArrayList<>();
+                for (Transaction transaction : t) {
+                    String i = transaction.getUserId();
+                    id.add(i);
+                }
+                List<User> u = userRepository.findAllById(id);
+                //List<User> u=   userRepository.findAllById(id);
+                System.out.println(u);
+                model.addAttribute("username", u);
 //                User user1=t.getUser
 //                System.out.println(user);
-            System.out.println(t);
-       model.addAttribute("bookdata",t);
+                System.out.println(t);
+                model.addAttribute("bookdata", t);
+
+
+            } else {
+                System.out.println("book id is wrong");
+            }
+        }
         return "Public/Success";
     }
 }
