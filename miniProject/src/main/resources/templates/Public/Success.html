@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,16 +17,16 @@
                 <th>book id</th>
             </tr>
 
-        <tr th:each="penalty:${userdetail}">
-            <td th:text="${penalty.tempIssueDate}"></td>
-            <td th:text="${penalty.tempDueDate}"></td>
-            <td th:text="${penalty.tempBookId}"></td>
-        </tr>
+    <tr th:each="penalty:${userdetail}">
+        <td th:text="${penalty.tempIssueDate}"></td>
+        <td th:text="${penalty.tempDueDate}"></td>
+        <td th:text="${penalty.tempBookId}"></td>
+    </tr>
 
 
-    </table>
-    <table border="2" th:if="${bookdata}" >
-        <tr>
+</table>
+<table border="2" th:if="${bookdata}" >
+    <tr>
         <th>issuedate</th>
         <th>return date</th>
             <th>User ID</th>

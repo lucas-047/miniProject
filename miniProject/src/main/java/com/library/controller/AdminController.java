@@ -11,7 +11,6 @@ public class AdminController {
 
     @RequestMapping("/index")
     public String dashBorad(){
-        System.out.println("ghfhe");
         return "Admin/Admin_dashBoard";
     }
 

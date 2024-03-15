@@ -43,7 +43,7 @@ public class SecurityConfig {
             "/img/**",
             "/JS/**",
             "/library",
-            "/About",
+//            "/About",
             "/signIn",
             "/password_reset",
             "/sendResetPasswordMail",
@@ -58,7 +58,7 @@ public class SecurityConfig {
             "book",
             "htmlfile",
             "verify",
-            "issue",
+            "/issue-return",
             "return",
             "returning",
             "/user/**",
@@ -90,4 +90,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+    
 }

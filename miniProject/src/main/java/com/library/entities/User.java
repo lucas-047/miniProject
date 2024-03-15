@@ -10,7 +10,7 @@ import org.hibernate.Length;
 public class User {
 
     @Id
-    private double userName;
+    private String userName;
     @Size(max = 12, message = "First Name should be 5 to 12 letter only..")
     @NotBlank(message = "This field cannot be blank")
     @Column(length = 20)
@@ -40,11 +40,11 @@ public class User {
     private String Password;
     private int IssuedBook;
 
-  public double getUserName() {
+  public String getUserName() {
         return userName;
     }
 
-    public void setUserName(double userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 

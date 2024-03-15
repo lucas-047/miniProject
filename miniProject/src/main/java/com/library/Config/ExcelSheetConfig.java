@@ -1,25 +1,17 @@
 package com.library.Config;
 
-import com.library.dao.BookRepository;
 import com.library.entities.Book;
 import com.library.entities.User;
-import jakarta.persistence.EntityManager;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
 import java.util.Iterator;
 import java.util.List;
 @Service
@@ -31,7 +23,6 @@ public class ExcelSheetConfig {
         if(contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
         {
             return true;
-
         }
         else
         {
@@ -213,7 +204,7 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
              User user=new User();
                 if (column1Index != -1) {
                     Cell cell = row.getCell(column1Index);
-                    user.setUserName(cell.getNumericCellValue());
+                    user.setUserName(cell.getStringCellValue());
                 }
                 if (column2Index != -1) {
                     Cell cell = row.getCell(column2Index);

@@ -9,17 +9,17 @@
 </head>
 <body class="d-flex justify-content-center align-items-center">
 
-    <!--Navbar-->
-    <header class="position-fixed justify-content-between bg-transparent z-99 align-items-center d-flex">
-        <h2 class="logo">Logo</h2>
-        <nav class="navigation">
-            <a href="#" th:href="@{/library}">Home</a>
-            <a href="#" th:href="@{/About}">About</a>
-            <a href="#" th:href="@{/signIn}">Login</a>
-            <a href="#" th:href="@{/Registration}">Registration</a>
-        </nav>
-    </header>
-    <!--END Navbar-->
+<!--    &lt;!&ndash;Navbar&ndash;&gt;-->
+<!--    <header class="position-fixed justify-content-between bg-transparent z-99 align-items-center d-flex">-->
+<!--        <h2 class="logo">Logo</h2>-->
+<!--        <nav class="navigation">-->
+<!--            <a href="#" th:href="@{/library}">Home</a>-->
+<!--            <a href="#" th:href="@{/About}">About</a>-->
+<!--            <a href="#" th:href="@{/signIn}">Login</a>-->
+<!--            <a href="#" th:href="@{/Registration}">Registration</a>-->
+<!--        </nav>-->
+<!--    </header>-->
+<!--    &lt;!&ndash;END Navbar&ndash;&gt;-->
 
     <div th:replace="${content}"> <--   Content will be shown here -->   </div>
 

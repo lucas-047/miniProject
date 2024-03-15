@@ -8,90 +8,170 @@
 <body>
     <div class="container">
         <div class="issue-div">
-            <div class="form-box">
-                <form th:action="@{/verify}" action="#" method="post" enctype="multipart/form-data">
-                    <div class="input-box">
-                        <input type="text" name="user" id="userID" required/>
-                        <label for="userID">User ID</label>
+            <button class="myBtn">Open Modal</button>
+            <!-- The Modal -->
+            <div class="modal myModal">
+                <!-- Modal content -->
+                <div class="modal-content">
+<!--                    <span class="close">&times;</span>-->
+                    <div class="form-box">
+                        <h2>Issue</h2>
+                        <form th:action="@{/Issue}" action="#" method="post" enctype="multipart/form-data">
+                            <div class="input-box">
+                                <input type="text" name="user" id="userID" required/>
+                                <label for="userID">User ID</label>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" name="bookId" id="bookID-issue" required/>
+                                <label for="bookID-issue">Book ID</label>
+                            </div>
+                            <div class="button">
+                                <button type="submit" class="bth" value="Issue">Issue</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="input-box">
-                        <input type="text" name="bookId" id="bookID-issue" required/>
-                        <label for="bookID-issue">Book ID</label>
-                    </div>
-                    <div class="button">
-                        <button type="submit" class="bth">Issue</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+
+
+
         <div class="return-div">
-            <div class="form-box">
-                <form th:action="@{/returning}" action="#" method="post" enctype="multipart/form-data">
-                    <div class="input-box">
-                        <input type="number" name="bookId" id="bookID-return" required/>
-                        <label for="bookID-return">Book ID</label>
+            <button class="myBtn">Open Modal</button>
+
+            <!-- The Modal -->
+            <div class="modal myModal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="form-box">
+                        <h2>Return</h2>
+                        <form th:action="@{/Return}" action="#" method="post" enctype="multipart/form-data">
+                            <div class="input-box">
+                                <input type="number" name="bookId" id="bookID-return" required/>
+                                <label for="bookID-return">Book ID</label>
+                            </div>
+                            <div class="button">
+                                <button type="submit" class="bth">Return</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="button">
-                        <button type="submit" class="bth">Return</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-        <div class="table-data">
+        <div class="message" th:if="${Book || UserStatus || successError || issueSuccess || BookStatus || Penalty>0 || returnSuccess || alreadyReturn}">
+            <div th:if="${Book}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Book Not Found!! </p>
+            </div>
+            <div th:if="${UserStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> User Not Found!! </p>
+            </div>
+            <div th:if="${successError}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Error in Data Save. </p>
+            </div>
+            <div th:if="${issueSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
+                <p> Data Saved Successfully. </p>
+            </div>
+            <div th:if="${BookStatus}" class="alert alert-success d-flex align-items-center justify-content-center">
+                <p> Book Not Available</p>
+            </div>
+            <div th:if="${Penalty>0}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> You have Penalty of RS <span th:text="${Penalty}"></span> </p>
+            </div>
+            <div th:if="${alreadyReturn}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Book is already return </p>
+            </div>
+            <div th:if="${returnSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
+                <p> Data Saved Successfully. </p>
+            </div>
+        </div>
+
+        <div class="table-data" th:if="${returnSuccess || issueSuccess}">
             <div class="order">
                 <div class="head">
                     <h3>Recent Issue</h3>
                     <i class='bx bx-search' ></i>
                     <i class='bx bx-filter' ></i>
                 </div>
-                <table>
+                <table th:if="${userdetail}">
                     <thead>
                     <tr>
-                        <th>User</th>
-                        <th>Issue Date</th>
-                        <th>Status</th>
+                        <th>Issue date</th>
+                        <th>due date</th>
+                        <th>book id</th>
                     </tr>
                     </thead>
                     <tbody>
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status completed">Completed</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status pending">Over Due</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status process">Return Pending</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status pending">Over Due</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status completed">Completed</span></td>-->
+<!--                    </tr>-->
+                        <tr th:each="penalty:${userdetail}">
+                            <td th:text="${penalty.tempIssueDate}"></td>
+                            <td th:text="${penalty.tempDueDate}"></td>
+                            <td th:text="${penalty.tempBookId}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table th:if="${bookdata}">
+                    <thead>
                     <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
+                        <th>issuedate</th>
+                        <th>return date</th>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                     </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Over Due</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status process">Return Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Over Due</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
+                    </thead>
+                    <tbody>
+                    <tr th:each="book:${bookdata} " >
+                        <div th:each="name:${username} ">
+                            <td th:text="${book.issueDate}"></td>
+                            <td th:text="${book.returnDate}"></td>
+                            <td th:text="${book.getUserId()}"></td>
+                            <td th:text="${name.firstName}"></td>
+                            <td th:text="${name.lastName}"></td>
+                        </div>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" th:src="@{/JS/IssueReturn.js}"></script>
+    <script type="text/javascript" th:src="@{https://code.jquery.com//jquery-3.7.1.min.js}"></script>
+
 </body>
 </html>
