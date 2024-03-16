@@ -34,7 +34,7 @@ public class TransactionService {
         return 0;
 
     }
-    public void transferPenaltyToTransaction(Penalty Exportdata,LocalDate returning)
+    public void transferPenaltyToTransaction(Penalty Exportdata,LocalDate returning,int p)
     {
         Transaction Importdata=new Transaction();
         Importdata.setBookId(Exportdata.getTempBookId());
@@ -43,6 +43,7 @@ public class TransactionService {
         Importdata.setIssueDate(Exportdata.getTempIssueDate());
         Importdata.setDueDate(Exportdata.getTempDueDate());
         Importdata.setReturnDate(returning);
+        Importdata.setPenaltyStatus(p);
 
         transactionRepository.saveAndFlush(Importdata);
     }
