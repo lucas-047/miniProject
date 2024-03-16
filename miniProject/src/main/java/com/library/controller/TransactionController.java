@@ -149,7 +149,7 @@ public class TransactionController {
                     model.addAttribute("returnSuccess", true);
                     transactionService.transferPenaltyToTransaction(
                             Exportdata,
-                            returnDate,day
+                            returnDate
                     );
                     List<Transaction> t = transactionService.getBookRecord(bookId);
                     List<String> id = new ArrayList<>();

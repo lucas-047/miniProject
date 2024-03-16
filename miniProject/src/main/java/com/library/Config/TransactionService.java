@@ -47,6 +47,19 @@ public class TransactionService {
 
         transactionRepository.saveAndFlush(Importdata);
     }
+    public void transferPenaltyToTransaction(Penalty Exportdata,LocalDate returning)
+    {
+        Transaction Importdata=new Transaction();
+        Importdata.setBookId(Exportdata.getTempBookId());
+        Importdata.setPenaltyStatus(Exportdata.getTempPenaltyStatus());
+        Importdata.setUserId(Exportdata.getTempUserId());
+        Importdata.setIssueDate(Exportdata.getTempIssueDate());
+        Importdata.setDueDate(Exportdata.getTempDueDate());
+        Importdata.setReturnDate(returning);
+        Importdata.setPenaltyStatus(-1);
+
+        transactionRepository.saveAndFlush(Importdata);
+    }
     public List<Transaction> getBookRecord(int bookId)
     {
         return transactionRepository.findByBookId(bookId);
