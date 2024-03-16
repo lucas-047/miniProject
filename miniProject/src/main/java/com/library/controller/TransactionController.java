@@ -1,5 +1,6 @@
 package com.library.controller;
 
+import com.library.Config.AdvanceConfigService;
 import com.library.Config.PenaltyService;
 import com.library.Config.TransactionService;
 import com.library.dao.BookRepository;
@@ -36,6 +37,8 @@ public class TransactionController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AdvanceConfigService advanceConfigService;
 
     @GetMapping("/issue-return")
     public String getissuepage(Model model) {
@@ -110,6 +113,7 @@ public class TransactionController {
 
     @PostMapping("/Return")
     public String returnProcess(@RequestParam("bookId") int bookId, Model model) {
+        int price=advanceConfigService.getPenaltyValue();
         model.addAttribute("Book", false);
         model.addAttribute("UserStatus", false);
         model.addAttribute("issueSuccess", false);
@@ -131,7 +135,7 @@ public class TransactionController {
                 String string = book.toString();
                 System.out.println(string);
                 book.setBookStatus(1);
-                bookRepository.saveAndFlush(book);
+
                 System.out.println("status change now book is available");
                 LocalDate returnDate = LocalDate.now();
                 Penalty penalty = penaltyRepository.getDuedate(bookId);
@@ -159,8 +163,9 @@ public class TransactionController {
                     System.out.println(t);
                     model.addAttribute("bookdata", t);
                 } else {
+
                     day = Math.abs(day);
-                    int PenaltyDue = 10 * day;
+                    int PenaltyDue = price* day;
                     System.out.println("ops you got penalty of " + PenaltyDue + "Rs");
                     model.addAttribute("Penalty", PenaltyDue);
 
@@ -168,6 +173,7 @@ public class TransactionController {
                             Exportdata,
                             returnDate
                     );
+                    bookRepository.saveAndFlush(book);
                 }
                 penaltyRepository.deleteById(bookId);
             } else {
