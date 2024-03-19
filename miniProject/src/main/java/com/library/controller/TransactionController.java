@@ -56,7 +56,7 @@ public class TransactionController {
 
     @PostMapping("/Issue")
     public String validation(
-            @RequestParam("user") String userId,
+            @RequestParam("user") String userName,
             @RequestParam("bookId") int bookId,
             Model model
     ) {
@@ -68,45 +68,97 @@ public class TransactionController {
         model.addAttribute("Penalty", 0);
         model.addAttribute("BookStatus", false);
         model.addAttribute("alreadyReturn", false);
-        boolean checkuser = userRepository.existsById(userId);
+        User checkuser = userRepository.getRegDataByusername(userName);
+
         Book book = bookRepository.getBookByBookId(bookId);
-        if (checkuser && book != null) {
-            int status = book.getBookStatus();
-            if (status == 0) {
-                System.out.println("book not available");
-                model.addAttribute("BookStatus", true);
-            } else {
-                book.setBookStatus(0);
-                bookRepository.saveAndFlush(book);
-                LocalDate currentDate = LocalDate.now();
-                LocalDate duedate = currentDate.plusDays(1);
-                System.out.println("status changed");
-                int transactionStatus = penaltyService.saveTempIssueTransaction(
-                        userId,
-                        bookId,
-                        currentDate,
-                        duedate
-                );
-                if (transactionStatus == 0) {
-                    System.out.println("Transaction record saved");
-                    List<Penalty> p = penaltyService.getUserData(userId);
-                    Penalty user = p.getFirst();
-                    model.addAttribute("user", user);
-                    model.addAttribute("userdetail", p);
-                    model.addAttribute("issueSuccess", true);
+        if(checkuser!=null) {
+
+
+            if (book != null) {
+                int status = book.getBookStatus();
+                if (status == 0) {
+                    System.out.println("book not available");
+                    model.addAttribute("BookStatus", true);
                 } else {
-                    System.out.println("Transaction record not saved");
-                    model.addAttribute("successError", true);
+
+                    book.setBookStatus(0);
+                    LocalDate currentDate = LocalDate.now();
+                    String role = checkuser.getRole();
+                    int totalNumberOfBook = checkuser.getIssuedBook();
+                    int penaltyStatus = checkuser.getPenaltyStatus();
+
+                    boolean compare = false;
+                    int difference;
+                    int userLimitOfBook;
+                    int facultyLimitOfBook;
+                    if (penaltyStatus == 0) {
+                        if(role.equals("s"))
+                        {
+                            difference = advanceConfigService.getUserDueDate();
+                            userLimitOfBook=advanceConfigService.getNumberOfIssueBookForUser();
+                            if(totalNumberOfBook<userLimitOfBook)
+                            {
+                                compare=true;
+                            }
+
+                        }
+                        else {
+                            difference=advanceConfigService.getFacultyDueDate();
+                            facultyLimitOfBook=advanceConfigService.getNumberOfIssueBookForFaculty();
+                            if(totalNumberOfBook<facultyLimitOfBook)
+                            {
+                                compare=true;
+                            }
+                        }
+                        if(compare)
+                        {
+                            LocalDate duedate = currentDate.plusDays(difference);
+                            System.out.println("status changed");
+                            int transactionStatus = penaltyService.saveTempIssueTransaction(
+                                    userName,
+                                    bookId,
+                                    currentDate,
+                                    duedate
+                            );
+                            if (transactionStatus == 0) {
+                                bookRepository.saveAndFlush(book);
+                                System.out.println("Transaction record saved");
+                                List<Penalty> p = penaltyService.getUserData(userName);
+                                Penalty user = p.getFirst();
+                                model.addAttribute("user", user);
+                                model.addAttribute("userdetail", p);
+                                model.addAttribute("issueSuccess", true);
+                            } else {
+                                System.out.println("Transaction record not saved");
+                                model.addAttribute("successError", true);
+                            }
+                        }
+                        else {
+                            System.out.println("you issued maximum number of book");
+                        }
+
+                    }
+
+                    else {
+                        System.out.println("Please clear Penalty first!");
+                    }
                 }
             }
-        } else {
-            if (book == null) {
-                model.addAttribute("Book", true);
-                System.out.println(checkuser);
+
+                else {
+                if (book == null) {
+                    model.addAttribute("Book", true);
+                    System.out.println(checkuser);
+                }
+                if (checkuser ==null) {
+                    model.addAttribute("UserStatus", true);
+                }
             }
-            if (!checkuser) {
-                model.addAttribute("UserStatus", true);
-            }
+
+
+        }
+        else {
+            System.out.println("user not found");
         }
         return "Admin/IssueReturn";
     }

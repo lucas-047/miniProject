@@ -37,8 +37,9 @@ public class User {
     @Column(length = 2)
     private String Role;
     @Column(length = 8)
-    private String Password;
-    private int IssuedBook;
+    private String password;
+    private int issuedBook;
+    private int penaltyStatus;
 
   public String getUserName() {
         return userName;
@@ -57,11 +58,11 @@ public class User {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        password = password;
     }
 
     public String getFirstName() {
@@ -113,11 +114,19 @@ public class User {
     }
 
     public int getIssuedBook() {
-        return IssuedBook;
+        return issuedBook;
     }
 
     public void setIssuedBook(int issuedBook) {
-        IssuedBook = issuedBook;
+        this.issuedBook = issuedBook;
+    }
+
+    public int getPenaltyStatus() {
+        return penaltyStatus;
+    }
+
+    public void setPenaltyStatus(int penaltyStatus) {
+        this.penaltyStatus = penaltyStatus;
     }
 
     @Override
@@ -131,8 +140,9 @@ public class User {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", Role='" + Role + '\'' +
-                ", Password='" + Password + '\'' +
-                ", IssuedBook=" + IssuedBook +
+                ", password='" + password + '\'' +
+                ", issuedBook=" + issuedBook +
+                ", penaltyStatus=" + penaltyStatus +
                 '}';
     }
 }

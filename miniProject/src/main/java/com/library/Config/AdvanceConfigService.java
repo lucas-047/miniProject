@@ -5,6 +5,15 @@ import com.library.entities.AdvanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*
+id 1= penalty price
+id 2= user issue book
+id 3= faculty issue book
+id 4=user due date duration
+id 5=faculty due date duration
+*/
+
+
 @Service
 
 public class AdvanceConfigService {
