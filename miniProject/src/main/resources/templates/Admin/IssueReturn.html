@@ -1,90 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Admin/base'::Layout(~{::body})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/IssueReturn.css}"/>
 </head>
 <body>
     <div class="container">
-        <div class="issue-div">
-            <button class="myBtn">Open Modal</button>
-            <!-- The Modal -->
-            <div class="modal myModal">
-                <!-- Modal content -->
-                <div class="modal-content">
-<!--                    <span class="close">&times;</span>-->
-                    <div class="form-box">
-                        <h2>Issue</h2>
-                        <form th:action="@{/Issue}" action="#" method="post" enctype="multipart/form-data">
-                            <div class="input-box">
-                                <input type="text" name="user" id="userID" required/>
-                                <label for="userID">User ID</label>
-                            </div>
-                            <div class="input-box">
-                                <input type="text" name="bookId" id="bookID-issue" required/>
-                                <label for="bookID-issue">Book ID</label>
-                            </div>
-                            <div class="button">
-                                <button type="submit" class="bth" value="Issue">Issue</button>
-                            </div>
-                        </form>
+        <div class="btn-div">
+            <div class="issue-div">
+                <button class="myBtn">Issue</button>
+                <!-- The Modal -->
+                <div class="modal myModal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="form-box">
+                            <h2>Issue</h2>
+                            <form th:action="@{/Issue}" action="#" method="post" enctype="multipart/form-data">
+                                <div class="input-box">
+                                    <input type="text" name="user" id="userID" required/>
+                                    <label for="userID">User ID</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" name="bookId" id="bookID-issue" required/>
+                                    <label for="bookID-issue">Book ID</label>
+                                </div>
+                                <div class="button">
+                                    <button type="submit" class="bth" value="Issue">Issue</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="return-div">
+                <button class="myBtn">Return</button>
+
+                <!-- The Modal -->
+                <div class="modal myModal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="form-box">
+                            <h2>Return</h2>
+                            <form th:action="@{/Return}" action="#" method="post" enctype="multipart/form-data">
+                                <div class="input-box">
+                                    <input type="number" name="bookId" id="bookID-return" required/>
+                                    <label for="bookID-return">Book ID</label>
+                                </div>
+                                <div class="button">
+                                    <button type="submit" class="bth">Return</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-        <div class="return-div">
-            <button class="myBtn">Open Modal</button>
-
-            <!-- The Modal -->
-            <div class="modal myModal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="form-box">
-                        <h2>Return</h2>
-                        <form th:action="@{/Return}" action="#" method="post" enctype="multipart/form-data">
-                            <div class="input-box">
-                                <input type="number" name="bookId" id="bookID-return" required/>
-                                <label for="bookID-return">Book ID</label>
-                            </div>
-                            <div class="button">
-                                <button type="submit" class="bth">Return</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div th:if="${Book}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> Book Not Found!! </p>
         </div>
-        <div class="message" th:if="${Book || UserStatus || successError || issueSuccess || BookStatus || Penalty>0 || returnSuccess || alreadyReturn}">
-            <div th:if="${Book}" class="alert alert-danger d-flex align-items-center justify-content-center">
-                <p> Book Not Found!! </p>
-            </div>
-            <div th:if="${UserStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
-                <p> User Not Found!! </p>
-            </div>
-            <div th:if="${successError}" class="alert alert-danger d-flex align-items-center justify-content-center">
-                <p> Error in Data Save. </p>
-            </div>
-            <div th:if="${issueSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
-                <p> Data Saved Successfully. </p>
-            </div>
-            <div th:if="${BookStatus}" class="alert alert-success d-flex align-items-center justify-content-center">
-                <p> Book Not Available</p>
-            </div>
-            <div th:if="${Penalty>0}" class="alert alert-danger d-flex align-items-center justify-content-center">
-                <p> You have Penalty of RS <span th:text="${Penalty}"></span> </p>
-            </div>
-            <div th:if="${alreadyReturn}" class="alert alert-danger d-flex align-items-center justify-content-center">
-                <p> Book is already return </p>
-            </div>
-            <div th:if="${returnSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
-                <p> Data Saved Successfully. </p>
-            </div>
+        <div th:if="${UserStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> User Not Found!! </p>
         </div>
+        <div th:if="${successError}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> Error in Data Save. </p>
+        </div>
+        <div th:if="${issueSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
+            <p> Data Saved Successfully. </p>
+        </div>
+        <div th:if="${BookStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> Book Not Available</p>
+        </div>
+        <div th:if="${Penalty>0}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> You have Penalty of RS <span th:text="${Penalty}"></span> </p>
+        </div>
+        <div th:if="${alreadyReturn}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> Book is already return </p>
+        </div>
+        <div th:if="${returnSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
+            <p> Data Saved Successfully. </p>
+        </div>
+        <div th:if="${maxIssue}" class="alert alert-danger d-flex align-items-center justify-content-center">
+            <p> You issued maximum number of book </p>
+        </div>
+
 
         <div class="table-data" th:if="${returnSuccess || issueSuccess}">
             <div class="order">
@@ -102,41 +104,6 @@
                     </tr>
                     </thead>
                     <tbody>
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <p>ABC</p>-->
-<!--                        </td>-->
-<!--                        <td>01-10-2021</td>-->
-<!--                        <td><span class="status completed">Completed</span></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <p>ABC</p>-->
-<!--                        </td>-->
-<!--                        <td>01-10-2021</td>-->
-<!--                        <td><span class="status pending">Over Due</span></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <p>ABC</p>-->
-<!--                        </td>-->
-<!--                        <td>01-10-2021</td>-->
-<!--                        <td><span class="status process">Return Pending</span></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <p>ABC</p>-->
-<!--                        </td>-->
-<!--                        <td>01-10-2021</td>-->
-<!--                        <td><span class="status pending">Over Due</span></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <p>ABC</p>-->
-<!--                        </td>-->
-<!--                        <td>01-10-2021</td>-->
-<!--                        <td><span class="status completed">Completed</span></td>-->
-<!--                    </tr>-->
                         <tr th:each="penalty:${userdetail}">
                             <td th:text="${penalty.tempIssueDate}"></td>
                             <td th:text="${penalty.tempDueDate}"></td>
@@ -147,15 +114,15 @@
                 <table th:if="${bookdata}">
                     <thead>
                     <tr>
-                        <th>issuedate</th>
-                        <th>return date</th>
+                        <th>Issue Date</th>
+                        <th>Return date</th>
                         <th>User ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="book:${bookdata} " >
+                    <tr th:each="book:${bookdata}">
                         <div th:each="name:${username} ">
                             <td th:text="${book.issueDate}"></td>
                             <td th:text="${book.returnDate}"></td>

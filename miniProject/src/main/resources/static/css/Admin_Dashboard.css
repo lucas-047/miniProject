@@ -48,6 +48,8 @@ body {
 
 
 
+
+
 /* SIDEBAR */
 #sidebar {
     position: fixed;
@@ -61,9 +63,6 @@ body {
     transition: .3s ease;
     overflow-x: hidden;
     scrollbar-width: none;
-}
-#sidebar::--webkit-scrollbar {
-    display: none;
 }
 #sidebar.hide {
     width: 60px;
@@ -127,7 +126,7 @@ body {
     box-shadow: 20px -20px 0 var(--grey);
     z-index: -1;
 }
-#sidebar .side-menu li a {
+#sidebar .side-menu li a,  #sidebar .side-menu li form{
     width: 100%;
     height: 100%;
     background: var(--light);
@@ -146,16 +145,24 @@ body {
     width: calc(48px - (4px * 2));
     transition: width .3s ease;
 }
-#sidebar .side-menu li a.logout {
+#sidebar .side-menu li form {
     color: var(--red);
 }
-#sidebar .side-menu.top li a:hover {
+#sidebar .side-menu li a:hover {
     color: var(--blue);
 }
-#sidebar .side-menu li a .bx {
+#sidebar .side-menu li a .bx ,  #sidebar .side-menu li form .bx{
     min-width: calc(60px  - ((4px + 6px) * 2));
     display: flex;
     justify-content: center;
+}
+#sidebar .side-menu li form button{
+    border: none;
+    font-family: var(--lato);
+    font-size: 20px;
+    background: transparent;
+    color: var(--red);
+    cursor : pointer;
 }
 /* SIDEBAR */
 
@@ -402,7 +409,7 @@ body {
 }
 #content main .table-data .order table th {
     padding-bottom: 12px;
-    font-size: 13px;
+    font-size: 15px;
     text-align: left;
     border-bottom: 1px solid var(--grey);
 }
@@ -425,7 +432,7 @@ body {
     background: var(--grey);
 }
 #content main .table-data .order table tr td .status {
-    font-size: 10px;
+    font-size: 13px;
     padding: 6px 16px;
     color: var(--light);
     border-radius: 20px;
@@ -438,7 +445,7 @@ body {
     background: var(--yellow);
 }
 #content main .table-data .order table tr td .status.pending {
-    background: var(--orange);
+    background: var(--red);
 }
 
 
@@ -473,11 +480,6 @@ body {
     }
 }
 
-
-
-
-
-
 @media screen and (max-width: 576px) {
     #content nav form .form-input input {
         display: none;
@@ -487,7 +489,6 @@ body {
         width: auto;
         height: auto;
         background: transparent;
-        border-radius: none;
         color: var(--dark);
     }
 
@@ -521,4 +522,298 @@ body {
     #content main .table-data .todo .todo-list {
         min-width: 420px;
     }
+}
+
+/*Issue Return*/
+.container{
+    margin: 2% 12px;
+    padding: 12px;
+    background: var(--grey);
+}
+.btn-div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30%;
+}
+.issue-div{
+    margin: 12px;
+    padding: 12px;
+}
+
+.return-div{
+    margin: 12px;
+    padding: 12px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.myBtn{
+    width: 200%;
+    height: 100%;
+    padding: 10%;
+    background: var(--dark);
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 28px;
+    color: var(--light);
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% 45% auto ; /* 15% from the top and centered */
+    padding: 20px;
+    width: 440px;
+    height: fit-content;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.form-box{
+    width: 100%;
+    padding: 10px;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #162938;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+.input-box-select label, section option{
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+input:focus ~ label , input:valid ~ label{
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.remember-forgot {
+    font-size: .9em;
+    color: #162938;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    accent-color: #162938;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #162938;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.bth {
+    width: 100%;
+    height: 45px;
+    background: #000000;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+
+.container .table-data {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+    color: var(--dark);
+}
+.container .table-data > div {
+    border-radius: 20px;
+    background: var(--light);
+    padding: 24px;
+    overflow-x: auto;
+}
+.container .table-data .head {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    margin-bottom: 24px;
+}
+.container .table-data .head h3 {
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+}
+.container .table-data .head .bx {
+    cursor: pointer;
+}
+
+.container .table-data .order {
+    flex-grow: 1;
+    flex-basis: 500px;
+}
+.container .table-data .order table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.container .table-data .order table th {
+    padding-bottom: 12px;
+    font-size: 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+}
+.container .table-data .order table td {
+    padding: 16px 0;
+}
+.container .table-data .order table tr td:first-child {
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
+}
+.container .table-data .order table td img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.container .table-data .order table tbody tr:hover {
+    background: var(--grey);
+}
+.container .table-data .order table tr td .status {
+    font-size: 10px;
+    padding: 6px 16px;
+    color: var(--light);
+    border-radius: 20px;
+    font-weight: 700;
+}
+.container .table-data .order table tr td .status.completed {
+    background: var(--blue);
+}
+.container .table-data .order table tr td .status.process {
+    background: var(--yellow);
+}
+.container .table-data .order table tr td .status.pending {
+    background: var(--orange);
+}
+
+
+.container .table-data .todo {
+    flex-grow: 1;
+    flex-basis: 300px;
+}
+
+.wrapper{
+    position: relative;
+    width: 440px;
+    height: fit-content;
+    /*padding: 40px;*/
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+}
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb
+}
+
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+
+.justify-content-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important
+}
+
+.align-items-center {
+    -ms-flex-align: center !important;
+    align-items: center !important
 }

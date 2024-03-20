@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class AdvanceConfig {
     @Id
     private int id;
+
     private String value;
 
     public int getId() {

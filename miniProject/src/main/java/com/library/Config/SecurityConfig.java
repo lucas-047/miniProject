@@ -43,7 +43,7 @@ public class SecurityConfig {
             "/img/**",
             "/JS/**",
             "/library",
-//            "/About",
+            "/About",
             "/signIn",
             "/password_reset",
             "/sendResetPasswordMail",
@@ -61,9 +61,9 @@ public class SecurityConfig {
             "/issue-return",
             "return",
             "returning",
-            "/user/**",
-            "/admin/**",
-            "/**"
+//            "/user/**",
+//            "/admin/**",
+//            "/**"
 
     };
     @Bean
@@ -71,9 +71,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-//                        .requestMatchers("/user/**").hasRole("USER")
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .anyRequest().authenticated()
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/signIn")

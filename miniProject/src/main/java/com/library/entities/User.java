@@ -36,10 +36,11 @@ public class User {
     private String email;
     @Column(length = 2)
     private String Role;
-    @Column(length = 8)
     private String password;
     private int issuedBook;
     private int penaltyStatus;
+
+
 
   public String getUserName() {
         return userName;
@@ -49,20 +50,20 @@ public class User {
         this.userName = userName;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRole() {
         return Role;
     }
 
     public void setRole(String role) {
         Role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        password = password;
     }
 
     public String getFirstName() {

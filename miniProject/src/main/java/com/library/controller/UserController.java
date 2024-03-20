@@ -30,7 +30,7 @@ public class UserController {
     public String processProfile(@ModelAttribute("user") User user,Model model){
         System.out.println(user);
         userRepository.save(user);
-        return "Public/Sucess";
+        return "Public/Success";
 
     }
 }

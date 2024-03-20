@@ -12,19 +12,19 @@
         <div class="input-box">
             <input type="text" name="userName" th:value="${user.userName}" required>
             <label>Username</label>
-            <p th:each="e : ${#fields.errors('userName')}" th:text="${e}" class="bg-transparent text-danger"></p>
+<!--            <p th:each="e : ${#fields.errors('userName')}" th:text="${e}" class="bg-transparent text-danger"></p>-->
         </div>
 
         <div class="input-box">
             <input type="text" name="email" th:value="${user.email}" required>
             <label>Email</label>
-        <p th:each="e : ${#fields.errors('email')}" th:text="${e}" class="bg-transparent text-danger"></p>
+<!--        <p th:each="e : ${#fields.errors('email')}" th:text="${e}" class="bg-transparent text-danger"></p>-->
         </div>
 
         <div class="input-box">
             <input type="password" name="password" th:value="${user.password}" required>
             <label>Password</label>
-        <p th:each="e : ${#fields.errors('password')}" th:text="${e}" class="bg-transparent text-danger"></p>
+<!--        <p th:each="e : ${#fields.errors('password')}" th:text="${e}" class="bg-transparent text-danger"></p>-->
         </div>
 
         <div class="input-box-select">
@@ -35,7 +35,7 @@
                 <option> User </option>
             </select>
         </div>
-        <p th:each="e : ${#fields.errors('role')}" th:text="${e}" class="bg-transparent text-danger"></p>
+<!--        <p th:each="e : ${#fields.errors('role')}" th:text="${e}" class="bg-transparent text-danger"></p>-->
         <br>
         <button type="submit" class="bth">Register</button>
 

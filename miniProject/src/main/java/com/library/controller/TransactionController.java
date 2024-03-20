@@ -37,11 +37,12 @@ public class TransactionController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private AdvanceConfigService advanceConfigService;
 
-    @GetMapping("/issue-return")
-    public String getissuepage(Model model) {
+    private void Attribute(Model model) {
+        int price = advanceConfigService.getPenaltyValue();
         model.addAttribute("Book", false);
         model.addAttribute("UserStatus", false);
         model.addAttribute("issueSuccess", false);
@@ -50,7 +51,13 @@ public class TransactionController {
         model.addAttribute("Penalty", 0);
         model.addAttribute("BookStatus", false);
         model.addAttribute("alreadyReturn", false);
+        model.addAttribute("maxIssue", false);
+    }
 
+    @GetMapping("/issue-return")
+    public String getissuepage(Model model) {
+        Attribute(model);
+        model.addAttribute("pageTitle", "Books");
         return "Admin/IssueReturn";
     }
 
@@ -60,27 +67,17 @@ public class TransactionController {
             @RequestParam("bookId") int bookId,
             Model model
     ) {
-        model.addAttribute("Book", false);
-        model.addAttribute("UserStatus", false);
-        model.addAttribute("issueSuccess", false);
-        model.addAttribute("successError", false);
-        model.addAttribute("returnSuccess", false);
-        model.addAttribute("Penalty", 0);
-        model.addAttribute("BookStatus", false);
-        model.addAttribute("alreadyReturn", false);
+        Attribute(model);
         User checkuser = userRepository.getRegDataByusername(userName);
 
         Book book = bookRepository.getBookByBookId(bookId);
-        if(checkuser!=null) {
-
-
+        if (checkuser != null) {
             if (book != null) {
                 int status = book.getBookStatus();
                 if (status == 0) {
                     System.out.println("book not available");
                     model.addAttribute("BookStatus", true);
                 } else {
-
                     book.setBookStatus(0);
                     LocalDate currentDate = LocalDate.now();
                     String role = checkuser.getRole();
@@ -92,26 +89,22 @@ public class TransactionController {
                     int userLimitOfBook;
                     int facultyLimitOfBook;
                     if (penaltyStatus == 0) {
-                        if(role.equals("s"))
-                        {
+                        if (role.equals("ROLE_STUDENT")) {
                             difference = advanceConfigService.getUserDueDate();
-                            userLimitOfBook=advanceConfigService.getNumberOfIssueBookForUser();
-                            if(totalNumberOfBook<userLimitOfBook)
-                            {
-                                compare=true;
+                            userLimitOfBook =
+                                    advanceConfigService.getNumberOfIssueBookForUser();
+                            if (totalNumberOfBook < userLimitOfBook) {
+                                compare = true;
                             }
-
-                        }
-                        else {
-                            difference=advanceConfigService.getFacultyDueDate();
-                            facultyLimitOfBook=advanceConfigService.getNumberOfIssueBookForFaculty();
-                            if(totalNumberOfBook<facultyLimitOfBook)
-                            {
-                                compare=true;
+                        } else {
+                            difference = advanceConfigService.getFacultyDueDate();
+                            facultyLimitOfBook =
+                                    advanceConfigService.getNumberOfIssueBookForFaculty();
+                            if (totalNumberOfBook < facultyLimitOfBook) {
+                                compare = true;
                             }
                         }
-                        if(compare)
-                        {
+                        if (compare) {
                             LocalDate duedate = currentDate.plusDays(difference);
                             System.out.println("status changed");
                             int transactionStatus = penaltyService.saveTempIssueTransaction(
@@ -122,6 +115,8 @@ public class TransactionController {
                             );
                             if (transactionStatus == 0) {
                                 bookRepository.saveAndFlush(book);
+                                checkuser.setIssuedBook((checkuser.getIssuedBook()+1));
+                                userRepository.saveAndFlush(checkuser);
                                 System.out.println("Transaction record saved");
                                 List<Penalty> p = penaltyService.getUserData(userName);
                                 Penalty user = p.getFirst();
@@ -132,57 +127,44 @@ public class TransactionController {
                                 System.out.println("Transaction record not saved");
                                 model.addAttribute("successError", true);
                             }
-                        }
-                        else {
+                        } else {
                             System.out.println("you issued maximum number of book");
+                            model.addAttribute("maxIssue", true);
                         }
-
-                    }
-
-                    else {
+                    } else {
                         System.out.println("Please clear Penalty first!");
                     }
                 }
+            } else {
+                model.addAttribute("Book", true);
             }
-
-                else {
-                if (book == null) {
-                    model.addAttribute("Book", true);
-                    System.out.println(checkuser);
-                }
-                if (checkuser ==null) {
-                    model.addAttribute("UserStatus", true);
-                }
-            }
-
-
-        }
-        else {
+        } else {
             System.out.println("user not found");
+            model.addAttribute("UserStatus", true);
         }
+        model.addAttribute("pageTitle", "Books");
         return "Admin/IssueReturn";
     }
 
+
+
     @PostMapping("/Return")
     public String returnProcess(@RequestParam("bookId") int bookId, Model model) {
-        int price=advanceConfigService.getPenaltyValue();
-        model.addAttribute("Book", false);
-        model.addAttribute("UserStatus", false);
-        model.addAttribute("issueSuccess", false);
-        model.addAttribute("successError", false);
-        model.addAttribute("returnSuccess", false);
-        model.addAttribute("Penalty", 0);
-        model.addAttribute("BookStatus", false);
-        model.addAttribute("alreadyReturn", false);
+        Attribute(model);
+        int price = advanceConfigService.getPenaltyValue();
         Boolean checkbook = bookRepository.existsById(bookId);
         int status = bookRepository.getBookstatus(bookId);
+
+        User user = userRepository.getRegDataByusername(penaltyRepository.getDuedate(bookId).getTempUserId());
+        System.out.println(user.getIssuedBook());
+        System.out.println(user.getFirstName());
         if (status == 1) {
             System.out.println("book is already return");
             model.addAttribute("alreadyReturn", true);
         } else {
             if (checkbook) {
-                Book book = bookRepository.getBookByBookId(bookId);
 
+                Book book = bookRepository.getBookByBookId(bookId);
                 System.out.println("return book found in database");
                 String string = book.toString();
                 System.out.println(string);
@@ -199,6 +181,8 @@ public class TransactionController {
                 if (day >= 0) {
                     System.out.println("you are early bird");
                     model.addAttribute("returnSuccess", true);
+                    user.setIssuedBook((user.getIssuedBook()-1));
+                    userRepository.saveAndFlush(user);
                     transactionService.transferPenaltyToTransaction(
                             Exportdata,
                             returnDate
@@ -215,17 +199,18 @@ public class TransactionController {
                     System.out.println(t);
                     model.addAttribute("bookdata", t);
                 } else {
-
                     day = Math.abs(day);
-                    int PenaltyDue = price* day;
+                    int PenaltyDue = price * day;
                     System.out.println("ops you got penalty of " + PenaltyDue + "Rs");
                     model.addAttribute("Penalty", PenaltyDue);
 
                     transactionService.transferPenaltyToTransaction(
                             Exportdata,
-                            returnDate,day
+                            returnDate,
+                            day
                     );
                     bookRepository.saveAndFlush(book);
+
                 }
                 penaltyRepository.deleteById(bookId);
             } else {
@@ -233,7 +218,7 @@ public class TransactionController {
                 model.addAttribute("Book", true);
             }
         }
-
+        model.addAttribute("pageTitle", "Books");
         return "Admin/IssueReturn";
     }
 }

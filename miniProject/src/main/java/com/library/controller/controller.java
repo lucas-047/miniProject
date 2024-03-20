@@ -2,6 +2,7 @@ package com.library.controller;
 
 import com.library.Config.EmailService;
 import com.library.dao.UserRepository;
+import com.library.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,11 +31,11 @@ public class controller {
     }
 
 
-//    @GetMapping("/About")
-//    public  String AboutController(Model model) {
-//        model.addAttribute("title","About");
-//        return "Public/About";
-//    }
+    @GetMapping("/About")
+    public  String AboutController(Model model) {
+        model.addAttribute("title","About");
+        return "Public/About";
+    }
 
 
     @GetMapping("/signIn")
@@ -44,12 +45,12 @@ public class controller {
     }
 
 
-//    @GetMapping("/Registration")
-//    public  String RegController(Model model) {
-//        model.addAttribute("title","Registration");
-//        model.addAttribute("regData",new User());
-//        return "Public/SignUp";
-//    }
+    @GetMapping("/Registration")
+    public  String RegController(Model model) {
+        model.addAttribute("title","Registration");
+        model.addAttribute("user",new User());
+        return "Public/SignUp";
+    }
 //
 //
 //    @PostMapping("/processRegistration")
