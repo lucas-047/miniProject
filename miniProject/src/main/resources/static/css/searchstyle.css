@@ -1,0 +1,23 @@
+.search-container{
+    position: relative;
+
+}
+.search-result{
+    position: absolute;
+background: white;
+
+width: 80%;
+padding: 10px;
+    border: 1px solid grey;
+    display: none;
+    margin-top:10px;
+}
+.container-result{
+ display: flex;
+    flex-direction:column;
+
+}
+.container-result .fakir{
+    border:2px solid black;
+    padding: 10px;
+}

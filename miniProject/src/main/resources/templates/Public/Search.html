@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" th:href="@{/css/searchstyle.css}">
+
+    <title>Hub</title>
+</head>
+<body>
+<div class="search-container my-4">
+    <input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="search here">
+<div class="search-result">
+
+
+</div>
+</div>
+<script type="text/javascript" th:src="@{/JS/Search.js}"></script>
+</body>
+</html>

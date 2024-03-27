@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Public/base'::Layout(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="form-box login">
+        <h2>Issue</h2>
+        <form th:action="@{/add}" action="#" method="post" enctype="multipart/form-data">
+            <div class="input-box">
+                <input type="text" name="bookName" required>
+                <label>Book Name</label>
+            </div>
+            <div class="input-box">
+                <input type="text" name="bookId" required>
+                <label>Book Id</label>
+            </div>
+            <div class="input-box">
+                <input type="text" name="Version" required>
+                <label>book version</label>
+            </div>
+            <div class="input-box">
+                <input type="text" name="Branch" required>
+                <label>branch</label>
+            </div>
+            <div class="input-box">
+                <input type="text" name="AuthorName" required>
+                <label>author name</label>
+            </div>
+            <div class="input-box">
+                <input type="text" name="Publisher" required>
+                <label>publisher</label>
+            </div>
+            <div class="input-box">
+                <input type="text" name="PublishDate" required>
+                <label>publish date</label>
+            </div>
+            <button type="submit" class="bth">Add</button>
+
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
