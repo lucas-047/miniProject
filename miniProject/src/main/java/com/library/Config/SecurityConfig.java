@@ -61,6 +61,10 @@ public class SecurityConfig {
             "/issue-return",
             "return",
             "returning",
+            "search",
+            "search/{query}",
+            "search/result/{book}",
+            "Issue"
 //            "/user/**",
 //            "/admin/**",
 //            "/**"

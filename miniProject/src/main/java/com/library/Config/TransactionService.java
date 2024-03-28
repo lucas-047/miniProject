@@ -1,16 +1,17 @@
 package com.library.Config;
 
+import com.library.dao.BookRepository;
 import com.library.dao.PenaltyRepository;
 import com.library.dao.TransactionRepository;
 import com.library.dao.UserRepository;
-import com.library.entities.Penalty;
-import com.library.entities.Transaction;
-import com.library.entities.User;
+import com.library.entities.*;
 import com.sun.source.tree.ImportTree;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,10 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private PenaltyRepository penaltyRepository;
      Transaction transaction=new Transaction();
 
     public int saveIssueTransaction(String userid, int bookid, LocalDate issuedate,LocalDate duedate)
@@ -64,4 +69,5 @@ public class TransactionService {
     {
         return transactionRepository.findByBookId(bookId);
     }
+
 }

@@ -1,6 +1,10 @@
 package com.library.Config;
 
+
+import com.library.dao.BookRepository;
 import com.library.dao.PenaltyRepository;
+import com.library.entities.Book;
+import com.library.entities.BookWithAdditionalData;
 import com.library.entities.Penalty;
 import org.apache.catalina.core.StandardContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +12,24 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 
-public class PenaltyService extends StandardContext {
+public class PenaltyService {
+    public PenaltyService(PenaltyRepository penaltyRepository) {
+        this.penaltyRepository = penaltyRepository;
+    }
+
+    @Autowired
+    private BookRepository bookRepository;
     @Autowired
     PenaltyRepository penaltyRepository;
+
+
+
 
     public int saveTempIssueTransaction(String userid, int bookid, LocalDate issuedate, LocalDate duedate) {
 
@@ -57,5 +71,45 @@ public class PenaltyService extends StandardContext {
             //return penaltyRepository.getTransactionByUserId(tempUserId);
            return penaltyRepository.findByTempUserId(tempUserId);
         //return userRepository.findAll();
+    }
+    public LocalDate data(int bookId)
+    {
+        Penalty penalty=penaltyRepository.findduedate(bookId);
+        LocalDate date= penalty.getTempDueDate();
+        return date;
+    }
+
+    public List<BookWithAdditionalData> resultdata(String book)
+    {   PenaltyService penaltyService=new PenaltyService(penaltyRepository);
+       // BookRepository bookRepository;
+        List<Book> books=bookRepository.findAllByBookNameContaining(book);
+//        System.out.println("book +"+books);
+        List<BookWithAdditionalData> bookWithAdditionalData=new ArrayList<>();
+        List<BookWithAdditionalData> list2=new ArrayList<>();
+//        BookWithAdditionalData bd=new BookWithAdditionalData();
+        for (Book source : books) {
+            BookWithAdditionalData bd=new BookWithAdditionalData();
+            int i=source.getBookStatus();
+            if(i==0)
+            {
+                LocalDate d=penaltyService.data(source.getBookId());
+                System.out.println("service "+d);
+                bd.setBook(source);
+                bd.setDueDate(d);
+                list2.add(bd);
+                System.out.println("object "+bd.getDueDate());
+            }
+            else {
+                bd.setBook(source);
+                bd.setDueDate(null);
+                bookWithAdditionalData.add(bd);
+            }
+            //target.setTargetField(source.getSourceField());
+            // map other fields if needed
+
+        }
+
+        bookWithAdditionalData.addAll(list2);
+        return bookWithAdditionalData;
     }
 }

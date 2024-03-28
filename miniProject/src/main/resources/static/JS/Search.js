@@ -41,9 +41,19 @@ const logf = (book) => {
             console.log(dataResult);
             let textResult = `<div class='list-group container-result'>`;
             dataResult.forEach((bookResult) => {
-                textResult += `<div  class='fakir' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.bookName} 
-                <br>Branch : ${bookResult.branch}<br>BookId : ${bookResult.bookId}<br>Publisher : ${bookResult.publisher}
-                </div><br>`
+
+                if (bookResult.dueDate === null) {
+                    textResult += `<div  class='fakir' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.book.bookName} 
+                <br>Branch : ${bookResult.book.branch}<br>BookId : ${bookResult.book.bookId}<br>Publisher : ${bookResult.book.publisher}
+                <br>Book Available
+                </div><br>`;
+                } else {
+
+                textResult += `<div  class='fakir' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.book.bookName} 
+                <br>Branch : ${bookResult.book.branch}<br>BookId : ${bookResult.book.bookId}<br>Publisher : ${bookResult.book.publisher}
+                <br>Return Date: ${bookResult.dueDate}
+                </div><br>`;
+            }
             });
 
             textResult +=` </div>`;
