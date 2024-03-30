@@ -3,6 +3,7 @@ package com.library.entities;
 import jakarta.persistence.*;
 import org.assertj.core.internal.BinaryDiff;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -12,6 +13,8 @@ public class Book {
 
     private String bookName;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @Column(name="bookId")
     private int bookId;
     private int CopyId;
 
@@ -19,7 +22,7 @@ public class Book {
     private String AuthorName;
     private String Publisher;
     private String Branch;
-    private Date PublishDate;
+    private LocalDate PublishDate;
     private int BookStatus;
 
     private String Version;
@@ -72,11 +75,11 @@ public class Book {
         Branch = branch;
     }
 
-    public Date getPublishDate() {
+    public LocalDate getPublishDate() {
         return PublishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(LocalDate publishDate) {
         PublishDate = publishDate;
     }
 

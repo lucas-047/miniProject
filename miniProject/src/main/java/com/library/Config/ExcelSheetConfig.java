@@ -6,14 +6,19 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 @Service
 public class ExcelSheetConfig {
     public static boolean CheckFormat(MultipartFile file)
@@ -111,7 +116,9 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
             }
             if (column7Index != -1) {
                 Cell cell = row.getCell(column7Index);
-                book1.setPublishDate(cell.getDateCellValue());
+                book1.setPublishDate(cell.getDateCellValue().toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate());
             }
             if (column8Index != -1) {
                 Cell cell = row.getCell(column8Index);

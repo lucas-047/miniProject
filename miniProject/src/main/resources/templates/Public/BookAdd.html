@@ -11,39 +11,67 @@
 
     <div class="form-box login">
         <h2>Issue</h2>
-        <form th:action="@{/add}" action="#" method="post" enctype="multipart/form-data">
+        <form th:action="@{/add}" th:object="${book}" action="#" method="post" enctype="multipart/form-data">
             <div class="input-box">
-                <input type="text" name="bookName" required>
+                <input type="text" th:field="*{copyId}" required>
+                <label>Number of Book Copy</label>
+            </div>
+            <div class="input-box">
+                <input type="text" th:field="*{bookName}" required>
                 <label>Book Name</label>
             </div>
+
+<!--            <div class="input-box">-->
+<!--                <input type="text" name="bookId" required>-->
+<!--                <label>Book Id</label>-->
+<!--            </div>-->
             <div class="input-box">
-                <input type="text" name="bookId" required>
-                <label>Book Id</label>
-            </div>
-            <div class="input-box">
-                <input type="text" name="Version" required>
+                <input type="text" th:field="*{version}" required>
                 <label>book version</label>
             </div>
             <div class="input-box">
-                <input type="text" name="Branch" required>
+                <input type="text" th:field="*{branch}" required>
                 <label>branch</label>
             </div>
             <div class="input-box">
-                <input type="text" name="AuthorName" required>
+                <input type="text" th:field="*{authorName}" required>
                 <label>author name</label>
             </div>
             <div class="input-box">
-                <input type="text" name="Publisher" required>
+                <input type="text" th:field="*{publisher}" required>
                 <label>publisher</label>
             </div>
             <div class="input-box">
-                <input type="text" name="PublishDate" required>
+                <input type="date" th:field="*{publishDate}" required>
                 <label>publish date</label>
             </div>
             <button type="submit" class="bth">Add</button>
 
         </form>
-
+        <table th:if="${bookdata}">
+            <thead>
+            <tr>
+                <th>bookid</th>
+                <th>bookName</th>
+                <th>AuthorName</th>
+                <th>Publisher</th>
+                <th>branch</th>
+                <th>version</th>
+                <th>copy id</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book:${bookdata}">
+                <td th:text="${book.bookId}"></td>
+                <td th:text="${book.bookName}"></td>
+                <td th:text="${book.authorName}"></td>
+                <td th:text="${book.publisher}"></td>
+                <td th:text="${book.branch}"></td>
+                <td th:text="${book.version}"></td>
+                <td th:text="${book.copyId}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

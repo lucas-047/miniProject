@@ -64,10 +64,10 @@ public class SecurityConfig {
             "search",
             "search/{query}",
             "search/result/{book}",
-            "Issue"
+            "Issue",
 //            "/user/**",
 //            "/admin/**",
-//            "/**"
+           "/**"
 
     };
     @Bean
