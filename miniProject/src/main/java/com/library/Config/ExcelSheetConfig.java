@@ -3,6 +3,7 @@ package com.library.Config;
 import com.library.entities.Book;
 import com.library.entities.User;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -63,24 +64,22 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
             String headerValue = headerCell.getStringCellValue();
 
             // Map column indexes based on column headers
-            if ("BookId".equalsIgnoreCase(headerValue)) {
+            if ("CopyNo".equalsIgnoreCase(headerValue)) {
                 column1Index = headerCell.getColumnIndex();
-            } else if ("CopyNo".equalsIgnoreCase(headerValue)) {
-                column2Index = headerCell.getColumnIndex();
             } else if ("BookName".equalsIgnoreCase(headerValue)) {
-                column3Index = headerCell.getColumnIndex();
+                column2Index = headerCell.getColumnIndex();
             } else if ("AuthorName".equalsIgnoreCase(headerValue)) {
-                column4Index = headerCell.getColumnIndex();
+                column3Index = headerCell.getColumnIndex();
             } else if ("Publisher".equalsIgnoreCase(headerValue)) {
-                column5Index = headerCell.getColumnIndex();
+                column4Index = headerCell.getColumnIndex();
             } else if ("Branch".equalsIgnoreCase(headerValue)) {
-                column6Index = headerCell.getColumnIndex();
+                column5Index = headerCell.getColumnIndex();
             } else if ("PublishDate".equalsIgnoreCase(headerValue)) {
-                column7Index = headerCell.getColumnIndex();
+                column6Index = headerCell.getColumnIndex();
             } else if ("Version".equalsIgnoreCase(headerValue)) {
-                column8Index = headerCell.getColumnIndex();
+                column7Index = headerCell.getColumnIndex();
             } else if ("BookStatus".equalsIgnoreCase(headerValue)) {
-                column9Index = headerCell.getColumnIndex();
+                column8Index = headerCell.getColumnIndex();
             }
             // Add more if needed
         }
@@ -89,43 +88,57 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
         for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
             Row row = sheet.getRow(rowIndex);
             Book book1 = new Book();
-
+//
+//            if (column1Index != -1) {
+//                Cell cell = row.getCell(column1Index);
+//                book1.setBookId((int) cell.getNumericCellValue());
+//            }
             if (column1Index != -1) {
                 Cell cell = row.getCell(column1Index);
-                book1.setBookId((int) cell.getNumericCellValue());
+                int i=cell.getColumnIndex();
+                System.out.println("column is +"+i);
+                book1.setCopyId((int)cell.getNumericCellValue()) ;
             }
             if (column2Index != -1) {
                 Cell cell = row.getCell(column2Index);
-                book1.setCopyId((int) cell.getNumericCellValue());
+                book1.setBookName((cell.getStringCellValue()));
             }
             if (column3Index != -1) {
                 Cell cell = row.getCell(column3Index);
-                book1.setBookName((cell.getStringCellValue()));
+                book1.setAuthorName(cell.getStringCellValue());
             }
             if (column4Index != -1) {
                 Cell cell = row.getCell(column4Index);
-                book1.setAuthorName(cell.getStringCellValue());
+                book1.setPublisher(cell.getStringCellValue());
             }
             if (column5Index != -1) {
                 Cell cell = row.getCell(column5Index);
-                book1.setPublisher(cell.getStringCellValue());
+                book1.setBranch(cell.getStringCellValue());
             }
             if (column6Index != -1) {
                 Cell cell = row.getCell(column6Index);
-                book1.setBranch(cell.getStringCellValue());
+                if (cell != null && cell.getCellType() == CellType.STRING) {
+                    // Assuming the date is in the format "MM-DD-YYYY"
+                    String dateString = cell.getStringCellValue();
+                    String[] parts = dateString.split("-");
+                    int month = Integer.parseInt(parts[0]);
+                    int day = Integer.parseInt(parts[1]);
+                    int year = Integer.parseInt(parts[2]);
+
+                    // Create LocalDate object
+                    LocalDate date = LocalDate.of(year, month, day);
+                book1.setPublishDate(date);
+                }
+//                    book1.setPublishDate(cell.getDateCellValue().toInstant()
+//                        .atZone(ZoneId.systemDefault())
+//                        .toLocalDate());
             }
             if (column7Index != -1) {
                 Cell cell = row.getCell(column7Index);
-                book1.setPublishDate(cell.getDateCellValue().toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDate());
+                book1.setVersion(cell.getStringCellValue());
             }
             if (column8Index != -1) {
                 Cell cell = row.getCell(column8Index);
-                book1.setVersion(cell.getStringCellValue());
-            }
-            if (column9Index != -1) {
-                Cell cell = row.getCell(column9Index);
                 book1.setBookStatus((int) cell.getNumericCellValue());
             }
             // Add more if needed
