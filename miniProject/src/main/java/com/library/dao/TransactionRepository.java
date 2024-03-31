@@ -16,5 +16,5 @@ public interface TransactionRepository extends JpaRepository<Transaction,Integer
     @Query("select book from Book book where book.bookId =:bookId ")
     public Book getBookByBookId(@Param("bookId") int bookId);
         public List<Transaction> findByBookId(int bookId);
-
+        public boolean existsByBookId(int bookId);
 }
