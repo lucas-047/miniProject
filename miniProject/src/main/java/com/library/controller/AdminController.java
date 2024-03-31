@@ -29,6 +29,7 @@ public class AdminController {
     @RequestMapping("/setting")
     public String setting(Model model){
         model.addAttribute("pageTitle","Setting");
+        System.out.println("setting");
         return "Admin/AdvanceConfig";
     }
 
