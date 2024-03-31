@@ -224,7 +224,7 @@ public static List<Book> importDataOfBookFromExcel(MultipartFile multipartFile) 
              User user=new User();
                 if (column1Index != -1) {
                     Cell cell = row.getCell(column1Index);
-                    user.setUserName(cell.getStringCellValue());
+                    user.setUserName(String.valueOf(cell.getNumericCellValue()));
                 }
                 if (column2Index != -1) {
                     Cell cell = row.getCell(column2Index);

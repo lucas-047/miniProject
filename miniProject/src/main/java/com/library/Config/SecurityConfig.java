@@ -67,7 +67,7 @@ public class SecurityConfig {
             "Issue",
 //            "/user/**",
 //            "/admin/**",
-           "/**"
+            "/**"
 
     };
     @Bean
@@ -75,8 +75,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-                        .requestMatchers("/user/**").authenticated()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/user/**").authenticated()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

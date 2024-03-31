@@ -26,4 +26,10 @@ public class AdminController {
         return "Admin/User";
     }
 
+    @RequestMapping("/setting")
+    public String setting(Model model){
+        model.addAttribute("pageTitle","Setting");
+        return "Admin/AdvanceConfig";
+    }
+
 }

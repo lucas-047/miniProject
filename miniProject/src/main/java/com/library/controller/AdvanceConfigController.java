@@ -47,7 +47,7 @@ public class AdvanceConfigController {
         {
             advanceConfigService.setFacultyDueDate(facultyduedate);
         }
-       String penaltyPrice=advanceConfigRepository.findvalue(1);
+        String penaltyPrice=advanceConfigRepository.findvalue(1);
         String userIssue=advanceConfigRepository.findvalue(2);
         String facultyIssue=advanceConfigRepository.findvalue(3);
         String userDue=advanceConfigRepository.findvalue(4);

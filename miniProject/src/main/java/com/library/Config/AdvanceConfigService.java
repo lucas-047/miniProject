@@ -15,7 +15,6 @@ id 5=faculty due date duration
 
 
 @Service
-
 public class AdvanceConfigService {
         @Autowired
         private AdvanceConfigRepository advanceConfigRepository;

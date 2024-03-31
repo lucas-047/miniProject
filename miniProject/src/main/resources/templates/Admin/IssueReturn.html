@@ -59,41 +59,40 @@
                 </div>
             </div>
         </div>
-        <div th:if="${Book}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> Book Not Found!! </p>
+        <div class="message">
+            <div th:if="${Book}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Book Not Found!! </p>
+            </div>
+            <div th:if="${UserStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> User Not Found!! </p>
+            </div>
+            <div th:if="${successError}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Error in Data Save. </p>
+            </div>
+            <div th:if="${issueSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
+                <p> Data Saved Successfully. </p>
+            </div>
+            <div th:if="${BookStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Book Not Available</p>
+            </div>
+            <div th:if="${Penalty>0}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> You have Penalty of RS <span th:text="${Penalty}"></span> </p>
+            </div>
+            <div th:if="${alreadyReturn}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> Book is already return </p>
+            </div>
+            <div th:if="${returnSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
+                <p> Data Saved Successfully. </p>
+            </div>
+            <div th:if="${maxIssue}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                <p> You issued maximum number of book </p>
+            </div>
         </div>
-        <div th:if="${UserStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> User Not Found!! </p>
-        </div>
-        <div th:if="${successError}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> Error in Data Save. </p>
-        </div>
-        <div th:if="${issueSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
-            <p> Data Saved Successfully. </p>
-        </div>
-        <div th:if="${BookStatus}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> Book Not Available</p>
-        </div>
-        <div th:if="${Penalty>0}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> You have Penalty of RS <span th:text="${Penalty}"></span> </p>
-        </div>
-        <div th:if="${alreadyReturn}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> Book is already return </p>
-        </div>
-        <div th:if="${returnSuccess}" class="alert alert-success d-flex align-items-center justify-content-center">
-            <p> Data Saved Successfully. </p>
-        </div>
-        <div th:if="${maxIssue}" class="alert alert-danger d-flex align-items-center justify-content-center">
-            <p> You issued maximum number of book </p>
-        </div>
-
 
         <div class="table-data" th:if="${returnSuccess || issueSuccess}">
             <div class="order">
                 <div class="head">
                     <h3>Recent Issue</h3>
-                    <i class='bx bx-search' ></i>
-                    <i class='bx bx-filter' ></i>
                 </div>
                 <table th:if="${userdetail}">
                     <thead>

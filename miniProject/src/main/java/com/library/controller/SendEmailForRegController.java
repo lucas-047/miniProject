@@ -5,6 +5,7 @@ import com.library.Config.GeneratePassword;
 import com.library.dao.UserRepository;
 import com.library.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,8 @@ public class SendEmailForRegController {
    private GeneratePassword generatePassword;
     @Autowired
     private EmailService emailService;
-
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @RequestMapping("/register")
     public String GotoRegistration()
@@ -72,6 +74,7 @@ public class SendEmailForRegController {
             if (flag) {
                 //yhh
                 System.out.println("password send to  "+email);
+                password = passwordEncoder.encode(password);
                 u.setPassword(password);
                 userRepository.save(u);
 

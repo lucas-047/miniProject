@@ -29,7 +29,7 @@ public class searchController {
     @RequestMapping("/search")
     public ModelAndView getsearchpage()
     {   ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Public/search");
+        modelAndView.setViewName("Public/Search");
         return modelAndView;
     }
 
