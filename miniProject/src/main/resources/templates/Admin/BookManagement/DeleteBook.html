@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Admin/base'::Layout(~{::navbar},~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<navbar th:replace="~{Admin/BookManagement/bookNavbar.html}"></navbar>
+<main>
+    <div class="center">
+        <div class="wrapper">
+            <div class="form-box login">
+                <h2>Delete Book Record</h2>
+                <form th:action="@{/admin/delete}" action="#" method="post" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <input type="text" name="bookId" required>
+                        <label>Book Id</label>
+                    </div>
+                    <button type="submit" class="bth">Delete</button>
+                    <div th:if="${error}" class="alert alert-danger d-flex align-items-center justify-content-center">
+                        <p> Book Id not found </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

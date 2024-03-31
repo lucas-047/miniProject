@@ -3,7 +3,6 @@ package com.library.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,8 +17,9 @@ public class AdminController {
     @RequestMapping("/books")
     public String Books(Model model){
         model.addAttribute("pageTitle","Books");
-        return "Admin/Book";
+        return "Admin/BookManagement/Book";
     }
+
     @RequestMapping("/users")
     public String Users(Model model){
         model.addAttribute("pageTitle","Users");

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Admin/base'::Layout(~{::body})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Admin/base'::Layout(~{::navbar},~{::main})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<navbar>
+
+</navbar>
+<main>
     <div class="container">
         <div class="btn-div">
             <div class="issue-div">
@@ -103,11 +107,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="penalty:${userdetail}">
-                            <td th:text="${penalty.tempIssueDate}"></td>
-                            <td th:text="${penalty.tempDueDate}"></td>
-                            <td th:text="${penalty.tempBookId}"></td>
-                        </tr>
+                    <tr th:each="penalty:${userdetail}">
+                        <td th:text="${penalty.tempIssueDate}"></td>
+                        <td th:text="${penalty.tempDueDate}"></td>
+                        <td th:text="${penalty.tempBookId}"></td>
+                    </tr>
                     </tbody>
                 </table>
                 <table th:if="${bookdata}">
@@ -139,5 +143,6 @@
     <script type="text/javascript" th:src="@{/JS/IssueReturn.js}"></script>
     <script type="text/javascript" th:src="@{https://code.jquery.com//jquery-3.7.1.min.js}"></script>
 
+</main>
 </body>
 </html>

@@ -199,6 +199,7 @@ body {
     left: 0;
     z-index: 1000;
 }
+
 #content nav::before {
     content: '';
     position: absolute;
@@ -277,6 +278,20 @@ body {
 #content nav #switch-mode:checked + .switch-mode::before {
     left: calc(100% - (25px - 4px) - 2px);
 }
+
+#content nav navbar{
+    display: flex;
+    gap: 15px;
+    position: relative;
+    font-size: 1.1em;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+}
+#content nav navbar a:hover{
+    color: var(--blue);
+}
+
 /* NAVBAR */
 
 
@@ -816,4 +831,19 @@ input:focus ~ label , input:valid ~ label{
 .align-items-center {
     -ms-flex-align: center !important;
     align-items: center !important
+}
+
+/* Books */
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
+/* Search  */
+
+.search-main{
+    height: 100vh;
+    overflow: visible;
 }

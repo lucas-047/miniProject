@@ -1,3 +1,4 @@
+let main = document.getElementsByName("main")[0];
 const search=()=>{
     console.log("called search method in js...........");
     let query=$("#search-input").val();
@@ -9,7 +10,7 @@ const search=()=>{
     else
     {
             console.log(query);
-            let url=`http://localhost:8080/search/${query}`;
+            let url=`http://localhost:8080/admin/searchBook/${query}`;
             fetch(url).then((response)=>{
             return response.json();
             }).then((data)=> {
@@ -34,7 +35,7 @@ const logf = (book) => {
     }
     else
     {
-        let url=`http://localhost:8080/search/result/${book}`;
+        let url=`http://localhost:8080/admin/searchBook/result/${book}`;
         fetch(url).then((response)=>{
             return response.json();
         }).then((dataResult)=> {
@@ -43,13 +44,13 @@ const logf = (book) => {
             dataResult.forEach((bookResult) => {
 
                 if (bookResult.dueDate === null) {
-                    textResult += `<div  class='fakir' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.book.bookName} 
+                    textResult += `<div  class='show' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.book.bookName} 
                 <br>Branch : ${bookResult.book.branch}<br>BookId : ${bookResult.book.bookId}<br>Publisher : ${bookResult.book.publisher}
                 <br>Book Available
                 </div><br>`;
                 } else {
 
-                textResult += `<div  class='fakir' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.book.bookName} 
+                textResult += `<div  class='show' onclick="logf(${JSON.stringify(book)})">Book Name : ${bookResult.book.bookName} 
                 <br>Branch : ${bookResult.book.branch}<br>BookId : ${bookResult.book.bookId}<br>Publisher : ${bookResult.book.publisher}
                 <br>Return Date: ${bookResult.dueDate}
                 </div><br>`;

@@ -5,14 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<navbar>
-
-</navbar>
+<navbar th:replace="~{Admin/BookManagement/bookNavbar.html}"></navbar>
 <main>
     <div class="center">
         <div class="wrapper">
             <div class="form-box">
-                <form th:action="@{/uploadUser}" action="#" method="post" enctype="multipart/form-data">
+                <form th:action="@{/upload}" action="#" method="post" enctype="multipart/form-data">
                     <div class="input-box">
                         <input type="file" id="file" name="file">
                     </div>
