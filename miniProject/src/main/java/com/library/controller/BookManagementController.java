@@ -147,17 +147,22 @@ public class BookManagementController {
                     count++;
 
                 }
+
 //        currentRecord.add((Penalty) oldRecord);
                 List<String> idUser = new ArrayList<>();
-                for (Penalty transaction : currentRecord) {
-                    String i = transaction.getTempUserId();
+//                for (Penalty transaction : currentRecord) {
+//                    String i = transaction.getTempUserId();
+//                    idUser.add(i);
+//                }
+                for (Transaction transaction : oldRecord) {
+                    String i = transaction.getUserId();
                     idUser.add(i);
                 }
                 System.out.println("data is " + oldRecord);
                 List<User> u = userRepository.findAllById(idUser);
                 model.addAttribute("username", u);
-                model.addAttribute("oldRecord", "oldRecord");
-
+                model.addAttribute("oldRecord", oldRecord);
+                System.out.println(currentRecord);
                 return "Admin/BookManagement/BookRecord";
             }
             else {
