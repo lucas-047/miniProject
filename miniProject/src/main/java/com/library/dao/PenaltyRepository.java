@@ -22,4 +22,7 @@ public interface PenaltyRepository extends JpaRepository<Penalty,Integer> {
 
 
    public List<Penalty> findAllByTempBookId(int bookId);
+
+   @Query("select p.tempIssueDate from Penalty p where p.tempBookId =:bookId  ")
+   public LocalDate findissuedate(int bookId);
 }

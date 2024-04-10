@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(navbar,data)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(data)">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +79,7 @@
     <!-- NAVBAR -->
     <nav>
         <i class='bx bx-menu' ></i>
-        <div th:replace="${navbar}"> <--   NAVBAR will be shown here -->   </div>
+<!--        <div th:replace="${navbar}"> <&#45;&#45;   NAVBAR will be shown here &ndash;&gt;   </div>-->
         <div class="left-box">
             <input type="checkbox" id="switch-mode" hidden>
             <label for="switch-mode" class="switch-mode"></label>

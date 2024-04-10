@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+
+</head>
+<body>
+<table th:if="${rq}" border="3">
+    <thead>
+    <tr>
+        <th>Request ID</th>
+        <th>Issue date</th>
+        <th>Book ID</th>
+        <th>User ID</th>
+        <th>Request Date</th>
+        <th>Aprrove Date</th>
+        <th>Status</th>
+        <th>No of Renew</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r:${rq}">
+        <td th:text="${r.getRequestId()}"></td>
+        <td th:text="${r.getIssueDate()}"></td>
+        <td th:text="${r.getBookId()}"></td>
+        <td th:text="${r.getUserId()}"></td>
+        <td th:text="${r.getRequestDate()}"></td>
+        <td th:text="${r.getApproveDate()}"></td>
+        <td th:text="${r.getStatus()}"></td>
+        <td th:text="${r.getCount()}"></td>
+        <div th:if="${r.getStatus()=='pending'}">
+         <td>
+             <button th:onclick="approveRequest()" >
+                 Approve
+             </button>
+         </td>
+       </div>
+    </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript" th:src="@{/JS/Renew.js}"></script>
+
+</body>
+</html>
