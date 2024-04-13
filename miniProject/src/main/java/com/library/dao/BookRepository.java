@@ -28,9 +28,14 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("SELECT b FROM Book b WHERE b.bookName LIKE LOWER(CONCAT('%', :name, '%')) AND b.BookStatus = 0")
     public List<Book> findbookwithbookstatusWithDue(String name);
     public List<Book> findAllByBookNameContaining(String name);
+    @Query("SELECT b FROM Book b WHERE LOWER(b.AuthorName) LIKE LOWER(CONCAT('%', :name, '%'))")
+    public List<Book> findAllByAuthorNameContaining(String name);
+   // public List<Book> findAllByAuthorNameContaining(String AuthorName);
     @Query("SELECT b FROM Book b WHERE b.bookId = (SELECT MAX(b2.bookId) FROM Book b2)")
     Book findTop();
-
+    @Query("SELECT DISTINCT b.AuthorName FROM Book b WHERE LOWER(b.AuthorName) LIKE LOWER(CONCAT('%', :name, '%')) ")
+    //@Query("SELECT b FROM Book b WHERE b.bookName IN (SELECT DISTINCT b2.bookName FROM Book b2 WHERE LOWER(b2.bookName) LIKE LOWER(CONCAT('%', :name, '%')))")
+    public List<String> searchqueryforauthor(String name);
 
 //    public List<Book>findDistinctByBookNameContaining(String name);
 }

@@ -1,8 +1,8 @@
-let main = document.getElementsByName("main")[0];
+//let main = document.getElementsByName("main")[0];
 const search=()=>{
     console.log("called search method in js...........");
     let query=$("#search-input").val();
-
+    let type=1;
     if(query=='')
     {
 
@@ -10,7 +10,7 @@ const search=()=>{
     else
     {
             console.log(query);
-            let url=`http://localhost:8080/admin/searchBook/${query}`;
+            let url=`http://localhost:8080/get/data/${query}/${type}`;
             fetch(url).then((response)=>{
             return response.json();
             }).then((data)=> {
@@ -35,7 +35,7 @@ const logf = (book) => {
     }
     else
     {
-        let url=`http://localhost:8080/admin/searchBook/result/${book}`;
+        let url=`http://localhost:8080/get/result/${book}`;
         fetch(url).then((response)=>{
             return response.json();
         }).then((dataResult)=> {

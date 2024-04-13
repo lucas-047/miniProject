@@ -3,25 +3,11 @@ package com.library.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.Length;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "Usertop")
-public class User implements UserDetails{
+@Table(name = "User")
+public class User {
 
     @Id
     private String userName;
@@ -48,49 +34,116 @@ public class User implements UserDetails{
     @Pattern(regexp = "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$", message = "Invalid Email !!")
     @Column(length = 40)
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
+    @Column(length = 2)
+    private String Role;
     private String password;
     private int issuedBook;
     private int penaltyStatus;
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+
+    public String getUserName() {
+        return userName;
     }
 
-    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return userName;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getIssuedBook() {
+        return issuedBook;
+    }
+
+    public void setIssuedBook(int issuedBook) {
+        this.issuedBook = issuedBook;
+    }
+
+    public int getPenaltyStatus() {
+        return penaltyStatus;
+    }
+
+    public void setPenaltyStatus(int penaltyStatus) {
+        this.penaltyStatus = penaltyStatus;
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", branch='" + branch + '\'' +
+                ", address='" + address + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", Role='" + Role + '\'' +
+                ", password='" + password + '\'' +
+                ", issuedBook=" + issuedBook +
+                ", penaltyStatus=" + penaltyStatus +
+                '}';
     }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-
 }

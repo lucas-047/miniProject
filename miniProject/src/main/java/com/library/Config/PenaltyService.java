@@ -79,10 +79,18 @@ public class PenaltyService {
         return date;
     }
 
-    public List<BookWithAdditionalData> resultdata(String book)
+    public List<BookWithAdditionalData> resultdata(String book,int type)
     {   PenaltyService penaltyService=new PenaltyService(penaltyRepository);
        // BookRepository bookRepository;
-        List<Book> books=bookRepository.findAllByBookNameContaining(book);
+        List<Book> books=new ArrayList<>();
+        if(type==0)
+        {
+         books=bookRepository.findAllByBookNameContaining(book);
+
+        }
+        else {
+            books=bookRepository.findAllByAuthorNameContaining(book);
+        }
 //        System.out.println("book +"+books);
         List<BookWithAdditionalData> bookWithAdditionalData=new ArrayList<>();
         List<BookWithAdditionalData> list2=new ArrayList<>();
