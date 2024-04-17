@@ -20,16 +20,16 @@ public class AdvanceConfigService {
         private AdvanceConfigRepository advanceConfigRepository;
     public int getPenaltyValue()
     {
-       AdvanceConfig advanceConfig= advanceConfigRepository.findById(1);
-       if(advanceConfig==null)
-       {
+       boolean Check=advanceConfigRepository.existsById(1);
+       if(!Check)
+       {AdvanceConfig advanceConfig= new AdvanceConfig();
            advanceConfig.setId(1);
            advanceConfig.setValue("10");
            advanceConfigRepository.saveAndFlush(advanceConfig);
            return 10;
        }
        else
-       {
+       {AdvanceConfig advanceConfig= advanceConfigRepository.findById(1);
        int id=Integer.parseInt(advanceConfig.getValue());
         System.out.println("id is "+advanceConfig);
         return id;
@@ -39,9 +39,9 @@ public class AdvanceConfigService {
 
         public void setPenaltyValue(String penaltyValue)
 
-        {      AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(1);
-
-            if(advanceConfigcheck==null)
+        {     // AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(1);
+            boolean Check=advanceConfigRepository.existsById(1);
+            if(!Check)
 
             {
 
@@ -68,9 +68,9 @@ public class AdvanceConfigService {
         }
     public void setNumberOfIssueBookForUser(String value)
     {
-        AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(2);
-
-        if(advanceConfigcheck==null)
+//        AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(2);
+        boolean check= advanceConfigRepository.existsById(2);
+        if(!check)
 
         {
 
@@ -83,7 +83,7 @@ public class AdvanceConfigService {
 
             // AdvanceConfig advanceConfig=new AdvanceConfig();
 
-            AdvanceConfig advanceConfig = advanceConfigRepository.findById(1);
+            AdvanceConfig advanceConfig = advanceConfigRepository.findById(2);
             advanceConfig.setValue(value);
             System.out.println(advanceConfig);
             advanceConfigRepository.saveAndFlush(advanceConfig);
@@ -92,16 +92,16 @@ public class AdvanceConfigService {
     }
     public int getNumberOfIssueBookForUser()
     {
-        AdvanceConfig advanceConfig= advanceConfigRepository.findById(2);
-        if(advanceConfig==null)
-        {
+        boolean check= advanceConfigRepository.existsById(2);
+        if(!check)
+        {AdvanceConfig advanceConfig= new AdvanceConfig();
             advanceConfig.setId(2);
             advanceConfig.setValue("5");
             advanceConfigRepository.saveAndFlush(advanceConfig);
             return 5;
         }
         else
-        {
+        {AdvanceConfig advanceConfig= advanceConfigRepository.findById(2);
             int id=Integer.parseInt(advanceConfig.getValue());
             System.out.println("id is "+advanceConfig);
             return id;
@@ -110,9 +110,9 @@ public class AdvanceConfigService {
     public void setNumberOfIssueBookForFaculty(String value)
     {
 
-        AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(3);
-
-        if(advanceConfigcheck==null)
+       // AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(3);
+        boolean check=advanceConfigRepository.existsById(3);
+        if(!check)
 
         {
 
@@ -125,7 +125,7 @@ public class AdvanceConfigService {
 
             // AdvanceConfig advanceConfig=new AdvanceConfig();
 
-            AdvanceConfig advanceConfig = advanceConfigRepository.findById(1);
+            AdvanceConfig advanceConfig = advanceConfigRepository.findById(3);
             advanceConfig.setValue(value);
             System.out.println(advanceConfig);
             advanceConfigRepository.saveAndFlush(advanceConfig);
@@ -133,17 +133,17 @@ public class AdvanceConfigService {
         }
     }
     public int getNumberOfIssueBookForFaculty()
-    {
-        AdvanceConfig advanceConfig= advanceConfigRepository.findById(3);
-        if(advanceConfig==null)
-        {
+    {  boolean checkadvanceConfig=advanceConfigRepository.existsById(3);
+       // AdvanceConfig advanceConfig= advanceConfigRepository.findById(3);
+        if(!checkadvanceConfig)
+        {   AdvanceConfig advanceConfig=new AdvanceConfig();
             advanceConfig.setId(3);
             advanceConfig.setValue("10");
             advanceConfigRepository.saveAndFlush(advanceConfig);
             return 10;
         }
         else
-        {
+        {   AdvanceConfig advanceConfig=advanceConfigRepository.findById(3);
             int id=Integer.parseInt(advanceConfig.getValue());
             System.out.println("id is "+advanceConfig);
             return id;
@@ -151,9 +151,9 @@ public class AdvanceConfigService {
     }
     public void setUserDueDate(String value)
     {
-        AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(4);
-
-        if(advanceConfigcheck==null)
+        //AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(4);
+        boolean check= advanceConfigRepository.existsById(4);
+        if(!check)
 
         {
 
@@ -175,16 +175,16 @@ public class AdvanceConfigService {
     }
     public int getUserDueDate()
     {
-        AdvanceConfig advanceConfig= advanceConfigRepository.findById(3);
-        if(advanceConfig==null)
-        {
+       boolean check= advanceConfigRepository.existsById(4);
+        if(!check)
+        { AdvanceConfig advanceConfig= new AdvanceConfig();
             advanceConfig.setId(4);
             advanceConfig.setValue("5");
             advanceConfigRepository.saveAndFlush(advanceConfig);
             return 5;
         }
         else
-        {
+        { AdvanceConfig advanceConfig= advanceConfigRepository.findById(4);
             int id=Integer.parseInt(advanceConfig.getValue());
             System.out.println("id is "+advanceConfig);
             return id;
@@ -192,9 +192,9 @@ public class AdvanceConfigService {
     }
     public void setFacultyDueDate(String value)
     {
-        AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(5);
-
-        if(advanceConfigcheck==null)
+//        AdvanceConfig advanceConfigcheck=advanceConfigRepository.findById(5);
+            boolean check= advanceConfigRepository.existsById(5);
+        if(!check)
 
         {
 
@@ -217,16 +217,16 @@ public class AdvanceConfigService {
 
     public int getFacultyDueDate()
     {
-        AdvanceConfig advanceConfig= advanceConfigRepository.findById(3);
-        if(advanceConfig==null)
-        {
+       boolean check=advanceConfigRepository.existsById(5);
+        if(!check)
+        { AdvanceConfig advanceConfig= new AdvanceConfig();
             advanceConfig.setId(5);
             advanceConfig.setValue("180");
             advanceConfigRepository.saveAndFlush(advanceConfig);
             return 180;
         }
         else
-        {
+        { AdvanceConfig advanceConfig= advanceConfigRepository.findById(5);
             int id=Integer.parseInt(advanceConfig.getValue());
             System.out.println("id is "+advanceConfig);
             return id;
