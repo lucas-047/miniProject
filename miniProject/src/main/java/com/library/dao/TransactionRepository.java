@@ -17,4 +17,6 @@ public interface TransactionRepository extends JpaRepository<Transaction,Integer
     public Book getBookByBookId(@Param("bookId") int bookId);
         public List<Transaction> findByBookId(int bookId);
         public boolean existsByBookId(int bookId);
+
+        public List<Transaction> findByIssueDate(LocalDate issueDate);
 }

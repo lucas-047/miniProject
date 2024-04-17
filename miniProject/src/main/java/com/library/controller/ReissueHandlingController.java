@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-
+@RequestMapping("/user")
 public class ReissueHandlingController {
     @Autowired
     private RequestmanagementRepository requestmanagementRepository;

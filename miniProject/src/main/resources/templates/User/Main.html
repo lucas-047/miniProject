@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'User/base'::Layout(~{::main})}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Main</title>
+</head>
+<body>
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Dashboard</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ul class="box-info">
+            <a href="#">
+                <li>
+                    <i class='bx bxs-calendar-check' ></i>
+                    <span class="text">
+                            <h3>Renew</h3>
+                        </span>
+                </li>
+            </a>
+<!--            <li>-->
+<!--                <i class='bx bxs-group' ></i>-->
+<!--                <span class="text">-->
+<!--						<h3>ABC</h3>-->
+<!--						<p>abcdefghi</p>-->
+<!--					</span>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <i class='bx bxs-dollar-circle' ></i>-->
+<!--                <span class="text">-->
+<!--						<h3>ABC</h3>-->
+<!--						<p>abcdefghi</p>-->
+<!--					</span>-->
+<!--            </li>-->
+        </ul>
+
+
+        <div class="table-data">
+            <div class="order">
+                <div class="head">
+                    <h3>Recent Issue</h3>
+
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Issue Date</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status completed">Completed</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status pending">Over Due</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status process">Return Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status pending">Over Due</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>ABC</p>
+                        </td>
+                        <td>01-10-2021</td>
+                        <td><span class="status completed">Completed</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+<!--            <div class="todo">-->
+<!--                //Don't know what to do-->
+<!--            </div>-->
+        </div>
+    </main>
+</body>
+</html>

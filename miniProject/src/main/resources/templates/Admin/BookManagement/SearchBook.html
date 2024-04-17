@@ -1,18 +1,23 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" >-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash;<navbar th:replace="~{Admin/BookManagement/bookNavbar.html}"></navbar>&ndash;&gt;-->
-<!--<main class="search-main">-->
-<!--    <div class="search-container my-4">-->
-<!--        <input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="search here">-->
-<!--        <div class="search-result"></div>-->
-<!--    </div>-->
-<!--    <script type="text/javascript" th:src="@{/JS/Search.js}"></script>-->
-<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-<!--</main>-->
-<!--</body>-->
-<!--</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'Admin/base'::Layout(~{::navbar},~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<navbar th:replace="~{Admin/BookManagement/bookNavbar.html}"></navbar>
+<main class="search-main">
+    <div class="search-container my-4">
+        <input onkeyup="search()" id="search-input" class="search-input form-control" type="text" placeholder="Search">
+
+
+        <input type="radio" value="1" name="filter">Author
+        <input type="radio" value="2" name="filter" checked>Book
+<!--        <button id="filter-btn">filter</button>-->
+    </div>
+        <div class="search-result"></div>
+    <script type="text/javascript" th:src="@{/JS/Search.js}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</main>
+</body>
+</html>

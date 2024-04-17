@@ -3,7 +3,6 @@ package com.library.controller;
 import com.library.dao.UserRepository;
 import com.library.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,11 +15,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("/index")
-    public String dashBorad(){
-        return "User/User_dashBoard";
+    @RequestMapping("/searchBook")
+    public String bookSearch(){
+        return "User/bookSearch";
     }
-
+    @RequestMapping("/index")
+    public String dashBoard(){
+        return "User/Main";
+    }
     @RequestMapping("/profile")
     public String profile(Model model){
         model.addAttribute("user",new User());

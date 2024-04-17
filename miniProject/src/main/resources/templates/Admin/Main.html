@@ -50,7 +50,6 @@
             <div class="order">
                 <div class="head">
                     <h3>Recent Issue</h3>
-
                 </div>
                 <table>
                     <thead>
@@ -61,40 +60,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Over Due</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status process">Return Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Over Due</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
+
+                    <tr th:each="book:${Record}">
+                            <td th:text="${book.tempUserId}"></td>
+                            <td th:text="${book.tempIssueDate}"></td>
+                            <td th:text="${book.tempPenaltyStatus}"></td>
                     </tr>
                     </tbody>
                 </table>

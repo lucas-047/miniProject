@@ -62,7 +62,6 @@ public class TransactionController {
     @GetMapping("/issue-return")
     public String getissuepage(Model model) {
         Attribute(model);
-        System.out.println(authentication.getName());
         model.addAttribute("pageTitle", "Books");
         return "Admin/IssueReturn";
     }

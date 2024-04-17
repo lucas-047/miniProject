@@ -83,12 +83,12 @@ public class PenaltyService {
     {   PenaltyService penaltyService=new PenaltyService(penaltyRepository);
        // BookRepository bookRepository;
         List<Book> books=new ArrayList<>();
-        if(type==0)
+        if(type==2)
         {
          books=bookRepository.findAllByBookNameContaining(book);
 
         }
-        else {
+        if(type==1) {
             books=bookRepository.findAllByAuthorNameContaining(book);
         }
 //        System.out.println("book +"+books);

@@ -66,8 +66,8 @@ public class SecurityConfig {
             "search/result/{book}",
             "Issue",
             "approveRequest",
-//            "/user/**",
-//            "/admin/**",
+            "/user/**",
+            "/admin/**",
             "/**"
 
     };
@@ -76,8 +76,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-                        .requestMatchers("/user/**").authenticated()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/user/**").authenticated()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

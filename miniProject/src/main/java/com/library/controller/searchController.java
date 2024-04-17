@@ -27,12 +27,11 @@ public class searchController {
     private BookRepository bookRepository;
     @Autowired
     private PenaltyService penaltyService;
-    int val=1;
 
-    @RequestMapping("admin/searchBook")
+    @RequestMapping("/admin/searchBook")
     public ModelAndView getsearchpage()
     {   ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Public/Search");
+        modelAndView.setViewName("Admin/BookManagement/SearchBook");
         return modelAndView;
     }
 
@@ -55,11 +54,11 @@ public class searchController {
         }
 
     }
-    @GetMapping("get/result/{book}")
-    public ResponseEntity<?> searchresult(@PathVariable String book)
+    @GetMapping("get/result/{book}/{type}")
+    public ResponseEntity<?> searchresult(@PathVariable String book,@PathVariable int type)
     {
-        System.out.println("this i s "+val);
-        List<BookWithAdditionalData> resultData=penaltyService.resultdata(book,val);
+        System.out.println("this is "+type);
+        List<BookWithAdditionalData> resultData=penaltyService.resultdata(book,type);
 //model.addAttribute("dataResult",resultData);
 for(BookWithAdditionalData b:resultData)
 {
