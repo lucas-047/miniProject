@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{'User/base'::Layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+
+</head>
+<body>
+<main>
+    <div class="center">
+        <div class="wrapper">
+            <div class="form-box">
+                <h2>Renew-Request</h2>
+                <form th:action="@{/user/requestbook}" action="#" method="post" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <input type="text" id="file" name="bookId" required>
+                        <label>Book ID</label>
+                    </div>
+                    <button type="submit" class="bth">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

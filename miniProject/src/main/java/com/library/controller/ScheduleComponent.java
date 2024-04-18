@@ -40,17 +40,17 @@ public class ScheduleComponent {
                 System.out.println("bookid= "+forcheck.getTempBookId()+" today is duedate");
 
             }
-            else if(day==1)
+            else if(day==-1)
             {
                 System.out.println("bookid= "+forcheck.getTempBookId()+" 1 day remaining");
             }
             else if(day>0) {
                 System.out.println("day is "+day);
                 day= Math.abs(day);
-                int PenaltyDue=10*day;
-               penaltyService.savePentaltyStatus(forcheck.getTempBookId(),PenaltyDue);
+               penaltyService.savePentaltyStatus(forcheck.getTempBookId(),day);
                 System.out.println("bookid= "+forcheck.getTempBookId()+"  ops you got penalty "+forcheck.getTempPenaltyStatus());
             }
+
         }
 
         String subject="schedule msg";

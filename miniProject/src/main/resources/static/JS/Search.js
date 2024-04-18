@@ -40,6 +40,7 @@ const search = () => {
         });
         $(".search-result").show();
     }
+    $(".search-result").hide();
 };
 
 const logf = (book) => {

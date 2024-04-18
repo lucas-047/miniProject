@@ -5,7 +5,6 @@ import com.library.dao.RequestmanagementRepository;
 import com.library.entities.Requestmanagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,27 +13,26 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
 public class ReissueHandlingController {
     @Autowired
     private RequestmanagementRepository requestmanagementRepository;
     @Autowired
    private PenaltyRepository penaltyRepository;
-    @RequestMapping("/requestnew")
+    @RequestMapping("/user/requestnew")
     public ModelAndView getrequestpage()
     {   ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Public/RequestReissue");
+        modelAndView.setViewName("User/RequestReissue");
         return modelAndView;
     }
-    @RequestMapping("/requestissue")
+    @RequestMapping("/admin/requestissue")
     public ModelAndView getstatuspage(Model model)
     {   ModelAndView modelAndView = new ModelAndView();
         List<Requestmanagement> rq=requestmanagementRepository.findAll();
         model.addAttribute("rq",rq);
-        modelAndView.setViewName("Public/RequestStatusCheck");
+        modelAndView.setViewName("Admin/RequestStatusCheck");
         return modelAndView;
     }
-    @PostMapping("/requestbook")
+    @PostMapping("/user/requestbook")
     public String createrequest(@RequestParam("bookId") int bookId, Model model)
     {
         Requestmanagement rq=requestmanagementRepository.findByBookId(bookId);
@@ -70,7 +68,7 @@ public class ReissueHandlingController {
 
         return "Public/timepass";
     }
-    @PostMapping("/approverequest")
+    @PostMapping("/admin/approverequest")
     public ResponseEntity<String> approveRequest(@RequestBody String id,Model model) {
         System.out.println("hoo hooo hoooooo");
 //        Double id= Double.valueOf(idd);

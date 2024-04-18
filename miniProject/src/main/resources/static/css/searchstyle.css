@@ -11,7 +11,7 @@
     margin-top: 10px;
     max-height: 100%;
     height: fit-content;
-    overflow: scroll;
+    overflow-y: scroll;
     border-radius: 10px;
 }
 

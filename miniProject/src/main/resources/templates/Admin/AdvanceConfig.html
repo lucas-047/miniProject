@@ -10,40 +10,94 @@
 
 </navbar>
 <main>
-    <div class="center">
-        <div class="wrapper">
+    <div class="container">
+        <div class="btn-div">
+            <div class="issue-div">
+                <button class="myBtn">Change</button>
+                <!-- The Modal -->
+                <div class="modal myModal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="form-box">
+                            <h2>Configuration</h2>
+                            <form th:action="@{/advance}" action="#" method="post" enctype="multipart/form-data">
+                                <div class="input-box">
+                                    <input type="text" name="price" required>
+                                    <label>Penalty price</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" name="usertotal" required>
+                                    <label>number of book user have</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" name="facultytotal" required>
+                                    <label>number of book faculty have</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" name="userdue" required>
+                                    <label>time of book for user have</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" name="facultydue" required>
+                                    <label>time of book faculty have</label>
+                                </div>
+                                <button type="submit" class="bth">change</button>
+                            </form>
+                        </div>
+                    </div>
 
-        <div class="form-box">
-            <h2>Configuration</h2>
-            <form th:action="@{/advance}" action="#" method="post" enctype="multipart/form-data">
-                <div class="input-box">
-                    <input type="text" name="price" required>
-                    <label>Penalty price</label>
                 </div>
-                <div class="input-box">
-                    <input type="text" name="usertotal" required>
-                    <label>number of book user have</label>
-                </div>
-                <div class="input-box">
-                    <input type="text" name="facultytotal" required>
-                    <label>number of book faculty have</label>
-                </div>
-                <div class="input-box">
-                    <input type="text" name="userdue" required>
-                    <label>time of book for user have</label>
-                </div>
-                <div class="input-box">
-                    <input type="text" name="facultydue" required>
-                    <label>time of book faculty have</label>
-                </div>
-                <button type="submit" class="bth">change</button>
-
-            </form>
-
+            </div>
         </div>
+        <div class="table-data">
+            <div class="order">
+                <div class="head">
+                    <h3>Recent Issue</h3>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Config</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span>Penalty Price</span></td>
+                        <td><span th:text="${price}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Number of Books for user</span></td>
+                        <td><span th:text="${userIssue}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Number of Book for Faculty Price</span></td>
+                        <td><span th:text="${facultyIssue}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>User Duration</span></td>
+                        <td><span th:text="${userDue}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Faculty Duration</span></td>
+                        <td><span th:text="${facultyDue}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
     </div>
-
-    </div>
+<script>
+    var modal = document.getElementsByClassName("myModal")[0];
+    var btn = document.getElementsByClassName("myBtn")[0];
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </main>
 </body>
 </html>

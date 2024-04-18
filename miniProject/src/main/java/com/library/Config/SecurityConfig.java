@@ -66,9 +66,10 @@ public class SecurityConfig {
             "search/result/{book}",
             "Issue",
             "approveRequest",
-            "/user/**",
-            "/admin/**",
-            "/**"
+            "pass"
+//            "/user/**",
+//            "/admin/**",
+//            "/**"
 
     };
     @Bean
@@ -76,8 +77,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-//                        .requestMatchers("/user/**").authenticated()
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

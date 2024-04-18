@@ -12,4 +12,5 @@ public interface AdvanceConfigRepository extends JpaRepository<AdvanceConfig,Int
     public AdvanceConfig findById(int id);
     @Query("select advance.value from AdvanceConfig advance where advance.id =: id")
     public String findvalue(int id);
+
 }

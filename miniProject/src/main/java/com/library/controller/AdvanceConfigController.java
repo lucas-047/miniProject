@@ -1,31 +1,26 @@
 package com.library.controller;
 
 import com.library.Config.AdvanceConfigService;
-import com.library.dao.AdvanceConfigRepository;
-import com.library.entities.AdvanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 
 public class AdvanceConfigController {
     @Autowired
     private AdvanceConfigService advanceConfigService;
-    @Autowired
-    private AdvanceConfigRepository advanceConfigRepository;
+
+
 
 
     @PostMapping("/advance")
-    public ResponseEntity<?> SettingChange( @RequestParam("price") String price,
-                                           @RequestParam("usertotal") String userTotalIssue,
-                                           @RequestParam("facultytotal") String facultyTotalIssue,
-                                           @RequestParam("userdue") String userduedate,
-                                           @RequestParam("facultydue") String facultyduedate, Model model)
+    public ModelAndView SettingChange(@RequestParam("price") String price,
+                                      @RequestParam("usertotal") String userTotalIssue,
+                                      @RequestParam("facultytotal") String facultyTotalIssue,
+                                      @RequestParam("userdue") String userduedate,
+                                      @RequestParam("facultydue") String facultyduedate, Model model)
     {
         if(price!=null)
         {   advanceConfigService.setPenaltyValue(price);
@@ -47,20 +42,9 @@ public class AdvanceConfigController {
         {
             advanceConfigService.setFacultyDueDate(facultyduedate);
         }
-        String penaltyPrice=advanceConfigRepository.findvalue(1);
-        String userIssue=advanceConfigRepository.findvalue(2);
-        String facultyIssue=advanceConfigRepository.findvalue(3);
-        String userDue=advanceConfigRepository.findvalue(4);
-        String facultyDue=advanceConfigRepository.findvalue(5);
-        model.addAttribute("price", penaltyPrice);
-        model.addAttribute("userIssue", userIssue);
-        model.addAttribute("facultyIssue", facultyIssue);
-        model.addAttribute("userDue", userDue);
-        model.addAttribute("facultyDue", facultyDue);
 
 
-
-        return ResponseEntity.ok(model);
+        return new ModelAndView("redirect:/admin/setting");
     }
 }
 /*

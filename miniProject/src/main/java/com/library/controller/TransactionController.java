@@ -1,7 +1,6 @@
 package com.library.controller;
 
 import com.library.Config.AdvanceConfigService;
-import com.library.Config.CustomUserDetails;
 import com.library.Config.PenaltyService;
 import com.library.Config.TransactionService;
 import com.library.dao.BookRepository;
@@ -16,6 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -59,7 +59,7 @@ public class TransactionController {
         model.addAttribute("maxIssue", false);
     }
 
-    @GetMapping("/issue-return")
+    @GetMapping("/admin/issue-return")
     public String getissuepage(Model model) {
         Attribute(model);
         model.addAttribute("pageTitle", "Books");

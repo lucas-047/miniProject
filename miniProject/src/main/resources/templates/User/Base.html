@@ -8,7 +8,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
     <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
-    <link rel="stylesheet" th:href="@{/css/Admin_Dashboard.css}"/>
+    <link rel="stylesheet" th:href="@{/css/Dashboard.css}"/>
     <link rel="stylesheet" th:href="@{/css/searchstyle.css}">
 
     <title th:text="${pageTitle}"></title>
@@ -23,7 +23,7 @@
     </a>
     <ul class="side-menu top">
         <li th:class="${#strings.equals(pageTitle,'Library Management System')} ? active : ''">
-            <a href="#" th:href="@{/admin/index}">
+            <a href="#" th:href="@{/user/index}">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Dashboard</span>
             </a>
@@ -57,10 +57,10 @@
         <i class='bx bx-menu' ></i>
 <!--        <div th:replace="${navbar}"> <&#45;&#45;   NAVBAR will be shown here &ndash;&gt;   </div>-->
         <div class="left-box">
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
+<!--            <input type="checkbox" id="switch-mode" hidden>-->
+<!--            <label for="switch-mode" class="switch-mode"></label>-->
             <a href="#" class="notification">
-                <i class='bx bxs-bell' ></i>
+<!--                <i class='bx bxs-bell' ></i>-->
                 <!--                <span class="num">8</span>-->
             </a>
             <a href="#" class="profile">

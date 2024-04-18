@@ -8,71 +8,77 @@
 <navbar>
 
 </navbar>
-    <main>
-        <div class="head-title">
-            <div class="left">
-                <h1>Dashboard</h1>
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Dashboard</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <ul class="box-info">
-            <a href="/issue-return">
+<main>
+    <div class="head-title">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
                 <li>
-                    <i class='bx bxs-calendar-check' ></i>
-                    <span class="text">
+                    <a href="#">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <ul class="box-info">
+        <a href="/admin/issue-return">
+            <li>
+                <i class='bx bxs-calendar-check'></i>
+                <span class="text">
                             <h3>Issue/Return</h3>
                         </span>
-                </li>
-            </a>
+            </li>
+        </a>
+        <a href="/admin/requestissue">
             <li>
-                <i class='bx bxs-group' ></i>
+                <i class='bx bxs-calendar-check'></i>
                 <span class="text">
+                            <h3>Renew Request</h3>
+                </span>
+            </li>
+        </a>
+        <li>
+            <i class='bx bxs-dollar-circle'></i>
+            <span class="text">
 						<h3>ABC</h3>
 						<p>abcdefghi</p>
 					</span>
-            </li>
-            <li>
-                <i class='bx bxs-dollar-circle' ></i>
-                <span class="text">
-						<h3>ABC</h3>
-						<p>abcdefghi</p>
-					</span>
-            </li>
-        </ul>
+        </li>
+    </ul>
 
 
-        <div class="table-data">
-            <div class="order">
-                <div class="head">
-                    <h3>Recent Issue</h3>
-                </div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Issue Date</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr th:each="book:${Record}">
-                            <td th:text="${book.tempUserId}"></td>
-                            <td th:text="${book.tempIssueDate}"></td>
-                            <td th:text="${book.tempPenaltyStatus}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+    <div class="table-data">
+        <div class="order">
+            <div class="head">
+                <h3>Recent Issue</h3>
             </div>
-<!--            <div class="todo">-->
-<!--                //Don't know what to do-->
-<!--            </div>-->
+            <table>
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Issue Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book:${Pending_Record}">
+                    <td><span th:text="${book.tempUserId}"></span></td>
+                    <td><span th:text="${book.tempIssueDate}"></span></td>
+                    <td><span th:if="${book.tempPenaltyStatus}<1" class="status process">Return Pending</span></td>
+                    <td><span th:if="${book.tempPenaltyStatus}>1" class="status pending">Overdue</span></td>
+                </tr>
+                <tr th:each="book:${Complete_Record}">
+                    <td><span th:text="${book.userId}"></span></td>
+                    <td><span th:text="${book.issueDate}"></span></td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </main>
+        <!--            <div class="todo">-->
+        <!--                //Don't know what to do-->
+        <!--            </div>-->
+    </div>
+</main>
 </body>
 </html>

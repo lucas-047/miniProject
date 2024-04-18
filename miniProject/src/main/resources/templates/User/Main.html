@@ -18,7 +18,7 @@
         </div>
 
         <ul class="box-info">
-            <a href="#">
+            <a th:href="@{/user/requestnew}">
                 <li>
                     <i class='bx bxs-calendar-check' ></i>
                     <span class="text">
@@ -53,46 +53,47 @@
                     <thead>
                     <tr>
                         <th>User</th>
+                        <th>Book ID</th>
                         <th>Issue Date</th>
                         <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
+                    <tr th:each="book:${Record}">
+                        <td><span th:text="${book.tempUserId}"></span></td>
+                        <td><span th:text="${book.tempBookId}"></span></td>
+                        <td><span th:text="${book.tempIssueDate}"></span></td>
+                        <td><span th:if="${book.tempPenaltyStatus}<1" class="status process">Return Pending</span></td>
+                        <td><span th:if="${book.tempPenaltyStatus}>1" class="status pending">Overdue</span></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Over Due</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status process">Return Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Over Due</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>ABC</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span >Over Due</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status process">Return Pending</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status pending">Over Due</span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <p>ABC</p>-->
+<!--                        </td>-->
+<!--                        <td>01-10-2021</td>-->
+<!--                        <td><span class="status completed">Completed</span></td>-->
+<!--                    </tr>-->
                     </tbody>
                 </table>
             </div>
