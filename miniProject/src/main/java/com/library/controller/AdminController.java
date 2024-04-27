@@ -27,7 +27,7 @@ public class AdminController {
     @RequestMapping("/index")
     public String dashBoard(Model model, Principal principal){
         model.addAttribute("pageTitle","Library Management System");
-        model.addAttribute("userName",principal.getName());
+       // model.addAttribute("userName",principal.getName());
         List<Transaction> list = transactionRepository.findByIssueDate(LocalDate.now());
 //        System.out.println(list);
         List<Penalty> list1 = penaltyRepository.findAllByTempIssueDate(LocalDate.now());

@@ -10,7 +10,7 @@ public interface RequestmanagementRepository extends JpaRepository<Requestmanage
 
 public Requestmanagement findByBookId(int bookId);
 public Requestmanagement findByRequestId(Double id);
-
+public boolean existsByBookId(int bookId);
 
 
 }

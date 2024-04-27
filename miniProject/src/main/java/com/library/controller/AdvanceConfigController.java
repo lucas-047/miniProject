@@ -43,6 +43,17 @@ public class AdvanceConfigController {
             advanceConfigService.setFacultyDueDate(facultyduedate);
         }
 
+        int penaltyPrice=advanceConfigService.getPenaltyValue();
+        int userIssue=advanceConfigService.getNumberOfIssueBookForUser();
+        int facultyIssue=advanceConfigService.getNumberOfIssueBookForFaculty();
+        int userDue=advanceConfigService.getUserDueDate();
+        int facultyDue=advanceConfigService.getFacultyDueDate();
+        model.addAttribute("price", penaltyPrice);
+        model.addAttribute("userIssue", userIssue);
+        model.addAttribute("facultyIssue", facultyIssue);
+        model.addAttribute("userDue", userDue);
+        model.addAttribute("facultyDue", facultyDue);
+
 
         return new ModelAndView("redirect:/admin/setting");
     }

@@ -2,17 +2,15 @@
     // Send AJAX request to update the status of the request
 
         function approveRequest() {
-            var requestId=[[${r.requestId}]];
+            var requestId=1;
+            let url = `http://localhost:8080/admin/approverequest`;
             let sendData = "this is data";
             var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
         console.log(requestId);
-            fetch("/approverequest",{
-                credentials:"include",
-                method:"POST",
-                headers:{ 'Content-Type': 'text/plain',
-                    'X-CSRF-TOKEN': csrfToken},
-                body: {requestId}
-            }).then((response) => {
+        var data={
+            requestId
+        }
+            fetch(url).then((response) => {
                 response.text().then(data => {
                     console.log(data);
                 });
