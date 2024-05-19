@@ -23,6 +23,7 @@ public class Penalty {
     @Temporal(TemporalType.DATE)
     private LocalDate tempReturnDate;
     private int tempPenaltyStatus;
+    private int reNew;
 
 
 
@@ -67,6 +68,22 @@ public class Penalty {
         this.tempPenaltyStatus = tempPenaltyStatus;
     }
 
+    public LocalDate getTempReturnDate() {
+        return tempReturnDate;
+    }
+
+    public void setTempReturnDate(LocalDate tempReturnDate) {
+        this.tempReturnDate = tempReturnDate;
+    }
+
+    public int getReNew() {
+        return reNew;
+    }
+
+    public void setReNew(int reNew) {
+        this.reNew = reNew;
+    }
+
     @Override
     public String toString() {
         return "Penalty{" +
@@ -76,6 +93,7 @@ public class Penalty {
                 ", tempDueDate=" + tempDueDate +
                 ", tempReturnDate=" + tempReturnDate +
                 ", tempPenaltyStatus=" + tempPenaltyStatus +
+                ", reNew=" + reNew +
                 '}';
     }
 }

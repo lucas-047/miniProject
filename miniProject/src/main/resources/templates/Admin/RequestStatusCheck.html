@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Library Management System</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <meta name="_csrf" th:content="${_csrf.token}" />
+    <script>
+        function approveRequest(event, form) {
+            event.preventDefault();
 
+            const csrfToken = form.querySelector('input[name="_csrf"]').value;
+            const requestId = form.querySelector('input[name="requestId"]').value;
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: new URLSearchParams({
+                    'requestId': requestId
+                })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'Request approved successfully') {
+                        const row = form.closest('tr');
+                        row.querySelector('td[data-status]').innerText = 'ACCEPT';
+                        form.parentElement.innerHTML = ''; // Remove the form after approval
+                    } else {
+                        console.error('Failed to approve request:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            return false; // Prevent form from submitting the traditional way
+        }
+    </script>
 </head>
 <body>
 <table th:if="${rq}" border="3">
@@ -16,34 +46,32 @@
         <th>Book ID</th>
         <th>User ID</th>
         <th>Request Date</th>
-        <th>Aprrove Date</th>
+        <th>Approve Date</th>
         <th>Status</th>
         <th>No of Renew</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="r:${rq}">
-        <td th:text="${r.getRequestId()}"></td>
-        <td th:text="${r.getIssueDate()}"></td>
-        <td th:text="${r.getBookId()}"></td>
-        <td th:text="${r.getUserId()}"></td>
-        <td th:text="${r.getRequestDate()}"></td>
-        <td th:text="${r.getApproveDate()}"></td>
-        <td th:text="${r.getStatus()}"></td>
-        <td th:text="${r.getCount()}"></td>
-        <div th:if="${r.getStatus()=='pending'}">
-         <td>
-             <button th:onclick="approveRequest()" >
-                 Approve
-             </button>
-         </td>
-       </div>
+    <tr th:each="r : ${rq}">
+        <td th:text="${r.requestId}"></td>
+        <td th:text="${r.issueDate}"></td>
+        <td th:text="${r.bookId}"></td>
+        <td th:text="${r.userId}"></td>
+        <td th:text="${r.requestDate}"></td>
+        <td th:text="${r.approveDate}"></td>
+        <td data-status th:text="${r.status}"></td>
+        <td th:text="${r.count}"></td>
+
+        <td>
+            <form th:if="${r.status.name() == 'PENDING'}" method="post" onsubmit="approveRequest(event, this)">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <input type="hidden" name="requestId" th:value="${r.requestId}" />
+                <button type="submit">Approve</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
-
-<script type="text/javascript" th:src="@{/JS/Renew.js}"></script>
-
 </body>
 </html>

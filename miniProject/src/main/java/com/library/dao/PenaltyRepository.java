@@ -2,10 +2,12 @@ package com.library.dao;
 
 import com.library.entities.Penalty;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
+import java.time.Period;
 import java.time.LocalDate;
 import java.util.List;
 @Repository
@@ -27,4 +29,6 @@ public interface PenaltyRepository extends JpaRepository<Penalty,Integer> {
    public LocalDate findissuedate(int bookId);
    public List<Penalty> findAllByTempIssueDate(LocalDate issueDate);
    public List<Penalty> findAllByTempUserId(String userId);
+
+
 }

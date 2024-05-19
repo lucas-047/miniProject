@@ -31,6 +31,8 @@ public class Transaction {
     private LocalDate returnDate;
     @Column(name="penaltyStatus")
     private int penaltyStatus;
+    @Column(name="reNew")
+    private int reNew;
 
 
     public Double getTransactionId() {
@@ -89,16 +91,25 @@ public class Transaction {
         this.penaltyStatus = penaltyStatus;
     }
 
+    public int getReNew() {
+        return reNew;
+    }
+
+    public void setReNew(int reNew) {
+        this.reNew = reNew;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
-                "transactionId='" + transactionId + '\'' +
+                "transactionId=" + transactionId +
                 ", userId='" + userId + '\'' +
-                ", bookId='" + bookId + '\'' +
+                ", bookId=" + bookId +
                 ", issueDate=" + issueDate +
                 ", dueDate=" + dueDate +
                 ", returnDate=" + returnDate +
-                ", penaltyStatus='" + penaltyStatus + '\'' +
+                ", penaltyStatus=" + penaltyStatus +
+                ", reNew=" + reNew +
                 '}';
     }
 }

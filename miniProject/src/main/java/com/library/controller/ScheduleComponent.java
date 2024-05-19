@@ -3,7 +3,9 @@ package com.library.controller;
 import com.library.Config.EmailService;
 import com.library.Config.PenaltyService;
 import com.library.dao.PenaltyRepository;
+import com.library.dao.RequestmanagementRepository;
 import com.library.entities.Penalty;
+import com.library.entities.Requestmanagement;
 import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,6 +25,8 @@ public class ScheduleComponent {
     private PenaltyRepository penaltyRepository;
     @Autowired
     private PenaltyService penaltyService;
+    @Autowired
+    private RequestmanagementRepository requestmanagementRepository;
 
 
 //  @Scheduled(cron =" 0 */1 * * * *")
@@ -37,7 +41,8 @@ public class ScheduleComponent {
 
             if(day==0)
             {
-                System.out.println("bookid= "+forcheck.getTempBookId()+" today is duedate");
+                    System.out.println("bookid= "+forcheck.getTempBookId()+" today is duedate");
+
 
             }
             else if(day==-1)

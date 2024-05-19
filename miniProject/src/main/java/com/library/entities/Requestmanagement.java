@@ -12,11 +12,11 @@ public class Requestmanagement {
     @Column(name="requestId")
 private double requestId;
 private int bookId;
-private int userId;
+private String userId;
 private LocalDate issueDate;
 private LocalDate requestDate;
 private LocalDate approveDate;
-private String Status;
+private Status status ;
 private int count;
 
     public LocalDate getIssueDate() {
@@ -43,21 +43,21 @@ private int count;
         this.bookId = bookId;
     }
 
-    public int getUserId() {
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-
-    public String getStatus() {
-        return Status;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public LocalDate getRequestDate() {
@@ -93,8 +93,14 @@ private int count;
                 ", issueDate=" + issueDate +
                 ", requestDate=" + requestDate +
                 ", approveDate=" + approveDate +
-                ", Status='" + Status + '\'' +
+                ", status=" + status +
                 ", count=" + count +
                 '}';
+    }
+
+    public enum Status {
+        PENDING,
+        ACCEPT,
+        REJECT;
     }
 }

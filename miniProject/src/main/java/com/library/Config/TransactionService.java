@@ -48,6 +48,7 @@ public class TransactionService {
         Importdata.setIssueDate(Exportdata.getTempIssueDate());
         Importdata.setDueDate(Exportdata.getTempDueDate());
         Importdata.setReturnDate(returning);
+        Importdata.setReNew(Exportdata.getReNew());
         Importdata.setPenaltyStatus(p);
 
         transactionRepository.saveAndFlush(Importdata);
