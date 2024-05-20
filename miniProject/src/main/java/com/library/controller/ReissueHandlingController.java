@@ -5,6 +5,7 @@ import com.library.dao.PenaltyRepository;
 import com.library.dao.RequestmanagementRepository;
 import com.library.dao.UserRepository;
 import com.library.entities.Requestmanagement;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -13,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ReissueHandlingController {
@@ -95,7 +98,7 @@ public class ReissueHandlingController {
     }
     //        fetch here bookid and userid
     @PostMapping("/admin/approverequest")
-    public ResponseEntity<?> approveRequest(@RequestParam("requestId") String id,Model model) {
+    public ResponseEntity<Map<String, Object>> approveRequest(@RequestParam("requestId") String id,Model model) {
 
       // String bookId=;
         System.out.println("hoo hooo hoooooo");
@@ -107,18 +110,37 @@ public class ReissueHandlingController {
 
         penaltyService.issue(rq1.getBookId(), rq1.getUserId(),rq1.getCount()+1);
         rq1.setStatus(Requestmanagement.Status.ACCEPT);
+        LocalDate approveDate=LocalDate.now();
+        rq1.setApproveDate(approveDate);
         rq1.setCount(rq1.getCount()+1);
         System.out.println("send details");
         requestmanagementRepository.saveAndFlush(rq1);
        // model.addAttribute("st",rq1.getStatus());
 
 
-        return ResponseEntity.ok("good");
-    }
-    @GetMapping("/admin/rejectrequest")
-    public ResponseEntity<String> rejectRequest(Model model)
-    {
+        Map<String, Object> response = new HashMap<>();
+      //  boolean success = approveRequestById(requestId); // Implement this method
 
-        return ResponseEntity.ok("reject");
+            response.put("success", true);
+            response.put("message", "Request approved successfully");
+        response.put("approveDate", approveDate);
+        response.put("reNew",rq1.getCount());
+
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/admin/rejectrequest")
+    public ResponseEntity<Map<String, Object>> rejectRequest(@RequestParam("requestId") String id,Model model)
+    {
+        Map<String, Object> response = new HashMap<>();
+        //  boolean success = approveRequestById(requestId); // Implement this method
+        Requestmanagement rq1=requestmanagementRepository.findByRequestId(Double.valueOf(id));
+        rq1.setStatus(Requestmanagement.Status.REJECT);
+        LocalDate approveDate=LocalDate.now();
+        rq1.setApproveDate(approveDate);
+        requestmanagementRepository.saveAndFlush(rq1);
+        response.put("success", true);
+        response.put("approveDate", approveDate);
+       return ResponseEntity.ok(response);
+
     }
 }

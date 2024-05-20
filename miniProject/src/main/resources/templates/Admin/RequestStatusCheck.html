@@ -11,7 +11,7 @@
             const csrfToken = form.querySelector('input[name="_csrf"]').value;
             const requestId = form.querySelector('input[name="requestId"]').value;
 
-            fetch(form.action, {
+            fetch('http://localhost:8080/admin/approverequest', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -21,14 +21,51 @@
                     'requestId': requestId
                 })
             })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    if (data === 'Request approved successfully') {
+                    if (data.success) {
                         const row = form.closest('tr');
                         row.querySelector('td[data-status]').innerText = 'ACCEPT';
+                        row.querySelector('td[data-approve-date]').innerText = data.approveDate;// Update the approval date
+                        row.querySelector('td[data-count]').innerText=data.reNew;
                         form.parentElement.innerHTML = ''; // Remove the form after approval
+
+
                     } else {
-                        console.error('Failed to approve request:', data);
+                        console.error('Failed to approve request:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            return false; // Prevent form from submitting the traditional way
+        }
+        function rejectRequest(event, form) {
+            event.preventDefault();
+
+            const csrfToken = form.querySelector('input[name="_csrf"]').value;
+            const requestId = form.querySelector('input[name="requestId"]').value;
+
+            fetch('http://localhost:8080/admin/rejectrequest', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: new URLSearchParams({
+                    'requestId': requestId
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const row = form.closest('tr');
+                        row.querySelector('td[data-status]').innerText = 'REJECT';
+                        row.querySelector('td[data-approve-date]').innerText = data.approveDate;// Update the approval date
+                        form.parentElement.innerHTML = ''; // Remove the form after approval
+
+
+                    } else {
+                        console.error('Failed to approve request:', data.message);
                     }
                 })
                 .catch(error => console.error('Error:', error));
@@ -46,9 +83,10 @@
         <th>Book ID</th>
         <th>User ID</th>
         <th>Request Date</th>
-        <th>Approve Date</th>
+        <th>Approve/Reject Date</th>
         <th>Status</th>
         <th>No of Renew</th>
+        <th>Action</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -59,10 +97,9 @@
         <td th:text="${r.bookId}"></td>
         <td th:text="${r.userId}"></td>
         <td th:text="${r.requestDate}"></td>
-        <td th:text="${r.approveDate}"></td>
+        <td data-approve-date th:text="${r.approveDate}"></td>
         <td data-status th:text="${r.status}"></td>
-        <td th:text="${r.count}"></td>
-
+        <td data-count th:text="${r.count}"></td>
         <td>
             <form th:if="${r.status.name() == 'PENDING'}" method="post" onsubmit="approveRequest(event, this)">
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
@@ -70,6 +107,14 @@
                 <button type="submit">Approve</button>
             </form>
         </td>
+        <td>
+            <form th:if="${r.status.name() == 'PENDING'}" method="post" onsubmit="rejectRequest(event, this)">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                <input type="hidden" name="requestId" th:value="${r.requestId}" />
+                <button type="submit">Reject</button>
+            </form>
+        </td>
+
     </tr>
     </tbody>
 </table>
